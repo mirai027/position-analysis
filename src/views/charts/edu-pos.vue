@@ -1,7 +1,5 @@
 <template>
-  <div class="test">
-    <div ref="testChart" class="chart" />
-  </div>
+  <div ref="EDUPOSChart" class="edu-pos echart" />
 </template>
 
 <script>
@@ -10,7 +8,6 @@ export default {
     return {}
   },
   mounted() {
-    console.log(this.$refs.testChart)
     // Generate data
     const category = [
       'Java',
@@ -96,8 +93,8 @@ export default {
       color: colors,
       title: {
         text: '要求的学历对比职位的需求',
-        x: 'center',
-        y: 0,
+        x: 20,
+        y: 50,
         textStyle: {
           color: '#1c1c1c',
           fontSize: 16,
@@ -150,6 +147,7 @@ export default {
       },
       yAxis: [
         {
+          position: 'right',
           max: '55000',
           splitLine: { show: false },
           axisLine: {
@@ -207,23 +205,14 @@ export default {
         }
       ]
     }
-    this.$echarts.init(this.$refs.testChart).setOption(option)
+    this.$echarts.init(this.$refs.EDUPOSChart).setOption(option)
   }
 }
 </script>
 
 <style lang="scss" spoce>
-.test {
-  width: 100vw;
-  height: 100vh;
-  // background: rgb(221, 221, 221);
-  overflow: hidden;
-  // overflow-y: scroll;
-  display: flex;
-  justify-content: center;
-  .chart {
-    width: 100vw;
-    height: 100vh;
-  }
+.echart {
+  width: 100%;
+  height: 100%;
 }
 </style>
