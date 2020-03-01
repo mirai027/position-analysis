@@ -324,21 +324,48 @@ export default {
             }
           },
           formatter: function(params) {
-            const line = `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${params[0].color};"></span>${params[0].name} 共 <span style="color: #F13000;">${params[0].value}</span> 条招聘数据`
-            const style = () => {
-              if (params[1].value > 0) {
-                return { value: `新增 ${params[1].value} `, color: '#66ccff' }
-              } else if (params[1].value < 0) {
-                return { value: `减少 ${params[1].value} `, color: '#F13000' }
-              } else params[1].value === 0
-              return { value: ` 不变 `, color: '#39c5bb' }
+            /**
+             * componentIndex === 0 line chart
+             * componentIndex === 1 bar chart
+             */
+            const fm = {}
+            params.forEach(element => {
+              const { componentIndex } = element
+              if (componentIndex === 0) {
+                const line = `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${element.color};"></span>${element.name} 共 <span style="color: #F13000;">${element.value}</span> 条招聘数据`
+                fm.line = line
+              }
+              if (componentIndex === 1) {
+                const style = () => {
+                  if (element.value > 0) {
+                    return {
+                      value: `新增 ${element.value} `,
+                      color: '#66ccff'
+                    }
+                  } else if (element.value < 0) {
+                    return {
+                      value: `减少 ${element.value} `,
+                      color: '#F13000'
+                    }
+                  } else element.value === 0
+                  return { value: ` 不变 `, color: '#39c5bb' }
+                }
+                const bar = `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${
+                  element.color
+                };"></span>${element.name} 共 <span style="color:${
+                  style().color
+                };">${style().value}</span> 条招聘数据`
+                fm.bar = bar
+              }
+            })
+            let res = ''
+            if (Object.keys(fm).length === 2) {
+              res = fm.line + '<br />' + fm.bar
+            } else {
+              fm.line ? (res = fm.line) : ''
+              fm.bar ? (res = fm.bar) : ''
             }
-            const bar = `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${
-              params[1].color
-            };"></span>${params[1].name} 共 <span style="color:${
-              style().color
-            };">${style().value}</span> 条招聘数据`
-            return line + '<br />' + bar
+            return res
           }
         },
         grid: {
