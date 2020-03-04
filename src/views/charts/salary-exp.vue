@@ -100,6 +100,9 @@ export default {
           },
           axisLabel: {
             formatter: '{value} 条'
+          },
+          splitLine: {
+            show: false
           }
         },
         {
@@ -115,6 +118,9 @@ export default {
           },
           axisLabel: {
             formatter: '{value} 元'
+          },
+          splitLine: {
+            show: false
           }
         },
         {
@@ -130,6 +136,9 @@ export default {
           },
           axisLabel: {
             formatter: '{value} 条'
+          },
+          splitLine: {
+            show: false
           }
         },
         {
@@ -144,6 +153,9 @@ export default {
           },
           axisLabel: {
             formatter: '{value} 条'
+          },
+          splitLine: {
+            show: false
           }
         }
       ],
