@@ -5,6 +5,7 @@
     <edu-pos />
     <salary-exp />
     <companySize />
+    <benefit />
   </div>
 </template>
 
@@ -14,13 +15,15 @@ import map2 from './map'
 import position from './position'
 import salaryExp from './salary-exp'
 import companySize from './company-size'
+import benefit from './benefit'
 export default {
   components: {
     eduPos: () => import('./edu-pos'),
     map2,
     position,
     salaryExp,
-    companySize
+    companySize,
+    benefit
   }
 }
 </script>
