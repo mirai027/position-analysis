@@ -4,20 +4,23 @@
     <position />
     <edu-pos />
     <salary-exp />
+    <companySize />
   </div>
 </template>
 
 <script>
-import eduPos from './edu-pos'
+// import eduPos from './edu-pos'
 import map2 from './map'
 import position from './position'
 import salaryExp from './salary-exp'
+import companySize from './company-size'
 export default {
   components: {
-    eduPos,
+    eduPos: () => import('./edu-pos'),
     map2,
     position,
-    salaryExp
+    salaryExp,
+    companySize
   }
 }
 </script>
