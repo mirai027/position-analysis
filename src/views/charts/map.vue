@@ -3,32 +3,57 @@
     <div class="container">
       <div ref="map" class="left map echart" />
       <div class="right">
-        <div class="month main-card">
+        <div v-if="Object.keys(monthBest).length" class="month main-card">
           <div class="card">
             <p class="title">今日“优秀三好学生”省份</p>
-            <p class="province">TOP1: <span>广东省</span></p>
-            <p class="total">今日总数: <span>3939 条</span></p>
-            <p class="total">今日新增: <span>272 条</span></p>
+            <p class="province">
+              {{ monthBest.best.rank }}: <span>{{ monthBest.best.title }}</span>
+            </p>
+            <p class="total">
+              今日总数: <span>{{ monthBest.best.total }} 条</span>
+            </p>
+            <p class="total">
+              今日新增: <span>{{ monthBest.best.new }} 条</span>
+            </p>
           </div>
           <div class="card">
             <p class="title">今日“优秀进步奖”省份</p>
-            <p class="province">TOP1: <span>江苏省</span></p>
-            <p class="total">今日总数: <span>2939 条</span></p>
-            <p class="total">今日新增: <span>572 条</span></p>
+            <p class="province">
+              {{ monthBest.better.rank }}:
+              <span>{{ monthBest.better.title }}</span>
+            </p>
+            <p class="total">
+              今日总数: <span>{{ monthBest.better.total }} 条</span>
+            </p>
+            <p class="total">
+              今日新增: <span>{{ monthBest.better.new }} 条</span>
+            </p>
           </div>
         </div>
-        <div class="day main-card">
+        <div v-if="Object.keys(dayBest).length" class="day main-card">
           <div class="card">
             <p class="title">月度“优秀三好学生”省份</p>
-            <p class="province">TOP1: <span>广东省</span></p>
-            <p class="total">月度总数: <span>39393 条</span></p>
-            <p class="total">月度新增: <span>2721 条</span></p>
+            <p class="province">
+              {{ dayBest.best.rank }}: <span>{{ dayBest.best.title }}</span>
+            </p>
+            <p class="total">
+              月度总数: <span>{{ dayBest.best.total }} 条</span>
+            </p>
+            <p class="total">
+              月度新增: <span>{{ dayBest.best.new }} 条</span>
+            </p>
           </div>
           <div class="card">
             <p class="title">月度“优秀进步奖”省份</p>
-            <p class="province">TOP1: <span>江苏省</span></p>
-            <p class="total">月度总数: <span>29393 条</span></p>
-            <p class="total">月度新增: <span>5721 条</span></p>
+            <p class="province">
+              {{ dayBest.better.rank }}: <span>{{ dayBest.better.title }}</span>
+            </p>
+            <p class="total">
+              月度总数: <span>{{ dayBest.better.total }} 条</span>
+            </p>
+            <p class="total">
+              月度新增: <span>{{ dayBest.better.new }} 条</span>
+            </p>
           </div>
         </div>
       </div>
@@ -39,16 +64,28 @@
 
 <script>
 import 'echarts/map/js/china.js'
+import {
+  getAllProvince,
+  getAllUpdate,
+  getAllDayBest,
+  getAllMonthBest
+} from '@/api/map'
 export default {
   data() {
-    return {}
+    return {
+      dayBest: {},
+      monthBest: {}
+    }
   },
   mounted() {
     this.initMap()
     this.initUpdate()
+    this.initBest()
   },
   methods: {
-    initMap() {
+    async initMap() {
+      const res = await getAllProvince()
+      const { data } = res
       const colors = ['#39C5BB', '#66CCFF', '#ffff00', '#ee0000']
       const option = {
         color: colors,
@@ -98,148 +135,7 @@ export default {
               color: '#282C34',
               fontSize: 12
             },
-            data: [
-              {
-                name: '上海',
-                value: 137
-              },
-              {
-                name: '云南',
-                value: 11
-              },
-              {
-                name: '北京',
-                value: 39
-              },
-              {
-                name: '四川',
-                value: 48
-              },
-              {
-                name: '天津',
-                value: 7
-              },
-              {
-                name: '安徽',
-                value: 20
-              },
-              {
-                name: '山东',
-                value: 14
-              },
-              {
-                name: '山西',
-                value: 1
-              },
-              {
-                name: '广东',
-                value: 331
-              },
-              {
-                name: '广西',
-                value: 5
-              },
-              {
-                name: '江苏',
-                value: 99
-              },
-              {
-                name: '江西',
-                value: 8
-              },
-              {
-                name: '河北',
-                value: 1
-              },
-              {
-                name: '河南',
-                value: 4
-              },
-              {
-                name: '浙江',
-                value: 84
-              },
-              {
-                name: '海南',
-                value: 5
-              },
-              {
-                name: '湖北',
-                value: 60
-              },
-              {
-                name: '湖南',
-                value: 21
-              },
-              {
-                name: '福建',
-                value: 17
-              },
-              {
-                name: '辽宁',
-                value: 10
-              },
-              {
-                name: '重庆',
-                value: 16
-              },
-              {
-                name: '陕西',
-                value: 15
-              },
-              {
-                name: '贵州',
-                value: 10
-              },
-              {
-                name: '青海',
-                value: 6
-              },
-              {
-                name: '甘肃',
-                value: 7
-              },
-              {
-                name: '西藏',
-                value: 7
-              },
-              {
-                name: '黑龙江',
-                value: 7
-              },
-              {
-                name: '宁夏',
-                value: 7
-              },
-              {
-                name: '内蒙古',
-                value: 7
-              },
-              {
-                name: '吉林',
-                value: 7
-              },
-              {
-                name: '新疆',
-                value: 7
-              },
-              {
-                name: '台湾',
-                value: 7
-              },
-              {
-                name: '澳门',
-                value: 7
-              },
-              {
-                name: '香港',
-                value: 7
-              },
-              {
-                name: '南海诸岛',
-                value: 0
-              }
-            ],
+            data: data,
             emphasis: {
               label: {
                 show: true,
@@ -254,41 +150,9 @@ export default {
       }
       this.$echarts.init(this.$refs.map).setOption(option)
     },
-    initUpdate() {
-      const data = [
-        { name: '2-10', value: 710 },
-        { name: '2-11', value: 820 },
-        { name: '2-12', value: 932 },
-        { name: '2-13', value: 901 },
-        { name: '2-14', value: 934 },
-        { name: '2-15', value: 1290 },
-        { name: '2-16', value: 1330 },
-        { name: '2-17', value: 1320 },
-        { name: '2-18', value: 1490 },
-        { name: '2-19', value: 1530 },
-        { name: '2-20', value: 1620 },
-        { name: '2-21', value: 1790 },
-        { name: '2-22', value: 1830 },
-        { name: '2-23', value: 1920 },
-        { name: '2-24', value: 2090 },
-        { name: '2-25', value: 2130 },
-        { name: '2-26', value: 2220 },
-        { name: '2-27', value: 2932 },
-        { name: '2-28', value: 2901 },
-        { name: '2-29', value: 2934 },
-        { name: '3-1', value: 3290 },
-        { name: '3-2', value: 3330 },
-        { name: '3-3', value: 3320 },
-        { name: '3-4', value: 3490 },
-        { name: '3-5', value: 3530 },
-        { name: '3-6', value: 3620 },
-        { name: '3-7', value: 3790 },
-        { name: '3-8', value: 3830 },
-        { name: '3-9', value: 3920 },
-        { name: '3-10', value: 4090 },
-        { name: '3-11', value: 4130 },
-        { name: '3-12', value: 4220 }
-      ]
+    async initUpdate() {
+      const res = await getAllUpdate()
+      const { data } = res
       const lineData = []
       const updateBarData = []
       const xAxisData = []
@@ -443,6 +307,12 @@ export default {
       }
       // console.log(this.$echarts.init(this.$refs.update))
       this.$echarts.init(this.$refs.update).setOption(option)
+    },
+    async initBest() {
+      const day = await getAllDayBest()
+      const month = await getAllMonthBest()
+      this.dayBest = day.data
+      this.monthBest = month.data
     }
   }
 }

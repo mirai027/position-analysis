@@ -3,209 +3,146 @@
 </template>
 
 <script>
+import { getAllEduPos } from '@/api/edu-pos'
 export default {
   data() {
     return {}
   },
   mounted() {
-    // Generate data
-    const category = [
-      'Java',
-      'C++',
-      'PHP',
-      '数据挖掘',
-      '搜索算法',
-      '精准推荐',
-      'C',
-      'C#',
-      '全栈工程师',
-      '.NET',
-      'Hadoop',
-      'Python',
-      'Delphi',
-      'VB',
-      'Perl',
-      'Ruby',
-      'Node.js',
-      'Go',
-      'ASP',
-      'Shell',
-      '区块链'
-    ]
-    // let dottedBase = []
-    const lineData = []
-    const JCbarData = [
-      1600,
-      1000,
-      1500,
-      1500,
-      1500,
-      1500,
-      1900,
-      12500,
-      14000,
-      11500,
-      13200,
-      14450,
-      15250,
-      13300,
-      1600,
-      1000,
-      1500,
-      1500,
-      1500,
-      1500,
-      1900
-    ]
-    const RCCbarData = [
-      4600,
-      5000,
-      5500,
-      6500,
-      7500,
-      8500,
-      9900,
-      12500,
-      14000,
-      21500,
-      23200,
-      24450,
-      25250,
-      33300,
-      4600,
-      5000,
-      5500,
-      6500,
-      7500,
-      8500,
-      9900
-    ]
-    const colors = ['#5793f3', '#d14a61', '#675bba']
-    JCbarData.forEach((element, index) => {
-      lineData.push(JCbarData[index] + RCCbarData[index])
-    })
+    this.ininEduPos()
+  },
+  methods: {
+    async ininEduPos() {
+      const {
+        data: { position: categoryData, jc: JCBarData, rcc: RCCBarData }
+      } = await getAllEduPos()
+      const xCategory = []
+      categoryData.forEach(item => {
+        xCategory.push(item.name)
+      })
+      const colors = ['#5793f3', '#d14a61', '#675bba']
 
-    // option
-    const option = {
-      // toolbox: {
-      //   show: true
-      // },
-      color: colors,
-      title: {
-        text: '要求的学历对比职位的需求',
-        x: 20,
-        y: 50,
-        textStyle: {
-          color: '#1c1c1c',
-          fontSize: 16,
-          fontWeight: 'normal'
-        }
-      },
-      tooltip: {
-        trigger: 'axis',
-        backgroundColor: 'rgba(0,0,0,0.4)',
-        axisPointer: {
-          type: 'cross',
-          label: {
-            precision: '0'
+      const option = {
+        // toolbox: {
+        //   show: true
+        // },
+        color: colors,
+        title: {
+          text: '要求的学历对比职位的需求',
+          x: 20,
+          y: 50,
+          textStyle: {
+            color: '#1c1c1c',
+            fontSize: 16,
+            fontWeight: 'normal'
           }
-        }
-        // formatter(prams) {
-        //   console.log(prams)
-        // }
-      },
-      toolbox: {
-        show: true,
-        feature: {
-          dataZoom: {
-            yAxisIndex: 'none'
+        },
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: 'rgba(0,0,0,0.4)',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              precision: '0'
+            }
+          }
+          // formatter(prams) {
+          //   console.log(prams)
+          // }
+        },
+        toolbox: {
+          show: true,
+          feature: {
+            dataZoom: {
+              yAxisIndex: 'none'
+            },
+            magicType: { type: ['line', 'bar'] },
+            restore: {},
+            saveAsImage: {}
           },
-          magicType: { type: ['line', 'bar'] },
-          restore: {},
-          saveAsImage: {}
+          right: '5%',
+          top: '5%'
         },
-        right: '5%',
-        top: '5%'
-      },
-      legend: {
-        data: ['职位招聘数量', '大专及以下', '本科及以上'],
-        textStyle: {
-          color: '#1c1c1c'
+        legend: {
+          data: ['职位招聘数量', '大专及以下', '本科及以上'],
+          textStyle: {
+            color: '#1c1c1c'
+          },
+          top: '7%'
         },
-        top: '7%'
-      },
-      grid: {
-        top: '14%'
-      },
-      xAxis: {
-        data: category,
-        axisLine: {
-          lineStyle: {
-            color: colors[0]
-          }
-        }
-      },
-      yAxis: [
-        {
-          position: 'right',
-          max: '55000',
-          splitLine: { show: false },
+        grid: {
+          top: '14%'
+        },
+        xAxis: {
+          data: xCategory,
           axisLine: {
             lineStyle: {
-              color: colors[1]
-            }
-          },
-          axisLabel: {
-            formatter: '{value} 条'
-          },
-          axisPointer: {
-            label: {
-              formatter: '{value} 条'
+              color: colors[0]
             }
           }
         },
-        {
-          max: '55000',
-          splitLine: { show: false },
-          axisLine: {
-            lineStyle: {
-              color: colors[2]
+        yAxis: [
+          {
+            position: 'right',
+            max: '55000',
+            splitLine: { show: false },
+            axisLine: {
+              lineStyle: {
+                color: colors[1]
+              }
+            },
+            axisLabel: {
+              formatter: '{value} 条'
+            },
+            axisPointer: {
+              label: {
+                formatter: '{value} 条'
+              }
             }
           },
-          axisLabel: {
-            formatter: '{value} 条'
-          },
-          axisPointer: {
-            label: {
+          {
+            max: '55000',
+            splitLine: { show: false },
+            axisLine: {
+              lineStyle: {
+                color: colors[2]
+              }
+            },
+            axisLabel: {
               formatter: '{value} 条'
+            },
+            axisPointer: {
+              label: {
+                formatter: '{value} 条'
+              }
             }
           }
-        }
-      ],
-      series: [
-        {
-          name: '职位招聘数量',
-          type: 'line',
-          smooth: true,
-          showAllSymbol: true,
-          symbol: 'emptyCircle',
-          symbolSize: 8,
-          yAxisIndex: 1,
-          data: lineData
-        },
-        {
-          name: '大专及以下',
-          type: 'bar',
-          data: JCbarData
-        },
-        {
-          name: '本科及以上',
-          type: 'bar',
-          data: RCCbarData
-        }
-      ]
+        ],
+        series: [
+          {
+            name: '职位招聘数量',
+            type: 'line',
+            smooth: true,
+            showAllSymbol: true,
+            symbol: 'emptyCircle',
+            symbolSize: 8,
+            yAxisIndex: 1,
+            data: categoryData
+          },
+          {
+            name: '大专及以下',
+            type: 'bar',
+            data: JCBarData
+          },
+          {
+            name: '本科及以上',
+            type: 'bar',
+            data: RCCBarData
+          }
+        ]
+      }
+      this.$echarts.init(this.$refs.EDUPOSChart).setOption(option)
     }
-    this.$echarts.init(this.$refs.EDUPOSChart).setOption(option)
   }
 }
 </script>

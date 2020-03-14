@@ -10,7 +10,6 @@
 </template>
 
 <script>
-// import eduPos from './edu-pos'
 import map2 from './map'
 import position from './position'
 import salaryExp from './salary-exp'
@@ -24,7 +23,8 @@ export default {
     salaryExp,
     companySize,
     benefit
-  }
+  },
+  mounted() {}
 }
 </script>
 

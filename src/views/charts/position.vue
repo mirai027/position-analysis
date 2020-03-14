@@ -2,9 +2,9 @@
   <div class="position">
     <div class="top content">
       <p class="h-title">今日职位信息</p>
-      <div ref="positionTop" class="p-container">
+      <div v-if="Object.keys(day).length" ref="positionTop" class="p-container">
         <div
-          v-for="(item, idx) in 3"
+          v-for="(topData, idx) in day.top"
           :key="idx"
           ref="mainTop"
           class="main-container"
@@ -12,68 +12,84 @@
         >
           <div class="container">
             <div class="left">
-              <p class="title">Web前端</p>
-              <div class="rank">TOP1</div>
-              <p class="total">今日新增: <span>3939 条</span></p>
-              <p class="total">今日总数: <span>272 条</span></p>
+              <p class="title">{{ topData.title }}</p>
+              <div class="rank">{{ topData.rank }}</div>
+              <p class="total">
+                今日新增: <span>{{ topData.new }} 条</span>
+              </p>
+              <p class="total">
+                今日总数: <span>{{ topData.total }} 条</span>
+              </p>
               <div class="city">
                 <p class="city-title">热门城市</p>
                 <div class="city-container">
-                  <div class="province">
-                    <div class="name">广东省</div>
-                    <div class="amount">99999</div>
-                  </div>
-                  <div class="province">
-                    <div class="name">广东省</div>
-                    <div class="amount">99999</div>
-                  </div>
-                  <div class="province">
-                    <div class="name">广东省</div>
-                    <div class="amount">99999</div>
+                  <div
+                    v-for="(province, proKey) in topData.hotProvince"
+                    :key="proKey"
+                    class="province"
+                  >
+                    <div class="name">{{ province.name }}</div>
+                    <div class="amount">总：{{ province.total }}条</div>
+                    <div class="amount">新增：{{ province.new }}条</div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="right">
-              <div class="pl-title">前端开发技能要求：</div>
+              <div class="pl-title">{{ topData.title }}技能要求：</div>
               <ul class="pl">
-                <li>1.Vue.js</li>
-                <li>1.React.js</li>
-                <li>1.Node.js</li>
-                <li>1.ES6</li>
-                <li>1.HTML</li>
-                <li>1.CSS</li>
+                <li v-for="(skillData, sIdx) in topData.skill" :key="sIdx">
+                  {{ `${sIdx + 1}. ${skillData}` }}
+                </li>
               </ul>
               <div class="community-title">推荐的技术社区</div>
               <ul class="community">
-                <li>1.GitHub</li>
-                <li>1.SegmentFault</li>
-                <li>1.掘金</li>
-                <li>1.Stack Overflow</li>
+                <li
+                  v-for="(communityData, cIdx) in topData.community"
+                  :key="cIdx"
+                >
+                  <a :href="communityData.url">{{
+                    `${cIdx + 1}. ${communityData.name}`
+                  }}</a>
+                </li>
               </ul>
               <div class="study-title">推荐的视频学习网站</div>
               <ul class="community">
-                <li>1.哔哩哔哩</li>
-                <li>1.51CTO</li>
-                <li>1.慕课网</li>
+                <li v-for="(videoData, vIdx) in topData.video" :key="vIdx">
+                  <a :href="videoData.url">{{
+                    `${vIdx + 1}. ${videoData.name}`
+                  }}</a>
+                </li>
               </ul>
             </div>
           </div>
         </div>
         <div class="except-top3">
-          <div v-for="(item, idx) in 20" :key="idx" class="except-container">
-            <div class="name">Java开发</div>
-            <p class="except-total">今日总数: <span>3939 条</span></p>
-            <p class="except-total">今日新增: <span>272 条</span></p>
+          <div
+            v-for="(item, idx) in day.other"
+            :key="idx"
+            class="except-container"
+          >
+            <div class="name">{{ item.name }}</div>
+            <p class="except-total">
+              今日总数: <span>{{ item.total }} 条</span>
+            </p>
+            <p class="except-total">
+              今日新增: <span>{{ item.new }} 条</span>
+            </p>
           </div>
         </div>
       </div>
     </div>
     <div class="bottom content">
       <p class="h-title">月度职位信息</p>
-      <div ref="positionBtm" class="p-container">
+      <div
+        v-if="Object.keys(month).length"
+        ref="positionBtm"
+        class="p-container"
+      >
         <div
-          v-for="(item, idx) in 3"
+          v-for="(topData, idx) in month.top"
           :key="idx"
           ref="mainBtm"
           class="main-container"
@@ -81,59 +97,71 @@
         >
           <div class="container">
             <div class="left">
-              <p class="title">Web前端</p>
-              <div class="rank">TOP1</div>
-              <p class="total">今日新增: <span>3939 条</span></p>
-              <p class="total">今日总数: <span>272 条</span></p>
+              <p class="title">{{ topData.title }}</p>
+              <div class="rank">{{ topData.rank }}</div>
+              <p class="total">
+                今日新增: <span>{{ topData.new }} 条</span>
+              </p>
+              <p class="total">
+                今日总数: <span>{{ topData.total }} 条</span>
+              </p>
               <div class="city">
                 <p class="city-title">热门城市</p>
                 <div class="city-container">
-                  <div class="province">
-                    <div class="name">广东省</div>
-                    <div class="amount">99999</div>
-                  </div>
-                  <div class="province">
-                    <div class="name">广东省</div>
-                    <div class="amount">99999</div>
-                  </div>
-                  <div class="province">
-                    <div class="name">广东省</div>
-                    <div class="amount">99999</div>
+                  <div
+                    v-for="(province, proKey) in topData.hotProvince"
+                    :key="proKey"
+                    class="province"
+                  >
+                    <div class="name">{{ province.name }}</div>
+                    <div class="amount">总：{{ province.total }}条</div>
+                    <div class="amount">新增：{{ province.new }}条</div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="right">
-              <div class="pl-title">前端开发技能要求：</div>
+              <div class="pl-title">{{ topData.title }}技能要求：</div>
               <ul class="pl">
-                <li>1.Vue.js</li>
-                <li>1.React.js</li>
-                <li>1.Node.js</li>
-                <li>1.ES6</li>
-                <li>1.HTML</li>
-                <li>1.CSS</li>
+                <li v-for="(skillData, sIdx) in topData.skill" :key="sIdx">
+                  {{ `${sIdx + 1}. ${skillData}` }}
+                </li>
               </ul>
               <div class="community-title">推荐的技术社区</div>
               <ul class="community">
-                <li>1.GitHub</li>
-                <li>1.SegmentFault</li>
-                <li>1.掘金</li>
-                <li>1.Stack Overflow</li>
+                <li
+                  v-for="(communityData, cIdx) in topData.community"
+                  :key="cIdx"
+                >
+                  <a :href="communityData.url">{{
+                    `${cIdx + 1}. ${communityData.name}`
+                  }}</a>
+                </li>
               </ul>
               <div class="study-title">推荐的视频学习网站</div>
               <ul class="community">
-                <li>1.哔哩哔哩</li>
-                <li>1.51CTO</li>
-                <li>1.慕课网</li>
+                <li v-for="(videoData, vIdx) in topData.video" :key="vIdx">
+                  <a :href="videoData.url">{{
+                    `${vIdx + 1}. ${videoData.name}`
+                  }}</a>
+                </li>
               </ul>
             </div>
           </div>
         </div>
         <div class="except-top3">
-          <div v-for="(item, idx) in 20" :key="idx" class="except-container">
-            <div class="name">Java开发</div>
-            <p class="except-total">今日总数: <span>3939 条</span></p>
-            <p class="except-total">今日新增: <span>272 条</span></p>
+          <div
+            v-for="(item, idx) in month.other"
+            :key="idx"
+            class="except-container"
+          >
+            <div class="name">{{ item.name }}</div>
+            <p class="except-total">
+              今日总数: <span>{{ item.total }} 条</span>
+            </p>
+            <p class="except-total">
+              今日新增: <span>{{ item.new }} 条</span>
+            </p>
           </div>
         </div>
       </div>
@@ -142,10 +170,16 @@
 </template>
 
 <script>
+import { getAllDayPosition, getAllMonthPosition } from '@/api/position'
 export default {
+  data() {
+    return {
+      day: {},
+      month: {}
+    }
+  },
   mounted() {
-    this.showMoreTop(0)
-    this.showMoreBtm(0)
+    this.getInfo() // 获取api信息
   },
   methods: {
     showMoreTop(idx) {
@@ -163,6 +197,16 @@ export default {
           element.style.width = '300px'
         })
       this.$refs.mainBtm[idx].style.width = '700px'
+    },
+    async getInfo() {
+      const dayInfo = await getAllDayPosition()
+      const monthInfo = await getAllMonthPosition()
+      this.day = dayInfo.data
+      this.month = monthInfo.data
+      this.$nextTick(() => {
+        this.showMoreTop(0) // 默认第一个卡片显示详细信息
+        this.showMoreBtm(0) // 默认第一个卡片显示详细信息
+      })
     }
   }
 }
