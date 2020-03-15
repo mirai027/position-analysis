@@ -1,10 +1,11 @@
 <template>
-  <div ref="wordcloud" class="wordcloud" />
+  <div ref="wordcloudChart" class="wordcloud" />
 </template>
 
 <script>
 require('echarts-wordcloud')
 import { getAllBenefit } from '@/api/benefit'
+
 export default {
   mounted() {
     this.initBenefit()
@@ -59,7 +60,9 @@ export default {
           }
         ]
       }
-      this.$echarts.init(this.$refs.wordcloud).setOption(option)
+      const chart = this.$echarts.init(this.$refs.wordcloudChart)
+      chart.setOption(option)
+      this.$store.dispatch('setChartDOM', [chart])
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div ref="EDUPOSChart" class="edu-pos echart" />
+  <div ref="companySizeChart" class="echart" />
 </template>
 
 <script>
@@ -14,10 +14,6 @@ export default {
   methods: {
     async initCompanySize() {
       const { data } = await getAllCompanySize()
-      // let dottedBase = []
-      console.log(data)
-      // const colors = ['#5793f3', '#d14a61', '#675bba']
-
       const option = {
         color: ['#3398DB'],
         title: {
@@ -86,7 +82,9 @@ export default {
           }
         ]
       }
-      this.$echarts.init(this.$refs.EDUPOSChart).setOption(option)
+      const chart = this.$echarts.init(this.$refs.companySizeChart)
+      chart.setOption(option)
+      this.$store.dispatch('setChartDOM', [chart])
     }
   }
 }

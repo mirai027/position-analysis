@@ -148,7 +148,9 @@ export default {
           }
         ]
       }
-      this.$echarts.init(this.$refs.map).setOption(option)
+      const chart = this.$echarts.init(this.$refs.map)
+      chart.setOption(option)
+      this.$store.dispatch('setChartDOM', [chart])
     },
     async initUpdate() {
       const res = await getAllUpdate()
@@ -305,8 +307,9 @@ export default {
           left: '7%'
         }
       }
-      // console.log(this.$echarts.init(this.$refs.update))
-      this.$echarts.init(this.$refs.update).setOption(option)
+      const chart = this.$echarts.init(this.$refs.update)
+      chart.setOption(option)
+      this.$store.dispatch('setChartDOM', [chart])
     },
     async initBest() {
       const day = await getAllDayBest()

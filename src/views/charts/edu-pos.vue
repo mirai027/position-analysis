@@ -141,7 +141,9 @@ export default {
           }
         ]
       }
-      this.$echarts.init(this.$refs.EDUPOSChart).setOption(option)
+      const chart = this.$echarts.init(this.$refs.EDUPOSChart)
+      chart.setOption(option)
+      this.$store.dispatch('setChartDOM', [chart])
     }
   }
 }

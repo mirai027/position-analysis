@@ -15,6 +15,8 @@ import position from './position'
 import salaryExp from './salary-exp'
 import companySize from './company-size'
 import benefit from './benefit'
+import { mapGetters } from 'vuex'
+import debounce from '@/utils/debounce.js'
 export default {
   components: {
     eduPos: () => import('./edu-pos'),
@@ -24,7 +26,16 @@ export default {
     companySize,
     benefit
   },
-  mounted() {}
+  computed: {
+    ...mapGetters(['gChartDOM'])
+  },
+  mounted() {
+    window.onresize = debounce(() => {
+      this.gChartDOM.forEach(ele => {
+        ele.resize()
+      })
+    }, 800)
+  }
 }
 </script>
 
