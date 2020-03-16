@@ -14,6 +14,10 @@ export default {
   methods: {
     async initCompanySize() {
       const { data } = await getAllCompanySize()
+      const xData = []
+      data.forEach(ele => {
+        xData.push(ele.name)
+      })
       const option = {
         color: ['#3398DB'],
         title: {
@@ -49,20 +53,20 @@ export default {
           right: '5%',
           top: '5%'
         },
-        legend: {
-          data: ['企业规模'],
-          textStyle: {
-            color: '#1c1c1c'
-          },
-          top: '7%'
-        },
+        // legend: {
+        //   data: ['企业规模'],
+        //   textStyle: {
+        //     color: '#1c1c1c'
+        //   },
+        //   top: '7%'
+        // },
         grid: {
           top: '14%'
         },
         xAxis: [
           {
             type: 'category',
-            data: data,
+            data: xData,
             axisTick: {
               alignWithLabel: true
             }
@@ -75,7 +79,7 @@ export default {
         ],
         series: [
           {
-            name: '企业规模',
+            // name: '企业规模',
             type: 'bar',
             barWidth: '60%',
             data: data
