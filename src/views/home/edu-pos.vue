@@ -4,6 +4,7 @@
 
 <script>
 import { getAllEduPos } from '@/api/edu-pos'
+import getEchartXAxisName from '@/utils/getEchartXAxisName'
 export default {
   data() {
     return {}
@@ -144,6 +145,10 @@ export default {
       const chart = this.$echarts.init(this.$refs.EDUPOSChart)
       chart.setOption(option)
       this.$store.dispatch('setChartDOM', [chart])
+
+      chart.getZr().on('click', params => {
+        console.log(getEchartXAxisName(chart, params))
+      })
     }
   }
 }

@@ -61,6 +61,9 @@
                   }}</a>
                 </li>
               </ul>
+              <div class="detail" @click="getPositionName(topData.title)">
+                查看更多
+              </div>
             </div>
           </div>
         </div>
@@ -146,6 +149,9 @@
                   }}</a>
                 </li>
               </ul>
+              <div class="detail" @click="getPositionName(topData.title)">
+                查看更多
+              </div>
             </div>
           </div>
         </div>
@@ -154,6 +160,7 @@
             v-for="(item, idx) in month.other"
             :key="idx"
             class="except-container"
+            @click="getPositionName(item.name)"
           >
             <div class="name">{{ item.name }}</div>
             <p class="except-total">
@@ -207,6 +214,9 @@ export default {
         this.showMoreTop(0) // 默认第一个卡片显示详细信息
         this.showMoreBtm(0) // 默认第一个卡片显示详细信息
       })
+    },
+    getPositionName(name) {
+      console.log(name)
     }
   }
 }

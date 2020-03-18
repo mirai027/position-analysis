@@ -4,7 +4,7 @@
       <div ref="map" class="left map echart" />
       <div class="right">
         <div v-if="Object.keys(monthBest).length" class="month main-card">
-          <div class="card">
+          <div class="card" @click="getName(monthBest.best.title)">
             <p class="title">今日“优秀三好学生”省份</p>
             <p class="province">
               {{ monthBest.best.rank }}: <span>{{ monthBest.best.title }}</span>
@@ -16,7 +16,7 @@
               今日新增: <span>{{ monthBest.best.new }} 条</span>
             </p>
           </div>
-          <div class="card">
+          <div class="card" @click="getName(monthBest.better.title)">
             <p class="title">今日“优秀进步奖”省份</p>
             <p class="province">
               {{ monthBest.better.rank }}:
@@ -31,7 +31,7 @@
           </div>
         </div>
         <div v-if="Object.keys(dayBest).length" class="day main-card">
-          <div class="card">
+          <div class="card" @click="getName(dayBest.best.title)">
             <p class="title">月度“优秀三好学生”省份</p>
             <p class="province">
               {{ dayBest.best.rank }}: <span>{{ dayBest.best.title }}</span>
@@ -43,7 +43,7 @@
               月度新增: <span>{{ dayBest.best.new }} 条</span>
             </p>
           </div>
-          <div class="card">
+          <div class="card" @click="getName(dayBest.better.title)">
             <p class="title">月度“优秀进步奖”省份</p>
             <p class="province">
               {{ dayBest.better.rank }}: <span>{{ dayBest.better.title }}</span>
@@ -70,6 +70,7 @@ import {
   getAllDayBest,
   getAllMonthBest
 } from '@/api/map'
+import getEchartXAxisName from '@/utils/getEchartXAxisName'
 export default {
   data() {
     return {
@@ -151,6 +152,9 @@ export default {
       const chart = this.$echarts.init(this.$refs.map)
       chart.setOption(option)
       this.$store.dispatch('setChartDOM', [chart])
+      chart.on('click', params => {
+        console.log(params.name)
+      })
     },
     async initUpdate() {
       const res = await getAllUpdate()
@@ -310,12 +314,18 @@ export default {
       const chart = this.$echarts.init(this.$refs.update)
       chart.setOption(option)
       this.$store.dispatch('setChartDOM', [chart])
+      chart.getZr().on('click', params => {
+        console.log(getEchartXAxisName(chart, params))
+      })
     },
     async initBest() {
       const day = await getAllDayBest()
       const month = await getAllMonthBest()
       this.dayBest = day.data
       this.monthBest = month.data
+    },
+    getName(name) {
+      console.log(name)
     }
   }
 }
