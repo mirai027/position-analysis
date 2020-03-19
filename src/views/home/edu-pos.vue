@@ -147,7 +147,11 @@ export default {
       this.$store.dispatch('setChartDOM', [chart])
 
       chart.getZr().on('click', params => {
-        console.log(getEchartXAxisName(chart, params))
+        console.log()
+        if (params.event.offsetY > 100) {
+          const name = getEchartXAxisName(chart, params)
+          console.log(name)
+        }
       })
     }
   }

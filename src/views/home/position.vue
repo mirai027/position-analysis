@@ -61,7 +61,7 @@
                   }}</a>
                 </li>
               </ul>
-              <div class="detail" @click="getPositionName(topData.title)">
+              <div class="detail" @click.stop="getPositionName(topData.title)">
                 查看更多
               </div>
             </div>
@@ -72,6 +72,7 @@
             v-for="(item, idx) in day.other"
             :key="idx"
             class="except-container"
+            @click.stop="getPositionName(item.name)"
           >
             <div class="name">{{ item.name }}</div>
             <p class="except-total">
@@ -149,7 +150,7 @@
                   }}</a>
                 </li>
               </ul>
-              <div class="detail" @click="getPositionName(topData.title)">
+              <div class="detail" @click.stop="getPositionName(topData.title)">
                 查看更多
               </div>
             </div>
@@ -160,7 +161,7 @@
             v-for="(item, idx) in month.other"
             :key="idx"
             class="except-container"
-            @click="getPositionName(item.name)"
+            @click.stop="getPositionName(item.name)"
           >
             <div class="name">{{ item.name }}</div>
             <p class="except-total">
@@ -190,6 +191,7 @@ export default {
   },
   methods: {
     showMoreTop(idx) {
+      console.log(this.$refs.positionTop)
       this.$refs.positionTop
         .getElementsByClassName('main-container')
         .forEach(element => {
@@ -198,6 +200,7 @@ export default {
       this.$refs.mainTop[idx].style.width = '700px'
     },
     showMoreBtm(idx) {
+      console.log(this.$refs.positionBtm)
       this.$refs.positionBtm
         .getElementsByClassName('main-container')
         .forEach(element => {
@@ -216,7 +219,10 @@ export default {
       })
     },
     getPositionName(name) {
-      console.log(name)
+      this.$router.push({
+        path: '/position',
+        query: { name }
+      })
     }
   }
 }

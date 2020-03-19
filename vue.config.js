@@ -1,3 +1,14 @@
 module.exports = {
-  publicPath: './'
+  publicPath: './',
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'https://coderush.top',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
+  }
 }

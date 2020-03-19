@@ -153,6 +153,11 @@ export default {
       chart.setOption(option)
       this.$store.dispatch('setChartDOM', [chart])
       chart.on('click', params => {
+        const { name } = params
+        this.$router.push({
+          path: '/province',
+          query: { name }
+        })
         console.log(params.name)
       })
     },
@@ -308,6 +313,7 @@ export default {
           textStyle: {
             color: '#1c1c1c'
           },
+          top: '0',
           left: '7%'
         }
       }
@@ -315,7 +321,13 @@ export default {
       chart.setOption(option)
       this.$store.dispatch('setChartDOM', [chart])
       chart.getZr().on('click', params => {
-        console.log(getEchartXAxisName(chart, params))
+        if (params.event.offsetY > 30) {
+          const name = getEchartXAxisName(chart, params)
+          this.$router.push({
+            path: '/date',
+            query: { name }
+          })
+        }
       })
     },
     async initBest() {
@@ -325,6 +337,10 @@ export default {
       this.monthBest = month.data
     },
     getName(name) {
+      this.$router.push({
+        path: '/province',
+        query: { name }
+      })
       console.log(name)
     }
   }

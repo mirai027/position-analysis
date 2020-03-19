@@ -8,7 +8,7 @@ const service = axios.create({})
 switch (process.env.NODE_ENV) {
   case 'production':
     service.defaults.baseURL = './mock/'
-    // axios.defaults.baseURL = 'https://coderush.top/xxx/'
+    // axios.defaults.baseURL = '/api'
     break
   case 'development':
     service.defaults.baseURL = './mock/'
@@ -45,7 +45,7 @@ service.interceptors.response.use(
     if (res.code !== 200) {
       return Promise.reject(new Error(res.msg))
     } else {
-      return response.data
+      return res
     }
   },
   error => {
