@@ -20,9 +20,9 @@ export default {
     ]
     // let dottedBase = []
     const POSITION_NUM = []
-    const JCbarData = [8600, 1000, 1500, 4500, 5500, 6500, 7900]
-    const RCCbarData = [4600, 5000, 5500, 6500, 7500, 8500, 9900]
-    const EXP_SALARY = [7000, 4000, 5000, 10000, 15000, 20000, 30000]
+    const JCbarData = [8600, 1000, 1500, 4500, 5500, 6500, 7900] // 大专及以下
+    const RCCbarData = [4600, 5000, 5500, 6500, 7500, 8500, 9900] // 本科及以上
+    const EXP_SALARY = [7000, 4000, 5000, 10000, 15000, 20000, 30000] // 薪资平均值
     const colors = ['#5793f3', '#d14a61', '#675bba', '#39c5bb']
     JCbarData.forEach((element, index) => {
       POSITION_NUM.push(JCbarData[index] + RCCbarData[index])

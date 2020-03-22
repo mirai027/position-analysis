@@ -14,6 +14,9 @@ module.exports = {
   // add your custom rules here
   // it is base on https://github.com/vuejs/eslint-config-vue
   rules: {
+    'vue/html-self-closing': 'off',
+    'vue/html-closing-bracket-newline': 'off',
+    'vue/html-indent': 'off',
     'vue/max-attributes-per-line': [
       2,
       {

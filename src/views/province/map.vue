@@ -1,5 +1,5 @@
 <template>
-  <div class="map">
+  <div v-loading="!mainLoading" class="map" element-loading-text="拼命加载中">
     <div class="container">
       <div ref="province" class="left map echart" />
       <div class="right">
@@ -61,6 +61,117 @@
       </div>
     </div>
     <div ref="update" class="bottom update" />
+    <el-dialog
+      :visible.sync="dialogVisible"
+      width="90%"
+      class="map-dialog"
+      title="M智能推荐🤖"
+      @close="handleClose"
+    >
+      <div
+        v-loading="dialogLoading"
+        class="wrap"
+        element-loading-text="拼命加载中"
+      >
+        <div v-if="Object.keys(mirai).length !== 0" class="container-dialog">
+          <el-select
+            v-model="keyword"
+            placeholder="请选择"
+            class="pos-select"
+            @change="changeKy()"
+          >
+            <el-option
+              v-for="(item, idx) in mirai.positionList"
+              :key="idx"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+          <p class="c-h1">
+            广东地区招聘数量最多的：<span
+              v-for="(item, idx) in mirai.top"
+              :key="item.name"
+              >{{ item.name }}<span v-if="idx != 2">、</span></span
+            >
+          </p>
+          <p class="c-h1">
+            其中，<span v-for="(item, idx) in mirai.top" :key="item.name">
+              {{ `${item.name} ${item.value}条`
+              }}<span v-if="idx != 2">、</span></span
+            >
+          </p>
+          <!-- <el-divider></el-divider> -->
+          <p class="c-h1">
+            您所选择的 "{{ mirai.position }}" 在{{
+              mirai.best.name
+            }}中综合条件最优
+          </p>
+          <div class="advantage">
+            <div
+              v-for="(item, idx) in mirai.best.list"
+              :key="idx"
+              class="adv-card"
+            >
+              <div class="top">
+                <img :src="svg[idx]" alt="" class="top-img" />
+                <div class="container">
+                  <p>{{ item.num }}</p>
+                  <p>占{{ item.dc }}</p>
+                </div>
+              </div>
+              <div class="bottom">
+                <p>{{ item.title }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div
+              v-for="(feaItem, feaIdx) in mirai.feature.list"
+              :key="feaIdx"
+              class="card-item"
+            >
+              <div class="title">{{ feaItem.title }}</div>
+              <ul>
+                <el-popover
+                  v-for="(popItem, popIdx) in feaItem.item"
+                  :key="popIdx"
+                  placement="top-start"
+                  width="200"
+                  trigger="hover"
+                  class="card-li"
+                >
+                  <div v-if="popItem.total">
+                    关键词总数：{{ popItem.total }} 条
+                  </div>
+                  <div v-if="popItem.total">
+                    较上月增长：{{ popItem.new }} 条
+                  </div>
+                  <div v-if="popItem.title">{{ popItem.title }}</div>
+
+                  <el-button slot="reference" @click="openUrl(popItem.url)">
+                    <img
+                      v-if="popItem.icon"
+                      class="com-img"
+                      :src="popItem.icon"
+                      alt="logo"
+                    />
+                    <p v-if="popItem.icon">
+                      {{ `${popItem.name}` }}
+                    </p>
+                    <p v-else>{{ `${popIdx + 1}. ${popItem.name}` }}</p>
+                  </el-button>
+                </el-popover>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="handleConfirm">
+          世界这么大，我想去康康
+        </el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -102,20 +213,66 @@ import 'echarts/map/js/province/yunnan'
 import 'echarts/map/js/province/zhejiang'
 import { getAllUpdate, getAllDayBest, getAllMonthBest } from '@/api/map'
 import getEchartXAxisName from '@/utils/getEchartXAxisName'
+import { getProPos } from '@/api/pro-pos.js'
 
 export default {
   data() {
     return {
       dayBest: {},
-      monthBest: {}
+      monthBest: {},
+      dialogVisible: true,
+      mainLoading: true,
+      dialogLoading: true,
+      options: [],
+      mirai: {},
+      keyword: '',
+      svg: [
+        require('@/assets/revenue_.svg'),
+        require('@/assets/web_developer.svg'),
+        require('@/assets/personal_data_.svg'),
+        require('@/assets/construction_site.svg')
+      ]
     }
   },
   mounted() {
     this.initMap()
     this.initUpdate()
     this.initBest()
+    this.getData()
   },
   methods: {
+    async changeKy() {
+      this.mirai = {} // 触发 v-if 重绘 css
+      this.dialogLoading = true
+      const { data } = await getProPos(this.$route.query.name, this.keyword)
+      this.$notify({
+        title: '客官请慢用🤡',
+        message: `已为您更新到 ${this.$route.query.name} - ${this.keyword} 的数据`,
+        type: 'success'
+      })
+      setTimeout(() => {
+        this.dialogLoading = false
+      }, 300)
+      this.keyword = data.position
+      this.mirai = data
+    },
+    async getData() {
+      const { data } = await getProPos('广东', '前端开发')
+      this.keyword = data.position
+      this.mirai = data
+      setTimeout(() => {
+        this.dialogLoading = false
+      }, 300)
+    },
+    openUrl(url) {
+      url && window.open(url)
+    },
+    handleConfirm() {
+      this.dialogVisible = false
+    },
+    handleClose(done) {
+      this.dialogVisible = false
+    },
     initMap() {
       const chart = this.$echarts.init(this.$refs.province)
       const colors = ['#39C5BB', '#66CCFF', '#ffff00', '#ee0000']
@@ -429,5 +586,128 @@ export default {
     width: auto;
     height: 35%;
   }
+  .map-dialog {
+    .wrap {
+      min-height: 440px;
+      .pos-select {
+        position: absolute;
+        top: 60px;
+        right: 0px;
+        opacity: 0;
+        animation: show 0.5s;
+        animation-delay: 2s;
+        animation-fill-mode: forwards;
+      }
+      @keyframes show {
+        0% {
+          right: 0px;
+          opacity: 0.5;
+        }
+        100% {
+          right: 20px;
+          opacity: 1;
+        }
+      }
+      .c-h1 {
+        font-size: 21px;
+        margin-bottom: 17px;
+      }
+      .advantage {
+        margin: 30px 0;
+        display: flex;
+        .adv-card {
+          margin-right: 100px;
+          display: flex;
+          flex-direction: column;
+          .top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            .container {
+              padding-left: 10px;
+              width: auto;
+              height: 70px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              p {
+                font-size: 20px;
+                padding: 5px 0;
+              }
+            }
+            .top-img {
+              width: 70px;
+              height: 70px;
+            }
+          }
+          .bottom {
+            text-align: center;
+          }
+        }
+      }
+    }
+    .card {
+      display: flex;
+      margin-top: 30px;
+      .card-item {
+        flex: 1;
+        margin-right: 20px;
+        .title {
+          font-size: 24px;
+          margin-bottom: 10px;
+        }
+        ul {
+          display: flex;
+          flex-wrap: wrap;
+          .card-li {
+            margin: 10px 20px 0 0;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+.card-li ::v-deep .el-button {
+  background: rgba(224, 224, 224, 0.164);
+}
+.card-li ::v-deep span {
+  display: flex;
+  align-items: center;
+  img {
+    // width: 18px;
+    height: 18px;
+    border-radius: 50%;
+  }
+  p {
+    margin-left: 5px;
+  }
+}
+</style>
+
+<style>
+.el-popover {
+  width: auto !important;
+}
+.el-dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0 !important;
+  transform: translate(-50%, -50%);
+  max-height: calc(100% - 30px);
+  max-width: calc(100% - 30px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px 5px 5px 5px;
+  box-shadow: 0px 0px 4px 0px #ddd;
+}
+
+.el-dialog__body {
+  overflow: auto;
 }
 </style>
