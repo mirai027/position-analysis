@@ -14,23 +14,26 @@ export default {
     async initBenefit() {
       const { data } = await getAllBenefit()
       const option = {
-        title: {
-          text: '词云', //标题
-          x: 'center',
-          textStyle: {
-            fontSize: 23
-          }
-        },
-        backgroundColor: '#F7F7F7',
+        // title: {
+        //   text: '词云', //标题
+        //   x: 'center',
+        //   textStyle: {
+        //     fontSize: 23
+        //   }
+        // },
+
+        backgroundColor: '#FFF',
         tooltip: {
           show: true
         },
         series: [
           {
+            width: '90%',
+            height: '90%',
             name: '热点分析', //数据提示窗标题
             type: 'wordCloud',
-            sizeRange: [6, 66], //画布范围，如果设置太大会出现少词（溢出屏幕）
-            rotationRange: [-45, 90], //数据翻转范围
+            sizeRange: [6, 70], //画布范围，如果设置太大会出现少词（溢出屏幕）
+            rotationRange: [-45, 120], //数据翻转范围
             //shape: 'circle',
             textPadding: 0,
             autoSize: {

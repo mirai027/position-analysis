@@ -75,7 +75,7 @@ export default {
       this.gChartDOM.forEach(ele => {
         setTimeout(() => {
           ele.resize()
-        }, 800)
+        }, 1200)
       })
       // }, 800)
     }

@@ -1,5 +1,8 @@
 <template>
-  <div ref="companySizeChart" class="echart" />
+  <div class="company-size">
+    <div ref="companySizeChart" class="echart" />
+    <p class="title">企业规模统计</p>
+  </div>
 </template>
 
 <script>
@@ -20,16 +23,16 @@ export default {
       })
       const option = {
         color: ['#3398DB'],
-        title: {
-          text: '企业规模统计',
-          x: 20,
-          y: 50,
-          textStyle: {
-            color: '#1c1c1c',
-            fontSize: 16,
-            fontWeight: 'normal'
-          }
-        },
+        // title: {
+        //   text: '企业规模统计',
+        //   x: 20,
+        //   y: 50,
+        //   textStyle: {
+        //     color: '#1c1c1c',
+        //     fontSize: 16,
+        //     fontWeight: 'normal'
+        //   }
+        // },
         tooltip: {
           trigger: 'axis',
           backgroundColor: 'rgba(0,0,0,0.4)',
@@ -61,7 +64,10 @@ export default {
         //   top: '7%'
         // },
         grid: {
-          top: '14%'
+          top: '20%',
+          right: '5%',
+          bottom: '10%',
+          left: '10%'
         },
         xAxis: [
           {
@@ -81,7 +87,7 @@ export default {
           {
             // name: '企业规模',
             type: 'bar',
-            barWidth: '60%',
+            barWidth: '30%',
             data: data
           }
         ]
@@ -95,8 +101,30 @@ export default {
 </script>
 
 <style lang="scss" spoce>
-.echart {
-  width: 100%;
-  height: 100%;
+@import '~@/styles/index.scss';
+// $main-text-color: red;
+.company-size {
+  .echart {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  .title {
+    position: absolute;
+    top: 4%;
+    left: 2%;
+    color: $main-text-color;
+    font-size: 18px;
+    &::before {
+      content: '';
+      width: 3px;
+      height: 20px;
+      background: #409eff;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(-20px, -50%);
+    }
+  }
 }
 </style>
