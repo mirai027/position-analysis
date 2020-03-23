@@ -1,228 +1,129 @@
 <template>
   <div class="position">
-    <div class="top content">
-      <p class="h-title">今日职位信息</p>
-      <div v-if="Object.keys(day).length" ref="positionTop" class="p-container">
-        <div
-          v-for="(topData, idx) in day.top"
-          :key="idx"
-          ref="mainTop"
-          class="main-container"
-          @click="showMoreTop(idx)"
+    <div class="left-container">
+      <el-row :gutter="12" class="top">
+        <el-col :span="8" class="box">
+          <div class="title">
+            <p>前端开发</p>
+            <span>TOP1</span>
+          </div>
+          <div class="num">
+            <div class="num-item">
+              <p class="item-name">今日新增</p>
+              <p class="item-num">2999</p>
+            </div>
+            <div class="num-item">
+              <p class="item-name">今日新增</p>
+              <p class="item-num">2999</p>
+            </div>
+          </div>
+        </el-col>
+        <el-col :span="8" class="box">
+          <div class="title">
+            <p class="city">热门城市</p>
+            <!-- <span>TOP1</span> -->
+          </div>
+          <div class="num">
+            <div class="num-item">
+              <p class="item-name">广东省</p>
+              <p class="item-num">2999</p>
+            </div>
+            <div class="num-item">
+              <p class="item-name">江苏省</p>
+              <p class="item-num">2999</p>
+            </div>
+            <div class="num-item">
+              <p class="item-name">上海市</p>
+              <p class="item-num">2999</p>
+            </div>
+          </div></el-col
         >
-          <div class="container">
-            <div class="left">
-              <p class="title">{{ topData.title }}</p>
-              <div class="rank">{{ topData.rank }}</div>
-              <p class="total">
-                今日新增: <span>{{ topData.new }} 条</span>
-              </p>
-              <p class="total">
-                今日总数: <span>{{ topData.total }} 条</span>
-              </p>
-              <div class="city">
-                <p class="city-title">热门城市</p>
-                <div class="city-container">
-                  <div
-                    v-for="(province, proKey) in topData.hotProvince"
-                    :key="proKey"
-                    class="province"
-                  >
-                    <div class="name">{{ province.name }}</div>
-                    <div class="amount">总：{{ province.total }}条</div>
-                    <div class="amount">新增：{{ province.new }}条</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="right">
-              <div class="pl-title">{{ topData.title }}技能要求：</div>
-              <ul class="pl">
-                <li v-for="(skillData, sIdx) in topData.skill" :key="sIdx">
-                  {{ `${sIdx + 1}. ${skillData}` }}
-                </li>
-              </ul>
-              <div class="community-title">推荐的技术社区</div>
-              <ul class="community">
-                <li
-                  v-for="(communityData, cIdx) in topData.community"
-                  :key="cIdx"
-                >
-                  <a :href="communityData.url">{{
-                    `${cIdx + 1}. ${communityData.name}`
-                  }}</a>
-                </li>
-              </ul>
-              <div class="study-title">推荐的视频学习网站</div>
-              <ul class="community">
-                <li v-for="(videoData, vIdx) in topData.video" :key="vIdx">
-                  <a :href="videoData.url">{{
-                    `${vIdx + 1}. ${videoData.name}`
-                  }}</a>
-                </li>
-              </ul>
-              <div class="detail" @click.stop="getPositionName(topData.title)">
-                查看更多
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="except-top3">
-          <div
-            v-for="(item, idx) in day.other"
-            :key="idx"
-            class="except-container"
-            @click.stop="getPositionName(item.name)"
-          >
-            <div class="name">{{ item.name }}</div>
-            <p class="except-total">
-              今日总数: <span>{{ item.total }} 条</span>
-            </p>
-            <p class="except-total">
-              今日新增: <span>{{ item.new }} 条</span>
-            </p>
-          </div>
-        </div>
-      </div>
+      </el-row>
+      <el-row v-if="Object.keys(mirai).length !== 0" class="bottom">
+        <el-col
+          v-for="(feaItem, feaIdx) in mirai.feature.list"
+          :key="feaIdx"
+          :span="8"
+          class="box"
+        >
+          <div class="title">{{ feaItem.title }}</div>
+          <ul>
+            <el-popover
+              v-for="(popItem, popIdx) in feaItem.item"
+              :key="popIdx"
+              placement="top-start"
+              width="200"
+              trigger="hover"
+              class="card-li"
+            >
+              <div v-if="popItem.total">关键词总数：{{ popItem.total }} 条</div>
+              <div v-if="popItem.total">较上月增长：{{ popItem.new }} 条</div>
+              <div v-if="popItem.title">{{ popItem.title }}</div>
+
+              <el-button slot="reference" @click="openUrl(popItem.url)">
+                <img
+                  v-if="popItem.icon"
+                  class="com-img"
+                  :src="popItem.icon"
+                  alt="logo"
+                />
+                <p v-if="popItem.icon">
+                  {{ `${popItem.name}` }}
+                </p>
+                <p v-else>{{ `${popIdx + 1}. ${popItem.name}` }}</p>
+              </el-button>
+            </el-popover>
+          </ul>
+        </el-col>
+      </el-row>
+      <el-radio-group v-model="choiceDate" class="choice" size="small">
+        <el-radio-button label="日"></el-radio-button>
+        <el-radio-button label="月"></el-radio-button>
+        <el-radio-button label="年"></el-radio-button>
+      </el-radio-group>
     </div>
-    <div class="bottom content">
-      <p class="h-title">月度职位信息</p>
-      <div
-        v-if="Object.keys(month).length"
-        ref="positionBtm"
-        class="p-container"
-      >
-        <div
-          v-for="(topData, idx) in month.top"
+    <div class="right-container">
+      <el-row class="bottom-right">
+        <el-col
+          v-for="(item, idx) in 12"
           :key="idx"
-          ref="mainBtm"
-          class="main-container"
-          @click="showMoreBtm(idx)"
+          :span="8"
+          class="bottom-right-item"
         >
-          <div class="container">
-            <div class="left">
-              <p class="title">{{ topData.title }}</p>
-              <div class="rank">{{ topData.rank }}</div>
-              <p class="total">
-                今日新增: <span>{{ topData.new }} 条</span>
-              </p>
-              <p class="total">
-                今日总数: <span>{{ topData.total }} 条</span>
-              </p>
-              <div class="city">
-                <p class="city-title">热门城市</p>
-                <div class="city-container">
-                  <div
-                    v-for="(province, proKey) in topData.hotProvince"
-                    :key="proKey"
-                    class="province"
-                  >
-                    <div class="name">{{ province.name }}</div>
-                    <div class="amount">总：{{ province.total }}条</div>
-                    <div class="amount">新增：{{ province.new }}条</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="right">
-              <div class="pl-title">{{ topData.title }}技能要求：</div>
-              <ul class="pl">
-                <li v-for="(skillData, sIdx) in topData.skill" :key="sIdx">
-                  {{ `${sIdx + 1}. ${skillData}` }}
-                </li>
-              </ul>
-              <div class="community-title">推荐的技术社区</div>
-              <ul class="community">
-                <li
-                  v-for="(communityData, cIdx) in topData.community"
-                  :key="cIdx"
-                >
-                  <a :href="communityData.url">{{
-                    `${cIdx + 1}. ${communityData.name}`
-                  }}</a>
-                </li>
-              </ul>
-              <div class="study-title">推荐的视频学习网站</div>
-              <ul class="community">
-                <li v-for="(videoData, vIdx) in topData.video" :key="vIdx">
-                  <a :href="videoData.url">{{
-                    `${vIdx + 1}. ${videoData.name}`
-                  }}</a>
-                </li>
-              </ul>
-              <div class="detail" @click.stop="getPositionName(topData.title)">
-                查看更多
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="except-top3">
-          <div
-            v-for="(item, idx) in month.other"
-            :key="idx"
-            class="except-container"
-            @click.stop="getPositionName(item.name)"
-          >
-            <div class="name">{{ item.name }}</div>
-            <p class="except-total">
-              今日总数: <span>{{ item.total }} 条</span>
-            </p>
-            <p class="except-total">
-              今日新增: <span>{{ item.new }} 条</span>
-            </p>
-          </div>
-        </div>
-      </div>
+          <p class="item-name">后端开发</p>
+          <p class="item-num">
+            <span style="font-size: 12px;">新增</span>
+            2999
+          </p>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
 
 <script>
-import { getAllDayPosition, getAllMonthPosition } from '@/api/position'
+import { getProPos } from '@/api/pro-pos.js'
 export default {
   data() {
     return {
-      day: {},
-      month: {}
+      mirai: {},
+      choiceDate: '日'
     }
   },
   mounted() {
-    this.getInfo() // 获取api信息
+    this.getData()
   },
   methods: {
-    showMoreTop(idx) {
-      console.log(this.$refs.positionTop)
-      this.$refs.positionTop
-        .getElementsByClassName('main-container')
-        .forEach(element => {
-          element.style.width = '300px'
-        })
-      this.$refs.mainTop[idx].style.width = '700px'
+    async getData() {
+      const { data } = await getProPos('广东', '前端开发')
+      this.keyword = data.position
+      this.mirai = data
+      setTimeout(() => {
+        this.dialogLoading = false
+      }, 300)
     },
-    showMoreBtm(idx) {
-      console.log(this.$refs.positionBtm)
-      this.$refs.positionBtm
-        .getElementsByClassName('main-container')
-        .forEach(element => {
-          element.style.width = '300px'
-        })
-      this.$refs.mainBtm[idx].style.width = '700px'
-    },
-    async getInfo() {
-      const dayInfo = await getAllDayPosition()
-      const monthInfo = await getAllMonthPosition()
-      this.day = dayInfo.data
-      this.month = monthInfo.data
-      this.$nextTick(() => {
-        this.showMoreTop(0) // 默认第一个卡片显示详细信息
-        this.showMoreBtm(0) // 默认第一个卡片显示详细信息
-      })
-    },
-    getPositionName(name) {
-      this.$router.push({
-        path: '/position',
-        query: { name }
-      })
+    openUrl(url) {
+      url && window.open(url)
     }
   }
 }
@@ -230,96 +131,142 @@ export default {
 
 <style lang="scss" scoped>
 .position {
-  // width: auto;
-  // height: 100%;
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  overflow-x: scroll;
-  padding: 10px 0;
-  .content {
-    margin-top: 20px;
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    .h-title {
-      color: #f00;
-      height: 100px;
-    }
-    .p-container {
-      display: flex;
-      height: 100%;
-      .main-container {
-        flex: none;
-        width: 300px;
-        height: 100%;
-        // background: #0c0;
-        margin-left: 2%;
-        display: flex;
-        transition: all 1s;
-        position: relative;
-        overflow: hidden;
-        border: 1px solid rgb(177, 177, 177);
-        border-radius: 4px;
-        // box-shadow: 0px 0px 12px 1px #ddd;
-        background: #39c5bb;
-        // &:nth-child(n + 2) {
-        //   margin-left: 2%;
-        // }
-        .container {
-          width: 100%;
-          height: 100%;
-          position: absolute;
-          top: 0;
-          left: 0;
+  position: relative;
+  .left-container {
+    width: 70%;
+    position: relative;
+    .top {
+      width: 70%;
+      .box {
+        color: #303133;
+        // background: #00f;
+        .title {
           display: flex;
-          transition: none;
-          .left {
-            flex: none;
-            width: 300px;
-            height: 100%;
-            .title {
+          p {
+            font-size: 24px;
+          }
+          span {
+            margin-left: 5px;
+            font-size: 12px;
+            align-self: flex-end;
+            color: #606266;
+          }
+          .city {
+            transform: scale(0.8);
+            transform-origin: 0 100%;
+          }
+        }
+        .num {
+          display: flex;
+          .num-item {
+            margin: 20px 20px 0 0;
+            text-align: center;
+            .item-name {
+              font-size: 12px;
+            }
+            .item-num {
+              margin-top: 5px;
               font-size: 24px;
             }
-            .total {
-              font-size: 18px;
-            }
-            .city {
-              .city-title {
-                font-size: 24px;
-              }
-              .city-container {
-                display: flex;
-                text-align: center;
-                .province {
-                  flex: 1;
-                }
-              }
-            }
-          }
-          .right {
-            flex: none;
-            width: 400px;
-            height: 100%;
-            background: rgb(112, 214, 255);
           }
         }
       }
-      .except-top3 {
-        flex: none;
-        width: auto;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        margin-right: 10px;
-        .except-container {
-          height: calc(20% - 20px - 2px);
-          margin: 10px 0 10px 30px;
-          border: 1px solid #ccc;
+    }
+    .bottom {
+      width: 100%;
+      // background: #00f;
+      .box {
+        padding-right: 20px;
+        .title {
+          font-size: 21px;
+          padding: 30px 0 14px;
         }
+        .card-li {
+          color: #303133;
+          // &:first-child {
+          //   &::v-deep .el-button {
+          //     background: #00f;
+          //   }
+          // }
+          &::v-deep .el-button {
+            font-size: 16px;
+            border: none;
+            padding: 10px 20px 10px 0;
+            background: rgba(236, 236, 236, 0.164);
+            position: relative;
+            // &::before {
+            //   content: '';
+            //   width: 0px;
+            //   height: 40%;
+            //   border-right: 1px solid #303133;
+            //   position: absolute;
+            //   top: 50%;
+            //   right: 0;
+            //   transform: translateY(-50%) translateX(-5px);
+            // }
+          }
+          &::v-deep span {
+            display: flex;
+            align-items: center;
+            img {
+              // width: 18px;
+              height: 18px;
+              border-radius: 50%;
+            }
+            p {
+              margin-left: 5px;
+            }
+          }
+        }
+      }
+    }
+    &::before {
+      content: '';
+      width: 1px;
+      height: 70%;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translate(-10px, -50%);
+      background: #ccc;
+      // box-shadow: 0px 0px 40px 1px rgb(255, 54, 54);
+    }
+  }
+  .right-container {
+    width: 30%;
+    // background: red;
+    display: flex;
+    align-items: center;
+    .bottom-right-item {
+      text-align: center;
+      margin: 12px 0;
+      cursor: pointer;
+      &:hover {
+        color: #409eff;
+      }
+      .item-name {
+        font-size: 14px;
+      }
+      .item-num {
+        margin-top: 7px;
+        font-size: 20px;
       }
     }
   }
+  .choice {
+    position: absolute;
+    top: 0;
+    right: 40px;
+    // transform: scale(0.9);
+  }
+}
+</style>
+
+<style lang="scss">
+.el-popover {
+  width: auto !important;
 }
 </style>
