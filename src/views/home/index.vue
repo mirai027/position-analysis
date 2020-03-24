@@ -7,16 +7,10 @@
     <!-- <div class="salary-exp"></div> -->
     <div class="row">
       <companySize class="company-size" />
+      <!-- <div class="benefit"></div> -->
       <benefit class="benefit" />
+      <!-- <benefit v-if="false" /> -->
     </div>
-    <!-- <el-row type="flex" class="row">
-      <el-col :span="12" class="company-size">
-        <companySize />
-      </el-col>
-      <el-col :span="12" class="benefit">
-        <benefit />
-      </el-col>
-    </el-row> -->
   </div>
 </template>
 
@@ -56,10 +50,12 @@ export default {
 @import '~@/styles/index.scss';
 .main-index {
   width: auto;
-  height: 100%;
   background: #ff0;
   padding: 10px;
   overflow: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
   .date-trend {
     width: auto;
     height: 400px;
@@ -74,17 +70,19 @@ export default {
   }
   .row {
     // width: auto;
-    // margin: 15px 0;
     display: flex;
     .company-size {
+      width: 50%;
       height: 400px;
       background: #fff;
       margin-right: 7px;
     }
     .benefit {
+      width: 50%;
       height: 400px;
       background: #fff;
       margin-left: 7px;
+      overflow: hidden;
     }
   }
 }

@@ -1,5 +1,7 @@
 <template>
-  <div ref="wordcloudChart" class="wordcloud" />
+  <div class="wordcloud-container">
+    <div ref="wordcloudChart" class="chart2" />
+  </div>
 </template>
 
 <script>
@@ -21,7 +23,6 @@ export default {
         //     fontSize: 23
         //   }
         // },
-
         backgroundColor: '#FFF',
         tooltip: {
           show: true
@@ -71,9 +72,14 @@ export default {
 }
 </script>
 
-<style>
-.wordcloud {
+<style lang="scss" spoce>
+.wordcloud-container {
   width: 100%;
   height: 100%;
+  position: relative;
+  .chart2 {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>

@@ -4,7 +4,6 @@
       default-active="1-4-1"
       class="el-menu-vertical-demo"
       :collapse="isCollapse"
-      :collapse-transition="false"
     >
       <el-submenu index="1">
         <template slot="title">
@@ -109,6 +108,7 @@ export default {
     background: #fff;
     display: flex;
     flex-direction: column;
+    position: relative;
     .nav {
       height: 40px;
       display: flex;
@@ -125,11 +125,11 @@ export default {
       }
     }
     .view {
-      // width: 100%;
-      flex: 1;
-      // overflow: hidden;
-      // overflow-y: scroll;
-      // background: red;
+      position: absolute;
+      top: 40px;
+      right: 0;
+      bottom: 0;
+      left: 0;
       background: #eff1f4;
     }
   }
