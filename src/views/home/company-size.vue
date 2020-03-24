@@ -1,6 +1,6 @@
 <template>
   <div class="company-size">
-    <div ref="companySizeChart" class="echart" />
+    <div ref="companySizeChart" class="chart" />
     <p class="title">企业规模统计</p>
   </div>
 </template>
@@ -23,24 +23,20 @@ export default {
       })
       const option = {
         color: ['#3398DB'],
-        // title: {
-        //   text: '企业规模统计',
-        //   x: 20,
-        //   y: 50,
-        //   textStyle: {
-        //     color: '#1c1c1c',
-        //     fontSize: 16,
-        //     fontWeight: 'normal'
-        //   }
-        // },
         tooltip: {
           trigger: 'axis',
           backgroundColor: 'rgba(0,0,0,0.4)',
           axisPointer: {
             type: 'cross',
             label: {
-              precision: '0'
+              precision: '0',
+              backgroundColor: '#409EFF'
             }
+          },
+          formatter: function(params) {
+            const { name, color, value } = params[0]
+            const line = `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${color};"></span>${name}公司共发出 ${value} 条招聘数据`
+            return line
           }
         },
         toolbox: {
@@ -56,13 +52,6 @@ export default {
           right: '5%',
           top: '5%'
         },
-        // legend: {
-        //   data: ['企业规模'],
-        //   textStyle: {
-        //     color: '#1c1c1c'
-        //   },
-        //   top: '7%'
-        // },
         grid: {
           top: '20%',
           right: '5%',
@@ -74,13 +63,43 @@ export default {
             type: 'category',
             data: xData,
             axisTick: {
-              alignWithLabel: true
+              show: false
+            },
+            axisLabel: {
+              color: '#303133'
+            },
+            axisLine: {
+              lineStyle: {
+                color: '#E9E9EB'
+              }
             }
           }
         ],
         yAxis: [
           {
-            type: 'value'
+            type: 'value',
+            axisLabel: {
+              color: '#303133'
+            },
+            axisTick: {
+              show: false
+            },
+            splitLine: {
+              lineStyle: {
+                color: 'rgba(239, 241, 244, .2'
+              }
+            },
+            splitArea: {
+              show: true,
+              areaStyle: {
+                color: ['rgba(239, 241, 244, .6)', '#FFF']
+              }
+            },
+            axisLine: {
+              lineStyle: {
+                color: '#E9E9EB'
+              }
+            }
           }
         ],
         series: [
@@ -88,6 +107,7 @@ export default {
             // name: '企业规模',
             type: 'bar',
             barWidth: '30%',
+            color: '#409EFF',
             data: data
           }
         ]
@@ -104,27 +124,15 @@ export default {
 @import '~@/styles/index.scss';
 // $main-text-color: red;
 .company-size {
-  .echart {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  .chart {
     width: 100%;
     height: 100%;
-    position: relative;
   }
   .title {
-    position: absolute;
-    top: 4%;
-    left: 2%;
-    color: $main-text-color;
-    font-size: 18px;
-    &::before {
-      content: '';
-      width: 3px;
-      height: 20px;
-      background: #409eff;
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translate(-20px, -50%);
-    }
+    @include title-line($pos-top: 23px, $pos-left: 33px);
   }
 }
 </style>

@@ -1,0 +1,269 @@
+<template>
+  <div class="date-trend-container">
+    <div ref="update" class="chart"></div>
+    <p class="title">企业规模统计</p>
+  </div>
+</template>
+
+<script>
+import { getAllUpdate } from '@/api/map'
+import getEchartXAxisName from '@/utils/getEchartXAxisName'
+export default {
+  data() {
+    return {}
+  },
+  mounted() {
+    this.initUpdate()
+  },
+  methods: {
+    async initUpdate() {
+      const res = await getAllUpdate()
+      const { data } = res
+      const lineData = []
+      const updateBarData = []
+      const xAxisData = []
+      for (let index = 1; index < data.length; index++) {
+        const cty = data[index].value - data[index - 1].value
+        lineData.push(data[index])
+        updateBarData.push({ name: data[index].name, value: cty })
+        xAxisData.push(data[index].name)
+      }
+      const colors = ['#d14a61', '#5793f3', '#675bba']
+      const option = {
+        color: colors,
+        toolbox: {
+          show: true,
+          feature: {
+            dataZoom: {
+              yAxisIndex: 'none'
+            },
+            magicType: { type: ['line', 'bar'] },
+            restore: {},
+            saveAsImage: {}
+          },
+          right: '6%',
+          top: '3%'
+        },
+        legend: {
+          data: ['全国总数据', '较昨日'],
+          textStyle: {
+            color: '#1c1c1c'
+          },
+          top: '4%',
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: 'rgba(0,0,0,0.3)',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              precision: '0'
+            }
+          },
+          formatter: function(params) {
+            /**
+             * componentIndex === 0 line chart
+             * componentIndex === 1 bar chart
+             */
+            const fm = {}
+            params.forEach(element => {
+              const { componentIndex } = element
+              if (componentIndex === 0) {
+                const line = `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${element.color};"></span>${element.name} 共 <span style="color: #F13000;">${element.value}</span> 条招聘数据`
+                fm.line = line
+              }
+              if (componentIndex === 1) {
+                const style = () => {
+                  if (element.value > 0) {
+                    return {
+                      value: `新增 ${element.value} `,
+                      color: '#66ccff'
+                    }
+                  } else if (element.value < 0) {
+                    return {
+                      value: `减少 ${element.value} `,
+                      color: '#F13000'
+                    }
+                  } else element.value === 0
+                  return { value: ` 不变 `, color: '#39c5bb' }
+                }
+                const bar = `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${
+                  element.color
+                };"></span>${element.name} 共 <span style="color:${
+                  style().color
+                };">${style().value}</span> 条招聘数据`
+                fm.bar = bar
+              }
+            })
+            let res = ''
+            if (Object.keys(fm).length === 2) {
+              res = fm.line + '<br />' + fm.bar
+            } else {
+              fm.line ? (res = fm.line) : ''
+              fm.bar ? (res = fm.bar) : ''
+            }
+            return res
+          }
+        },
+        grid: {
+          top: '15%',
+          right: '5%',
+          bottom: '10%',
+          left: '5%'
+        },
+        xAxis: {
+          type: 'category',
+          data: xAxisData,
+          axisTick: {
+            show: false
+          },
+          axisLabel: {
+            color: '#606266'
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#606266'
+            }
+          },
+          axisPointer: {
+            label: {
+              backgroundColor: '#67C23A'
+            }
+          }
+          // boundaryGap: false
+        },
+        yAxis: [
+          {
+            position: 'left',
+            axisLabel: {
+              formatter: '{value} 条'
+            },
+            axisPointer: {
+              label: {
+                formatter: '{value} 条'
+              }
+            },
+            axisLine: {
+              lineStyle: {
+                color: '#409EFF'
+              }
+            },
+            axisTick: {
+              show: false
+            },
+            splitLine: {
+              lineStyle: {
+                color: 'rgba(239, 241, 244, .2)'
+              }
+            },
+            splitArea: {
+              show: true,
+              areaStyle: {
+                color: ['rgba(239, 241, 244, .5)', '#FFF']
+              }
+            }
+          },
+          {
+            axisLabel: {
+              formatter: '{value} 条',
+              color: '#F56C6C'
+            },
+            axisPointer: {
+              label: {
+                formatter: '{value} 条'
+              }
+            },
+            axisLine: {
+              lineStyle: {
+                color: '#F56C6C'
+              }
+            },
+            axisTick: {
+              show: false
+            },
+            splitLine: {
+              show: false
+            },
+            splitArea: {
+              show: false
+            }
+          }
+        ],
+        series: [
+          {
+            name: '全国总数据',
+            data: lineData,
+            type: 'line',
+            smooth: true,
+            showAllSymbol: true,
+            symbol: 'emptyCircle',
+            symbolSize: 3,
+            yAxisIndex: 1,
+            color: '#409EFF', //线条样式
+            areaStyle: {
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: 'rgba(217, 236, 255, .3)'
+                  },
+
+                  {
+                    offset: 1,
+                    color: 'rgba(217, 236, 255, .3)'
+                  }
+                ],
+                global: false, // 缺省为 false
+                opacity: 0.1
+              }
+            }
+          },
+          {
+            name: '较昨日',
+            data: updateBarData,
+            type: 'line',
+            color: '#F56C6C',
+            smooth: true,
+            showAllSymbol: true,
+            symbol: 'emptyCircle',
+            symbolSize: 3
+          }
+        ]
+      }
+      const chart = this.$echarts.init(this.$refs.update)
+      chart.setOption(option)
+      this.$store.dispatch('setChartDOM', [chart])
+      chart.getZr().on('click', params => {
+        // console.log(params.event.offsetY)
+        if (params.event.offsetY > 60) {
+          const name = getEchartXAxisName(chart, params)
+          this.$router.push({
+            path: '/date',
+            query: { name }
+          })
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss" spoce>
+@import '~@/styles/index.scss';
+.date-trend-container {
+  position: relative;
+  .chart {
+    width: 100%;
+    height: 100%;
+  }
+  .title {
+    @include title-line($pos-top: 13px, $pos-left: 33px);
+  }
+}
+</style>

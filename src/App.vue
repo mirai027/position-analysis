@@ -4,6 +4,7 @@
       default-active="1-4-1"
       class="el-menu-vertical-demo"
       :collapse="isCollapse"
+      :collapse-transition="false"
     >
       <el-submenu index="1">
         <template slot="title">
@@ -59,25 +60,25 @@ import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      isCollapse: false
+      isCollapse: false,
+      withoutAnimation: false
     }
   },
   computed: {
     ...mapGetters(['gChartDOM'])
   },
+  watch: {},
   methods: {
     handleClose(key, keyPath) {
       let num = 0
-      this.isCollapse ? '' : (num = 180)
+      this.isCollapse && (num = 180)
       this.$refs.close.style.transform = `rotate(${num}deg)`
       this.isCollapse = !this.isCollapse
-      // window.onresize = debounce(() => {
-      this.gChartDOM.forEach(ele => {
-        setTimeout(() => {
+      setTimeout(() => {
+        this.gChartDOM.forEach(ele => {
           ele.resize()
-        }, 1200)
-      })
-      // }, 800)
+        })
+      }, 1000)
     }
   }
 }
@@ -89,17 +90,23 @@ export default {
 #app {
   width: 100%;
   height: 100vh;
-  overflow: hidden;
   display: flex;
+  // overflow: hidden;
   .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+  }
+  .el-menu-vertical-demo:not(.el-menu--collapse) .el-submenu__title {
     width: 200px;
   }
   .el-menu-vertical-demo {
     height: 100%;
   }
   .container {
-    flex: 1;
-    // background: #123789;
+    // width: 1200px;
+    width: 800px;
+    // 自动计算会卡顿，固定width则不会？？？
+    // flex: 1;
+    background: #1f0;
     display: flex;
     flex-direction: column;
     .nav {
@@ -118,11 +125,28 @@ export default {
       }
     }
     .view {
+      width: 100%;
       flex: 1;
       // overflow: hidden;
       // overflow-y: scroll;
+      // background: red;
       background: #eff1f4;
     }
   }
 }
+</style>
+
+<style lang="scss">
+//滚动条的宽度
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+//滚动条的滑块
+::-webkit-scrollbar-thumb {
+  background-color: rgba(71, 71, 71, 0.3);
+  border-radius: 10px;
+}
+// ::-webkit-scrollbar-track {// 轨道}
+// ::-webkit-scrollbar-corner {// 边角}
 </style>

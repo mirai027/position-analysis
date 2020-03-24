@@ -1,6 +1,7 @@
 <template>
   <div class="main-index">
     <div class="map"></div>
+    <dateTrend class="date-trend" />
     <position class="position" />
     <div class="edu-pos"></div>
     <div class="salary-exp"></div>
@@ -21,6 +22,7 @@ import position from './position'
 // import salaryExp from './salary-exp'
 import companySize from './company-size'
 import benefit from './benefit'
+import dateTrend from './date-trend'
 // import { mapGetters } from 'vuex'
 // import debounce from '@/utils/debounce.js'
 export default {
@@ -30,7 +32,8 @@ export default {
     position,
     // salaryExp,
     companySize,
-    benefit
+    benefit,
+    dateTrend
   },
   computed: {
     // ...mapGetters(['gChartDOM'])
@@ -48,19 +51,26 @@ export default {
 <style lang="scss" scope>
 @import '~@/styles/index.scss';
 .main-index {
-  width: auto;
+  width: 100%;
   height: 100%;
   background: #ff0;
   padding: 10px;
   overflow: auto;
+  .date-trend {
+    // width: auto;
+    width: 100%;
+    height: 400px;
+    background: #fff;
+  }
   .position {
-    width: auto;
+    // width: auto;
     height: auto;
     padding: 20px;
     background: #fff;
+    margin: 15px 0;
   }
   .row {
-    margin-top: 15px;
+    // margin: 15px 0;
     .company-size {
       height: 400px;
       background: #fff;

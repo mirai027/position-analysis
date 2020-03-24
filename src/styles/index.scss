@@ -50,4 +50,24 @@
   left: 0;
 }
 
+@mixin title-line($pos-top: 4%, $pos-left: 34px, $line-width: 3px, $line-height: 20px, $color: #409eff, $font-size:18px) {
+  position: absolute;
+  top: $pos-top;
+  left: $pos-left;
+  color: $main-text-color;
+  font-size: $font-size;
+
+  &::before {
+    content: '';
+    width: $line-width;
+    height: $line-height;
+    background: $color;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-20px, -50%);
+  }
+
+}
+
 $main-text-color: #303133;
