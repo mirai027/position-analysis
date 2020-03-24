@@ -91,7 +91,7 @@ export default {
   width: 100%;
   height: 100vh;
   display: flex;
-  // overflow: hidden;
+  overflow: hidden;
   .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 200px;
   }
@@ -103,10 +103,10 @@ export default {
   }
   .container {
     // width: 1200px;
-    width: 800px;
+    // width: 800px;
     // 自动计算会卡顿，固定width则不会？？？
-    // flex: 1;
-    background: #1f0;
+    flex: 1;
+    background: #fff;
     display: flex;
     flex-direction: column;
     .nav {
@@ -125,7 +125,7 @@ export default {
       }
     }
     .view {
-      width: 100%;
+      // width: 100%;
       flex: 1;
       // overflow: hidden;
       // overflow-y: scroll;

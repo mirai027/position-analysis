@@ -1,18 +1,22 @@
 <template>
   <div class="main-index">
-    <div class="map"></div>
+    <!-- <div class="map"></div> -->
     <dateTrend class="date-trend" />
     <position class="position" />
-    <div class="edu-pos"></div>
-    <div class="salary-exp"></div>
-    <el-row type="flex" class="row">
+    <!-- <div class="edu-pos"></div> -->
+    <!-- <div class="salary-exp"></div> -->
+    <div class="row">
+      <companySize class="company-size" />
+      <benefit class="benefit" />
+    </div>
+    <!-- <el-row type="flex" class="row">
       <el-col :span="12" class="company-size">
         <companySize />
       </el-col>
       <el-col :span="12" class="benefit">
         <benefit />
       </el-col>
-    </el-row>
+    </el-row> -->
   </div>
 </template>
 
@@ -51,26 +55,27 @@ export default {
 <style lang="scss" scope>
 @import '~@/styles/index.scss';
 .main-index {
-  width: 100%;
+  width: auto;
   height: 100%;
   background: #ff0;
   padding: 10px;
   overflow: auto;
   .date-trend {
-    // width: auto;
-    width: 100%;
+    width: auto;
     height: 400px;
     background: #fff;
   }
   .position {
-    // width: auto;
+    width: auto;
     height: auto;
     padding: 20px;
     background: #fff;
     margin: 15px 0;
   }
   .row {
+    // width: auto;
     // margin: 15px 0;
+    display: flex;
     .company-size {
       height: 400px;
       background: #fff;
