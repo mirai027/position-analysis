@@ -1,5 +1,8 @@
 <template>
-  <div ref="EDUPOSChart" class="edu-pos echart" />
+  <div class="edu-pos-container">
+    <div ref="EDUPOSChart" class="edu-pos chart" />
+    <p class="title">全国职位趋势图</p>
+  </div>
 </template>
 
 <script>
@@ -24,20 +27,7 @@ export default {
       const colors = ['#5793f3', '#d14a61', '#675bba']
 
       const option = {
-        // toolbox: {
-        //   show: true
-        // },
         color: colors,
-        title: {
-          text: '要求的学历对比职位的需求',
-          x: 20,
-          y: 50,
-          textStyle: {
-            color: '#1c1c1c',
-            fontSize: 16,
-            fontWeight: 'normal'
-          }
-        },
         tooltip: {
           trigger: 'axis',
           backgroundColor: 'rgba(0,0,0,0.4)',
@@ -61,84 +51,134 @@ export default {
             restore: {},
             saveAsImage: {}
           },
-          right: '5%',
-          top: '5%'
+          right: '1.1%',
+          top: '0'
         },
         legend: {
           data: ['职位招聘数量', '大专及以下', '本科及以上'],
           textStyle: {
             color: '#1c1c1c'
           },
-          top: '7%'
+          top: '1%'
         },
         grid: {
-          top: '14%'
+          containLabel: true,
+          top: '12%',
+          left: '2%',
+          right: '2%',
+          bottom: '2%'
         },
         xAxis: {
           data: xCategory,
-          axisLine: {
-            lineStyle: {
-              color: colors[0]
-            }
+          axisTick: {
+            show: false
+          },
+          splitLine: {
+            show: false
+          },
+          splitArea: {
+            show: false
           }
         },
         yAxis: [
           {
             position: 'right',
-            max: '55000',
-            splitLine: { show: false },
-            axisLine: {
-              lineStyle: {
-                color: colors[1]
+            axisLabel: {
+              formatter: params => {
+                return `${params / 1000}K`
               }
             },
-            axisLabel: {
-              formatter: '{value} 条'
+            axisTick: {
+              show: false
             },
-            axisPointer: {
-              label: {
-                formatter: '{value} 条'
+            splitLine: {
+              lineStyle: {
+                color: 'rgba(239, 241, 244, .2)'
+              }
+            },
+            splitArea: {
+              show: true,
+              areaStyle: {
+                color: ['rgba(239, 241, 244, .5)', '#FFF']
               }
             }
           },
           {
-            max: '55000',
-            splitLine: { show: false },
-            axisLine: {
-              lineStyle: {
-                color: colors[2]
-              }
-            },
             axisLabel: {
-              formatter: '{value} 条'
+              formatter: params => {
+                return `${params / 1000}K`
+              }
             },
             axisPointer: {
               label: {
                 formatter: '{value} 条'
               }
+            },
+            axisTick: {
+              show: false
+            },
+            splitLine: {
+              show: false
+            },
+            splitArea: {
+              show: false
             }
           }
         ],
         series: [
           {
             name: '职位招聘数量',
-            type: 'line',
+            type: 'bar',
             smooth: true,
             showAllSymbol: true,
             symbol: 'emptyCircle',
             symbolSize: 8,
             yAxisIndex: 1,
+            barWidth: '27',
             data: categoryData
           },
           {
             name: '大专及以下',
-            type: 'bar',
-            data: JCBarData
+            data: JCBarData,
+            type: 'line',
+            smooth: true,
+            showAllSymbol: true,
+            symbol: 'emptyCircle',
+            symbolSize: 3,
+            yAxisIndex: 1,
+            color: '#67C23A', //线条样式
+            areaStyle: {
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: 'rgba(217, 236, 255, .3)'
+                  },
+
+                  {
+                    offset: 1,
+                    color: 'rgba(217, 236, 255, .3)'
+                  }
+                ],
+                global: false, // 缺省为 false
+                opacity: 0.1
+              }
+            }
           },
           {
             name: '本科及以上',
-            type: 'bar',
-            data: RCCBarData
+            data: RCCBarData,
+            type: 'line',
+            color: '#F56C6C',
+            smooth: true,
+            showAllSymbol: true,
+            symbol: 'emptyCircle',
+            symbolSize: 3
           }
         ]
       }
@@ -158,9 +198,18 @@ export default {
 }
 </script>
 
-<style lang="scss" spoce>
-.echart {
+<style lang="scss" scoped>
+@import '~@/styles/index.scss';
+.edu-pos-container {
   width: 100%;
   height: 100%;
+  position: relative;
+  .chart {
+    width: 100%;
+    height: 100%;
+  }
+  .title {
+    @include title-line($pos-top: 6px, $pos-left: 33px, $font-size: 16px);
+  }
 }
 </style>

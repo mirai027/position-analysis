@@ -5,260 +5,164 @@
   "data": {
     "position": [
       {
-        "name": "Java",
+        "name": "前端开发",
         "value": 6200
       },
       {
-        "name": "C++",
+        "name": "测试",
         "value": 6000
       },
       {
-        "name": "PHP",
+        "name": "人工智能",
         "value": 7000
       },
       {
-        "name": "数据挖掘",
+        "name": "移动前端开发",
         "value": 8000
       },
       {
-        "name": "搜索算法",
+        "name": "运维",
         "value": 9000
       },
       {
-        "name": "精准推荐",
+        "name": "数据开发",
         "value": 10000
       },
       {
-        "name": "C",
-        "value": 11800
-      },
-      {
-        "name": "C#",
+        "name": "后端开发",
         "value": 25000
       },
       {
-        "name": "全栈工程师",
+        "name": "高端技术职位",
         "value": 28000
       },
       {
-        "name": ".NET",
+        "name": "项目管理",
         "value": 33000
       },
       {
-        "name": "Hadoop",
+        "name": "硬件开发",
         "value": 36400
       },
       {
-        "name": "Python",
+        "name": "企业软件",
         "value": 38900
       },
       {
-        "name": "Delphi",
+        "name": "产品经理",
         "value": 40500
       },
       {
-        "name": "VB",
+        "name": "运营",
         "value": 46600
-      },
-      {
-        "name": "Perl",
-        "value": 6200
-      },
-      {
-        "name": "Ruby",
-        "value": 6000
-      },
-      {
-        "name": "Node.js",
-        "value": 7000
-      },
-      {
-        "name": "Go",
-        "value": 8000
-      },
-      {
-        "name": "ASP",
-        "value": 9000
-      },
-      {
-        "name": "Shell",
-        "value": 10000
-      },
-      {
-        "name": "区块链",
-        "value": 11800
       }
     ],
     "jc": [
       {
-        "name": "Java",
+        "name": "前端开发",
         "value": 1600
       },
       {
-        "name": "C++",
+        "name": "测试",
         "value": 1000
       },
       {
-        "name": "PHP",
+        "name": "人工智能",
         "value": 1500
       },
       {
-        "name": "数据挖掘",
+        "name": "移动前端开发",
         "value": 1500
       },
       {
-        "name": "搜索算法",
+        "name": "运维",
         "value": 1500
       },
       {
-        "name": "精准推荐",
+        "name": "数据开发",
         "value": 1500
       },
       {
-        "name": "C",
-        "value": 1900
-      },
-      {
-        "name": "C#",
+        "name": "后端开发",
         "value": 12500
       },
       {
-        "name": "全栈工程师",
+        "name": "高端技术职位",
         "value": 14000
       },
       {
-        "name": ".NET",
+        "name": "项目管理",
         "value": 11500
       },
       {
-        "name": "Hadoop",
+        "name": "硬件开发",
         "value": 13200
       },
       {
-        "name": "Python",
+        "name": "企业软件",
         "value": 14450
       },
       {
-        "name": "Delphi",
+        "name": "产品经理",
         "value": 15250
       },
       {
-        "name": "VB",
+        "name": "运营",
         "value": 13300
-      },
-      {
-        "name": "Perl",
-        "value": 1600
-      },
-      {
-        "name": "Ruby",
-        "value": 1000
-      },
-      {
-        "name": "Node.js",
-        "value": 1500
-      },
-      {
-        "name": "Go",
-        "value": 1500
-      },
-      {
-        "name": "ASP",
-        "value": 1500
-      },
-      {
-        "name": "Shell",
-        "value": 1500
-      },
-      {
-        "name": "区块链",
-        "value": 1900
       }
     ],
     "rcc": [
       {
-        "name": "Java",
+        "name": "前端开发",
         "value": 4600
       },
       {
-        "name": "C++",
+        "name": "测试",
         "value": 5000
       },
       {
-        "name": "PHP",
+        "name": "人工智能",
         "value": 5500
       },
       {
-        "name": "数据挖掘",
+        "name": "移动前端开发",
         "value": 6500
       },
       {
-        "name": "搜索算法",
+        "name": "运维",
         "value": 7500
       },
       {
-        "name": "精准推荐",
+        "name": "数据开发",
         "value": 8500
       },
       {
-        "name": "C",
-        "value": 9900
-      },
-      {
-        "name": "C#",
+        "name": "后端开发",
         "value": 12500
       },
       {
-        "name": "全栈工程师",
+        "name": "高端技术职位",
         "value": 14000
       },
       {
-        "name": ".NET",
+        "name": "项目管理",
         "value": 21500
       },
       {
-        "name": "Hadoop",
+        "name": "硬件开发",
         "value": 23200
       },
       {
-        "name": "Python",
+        "name": "企业软件",
         "value": 24450
       },
       {
-        "name": "Delphi",
+        "name": "产品经理",
         "value": 25250
       },
       {
-        "name": "VB",
+        "name": "运营",
         "value": 33300
-      },
-      {
-        "name": "Perl",
-        "value": 4600
-      },
-      {
-        "name": "Ruby",
-        "value": 5000
-      },
-      {
-        "name": "Node.js",
-        "value": 5500
-      },
-      {
-        "name": "Go",
-        "value": 6500
-      },
-      {
-        "name": "ASP",
-        "value": 7500
-      },
-      {
-        "name": "Shell",
-        "value": 8500
-      },
-      {
-        "name": "区块链",
-        "value": 9900
       }
     ]
   }

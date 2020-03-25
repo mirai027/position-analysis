@@ -265,7 +265,7 @@ export default {
 }
 </style>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .el-popover {
   width: auto !important;
 }

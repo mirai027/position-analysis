@@ -1,6 +1,6 @@
 <template>
   <div class="wordcloud-container">
-    <div ref="wordcloudChart" class="chart2" />
+    <div ref="wordcloudChart" class="chart" />
   </div>
 </template>
 
@@ -72,12 +72,12 @@ export default {
 }
 </script>
 
-<style lang="scss" spoce>
+<style lang="scss" scoped>
 .wordcloud-container {
   width: 100%;
   height: 100%;
   position: relative;
-  .chart2 {
+  .chart {
     width: 100%;
     height: 100%;
   }

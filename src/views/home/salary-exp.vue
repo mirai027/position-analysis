@@ -200,7 +200,7 @@ export default {
 }
 </script>
 
-<style lang="scss" spoce>
+<style lang="scss" scoped>
 .echart {
   width: 100%;
   height: 100%;

@@ -1,7 +1,7 @@
 <template>
   <div class="date-trend-container">
     <div ref="update" class="chart"></div>
-    <p class="title">企业规模统计</p>
+    <p class="title">全国招聘职位趋势图</p>
   </div>
 </template>
 
@@ -135,7 +135,7 @@ export default {
         },
         yAxis: [
           {
-            position: 'left',
+            // position: 'right',
             axisLabel: {
               formatter: '{value} 条'
             },
@@ -199,7 +199,7 @@ export default {
             showAllSymbol: true,
             symbol: 'emptyCircle',
             symbolSize: 3,
-            yAxisIndex: 1,
+            yAxisIndex: 0,
             color: '#409EFF', //线条样式
             areaStyle: {
               color: {
@@ -232,7 +232,8 @@ export default {
             smooth: true,
             showAllSymbol: true,
             symbol: 'emptyCircle',
-            symbolSize: 3
+            symbolSize: 3,
+            yAxisIndex: 1
           }
         ]
       }
@@ -254,9 +255,11 @@ export default {
 }
 </script>
 
-<style lang="scss" spoce>
+<style lang="scss" scoped>
 @import '~@/styles/index.scss';
 .date-trend-container {
+  width: 100%;
+  height: 100%;
   position: relative;
   .chart {
     width: 100%;

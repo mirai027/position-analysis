@@ -120,7 +120,7 @@ export default {
 }
 </script>
 
-<style lang="scss" spoce>
+<style lang="scss" scoped>
 @import '~@/styles/index.scss';
 // $main-text-color: red;
 .company-size {

@@ -1,7 +1,18 @@
 <template>
   <div class="main-index">
-    <!-- <div class="map"></div> -->
-    <dateTrend class="date-trend" />
+    <div class="row row-map">
+      <div class="map-left">
+        <mapTem />
+      </div>
+      <div class="map-right">
+        <mapRightTop class="map-right-top" />
+        <edu-pos class="edu-pos" />
+      </div>
+    </div>
+    <div class="date-trend">
+      <dateTrend />
+    </div>
+    <!-- <dateTrend class="date-trend" /> -->
     <position class="position" />
     <!-- <div class="edu-pos"></div> -->
     <!-- <div class="salary-exp"></div> -->
@@ -15,23 +26,27 @@
 </template>
 
 <script>
-// import map2 from './map'
+import mapTem from './map'
 import position from './position'
 // import salaryExp from './salary-exp'
 import companySize from './company-size'
 import benefit from './benefit'
 import dateTrend from './date-trend'
+import eduPos from './edu-pos'
+import mapRightTop from './map-right-top'
 // import { mapGetters } from 'vuex'
 // import debounce from '@/utils/debounce.js'
 export default {
   components: {
     // eduPos: () => import('./edu-pos'),
-    // map2,
+    mapTem,
     position,
     // salaryExp,
     companySize,
     benefit,
-    dateTrend
+    dateTrend,
+    eduPos,
+    mapRightTop
   },
   computed: {
     // ...mapGetters(['gChartDOM'])
@@ -46,7 +61,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 @import '~@/styles/index.scss';
 .main-index {
   width: auto;
@@ -56,14 +71,17 @@ export default {
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
+
   .date-trend {
     width: auto;
     height: 400px;
     background: #fff;
+    // 有坑，但不知道怎么解决
+    // overflow: hidden;
   }
   .position {
     width: auto;
-    height: auto;
+    // height: auto;
     padding: 20px;
     background: #fff;
     margin: 15px 0;
@@ -84,6 +102,32 @@ export default {
       margin-left: 7px;
       overflow: hidden;
     }
+    .map-left {
+      width: 600px;
+      height: 500px;
+      background: #fff;
+      // margin-right: 7px;
+      overflow: hidden;
+    }
+    .map-right {
+      width: calc(100% - 607px);
+      height: 500px;
+      // margin-left: 7px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      .map-right-top {
+        width: auto;
+        height: 140px;
+        // background: red;
+      }
+      .edu-pos {
+        width: 100%;
+      }
+    }
+  }
+  .row-map {
+    margin-bottom: 15px;
   }
 }
 </style>
