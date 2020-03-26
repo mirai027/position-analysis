@@ -9,11 +9,11 @@ const chartDOM = {
   },
   actions: {
     setChartDOM({ commit }, chartDOM) {
-      return commit('GET_CHART_DOM', chartDOM)
+      commit('GET_CHART_DOM', chartDOM)
     }
   },
   getters: {
-    gChartDOM: state => state.chartDOM
+    chartDOM: state => state.chartDOM
   }
 }
 export default chartDOM

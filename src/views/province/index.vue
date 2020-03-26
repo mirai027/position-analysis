@@ -1,34 +1,22 @@
 <template>
   <div class="main-index">
-    <map2 />
-    <salary-exp />
-    <companySize />
-    <benefit />
+    我系茵蒂克丝
   </div>
 </template>
 
 <script>
-import map2 from './map'
-import salaryExp from './salary-exp'
-import companySize from './company-size'
-import benefit from './benefit'
 export default {
-  components: {
-    map2,
-    salaryExp,
-    companySize,
-    benefit
-  },
-  mounted() {
-  }
+  components: {},
+  mounted() {}
 }
 </script>
 
 <style lang="scss" scope>
 @import '~@/styles/index.scss';
 .main-index {
-  @include max-screen();
-  overflow: hidden;
-  overflow-y: scroll;
+  width: auto;
+  padding: 10px;
+  overflow: auto;
+  overflow-x: hidden;
 }
 </style>

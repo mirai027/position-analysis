@@ -1,107 +1,27 @@
 <template>
   <div id="app">
-    <el-menu
-      default-active="1-4-1"
-      class="el-menu-vertical-demo"
-      :collapse="isCollapse"
-    >
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-house"></i>
-          <span slot="title">首页</span>
-        </template>
-        <el-menu-item-group>
-          <span slot="title">分组一</span>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-      <el-submenu index="2">
-        <template slot="title">
-          <i class="el-icon-position"></i>
-          <span slot="title">茵蒂克丝</span>
-        </template>
-        <el-menu-item-group>
-          <span slot="title">分组一</span>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-      <el-submenu index="3">
-        <template slot="title">
-          <i class="el-icon-date"></i>
-          <span slot="title">时间刻度</span>
-        </template>
-        <el-menu-item-group>
-          <span slot="title">分组一</span>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-      <el-submenu index="4">
-        <template slot="title">
-          <i class="el-icon-toilet-paper"></i>
-          <span slot="title">职位分析</span>
-        </template>
-        <el-menu-item-group>
-          <span slot="title">分组一</span>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-    </el-menu>
+    <sidebar class="el-menu-vertical-demo" />
     <div class="container">
-      <div class="nav">
-        <img
-          ref="close"
-          class="close-nav"
-          src="@/assets/close.svg"
-          @click="handleClose"
-        />
-        <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
-          <el-breadcrumb-item :to="{ path: '/province' }">
-            首页
-          </el-breadcrumb-item>
-          <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-          <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-          <el-breadcrumb-item>活动详情</el-breadcrumb-item>
-        </el-breadcrumb>
-      </div>
+      <Navbar class="nav" />
       <router-view class="view" />
     </div>
   </div>
 </template>
 
 <script>
-// import debounce from '@/utils/debounce.js'
-import { mapGetters } from 'vuex'
+import Sidebar from './views/components/Sidebar/index'
+import Navbar from './views/components/Navbar/index'
 export default {
+  components: {
+    Sidebar,
+    Navbar
+  },
   data() {
-    return {
-      isCollapse: false,
-      withoutAnimation: false
-    }
+    return {}
   },
-  computed: {
-    ...mapGetters(['gChartDOM'])
-  },
+  computed: {},
   watch: {},
-  methods: {
-    handleClose(key, keyPath) {
-      let num = 0
-      this.isCollapse && (num = 180)
-      this.$refs.close.style.transform = `rotate(${num}deg)`
-      this.isCollapse = !this.isCollapse
-      setTimeout(() => {
-        this.gChartDOM.forEach(ele => {
-          ele.resize()
-        })
-      }, 800)
-    }
-  }
+  methods: {}
 }
 </script>
 
@@ -113,18 +33,9 @@ export default {
   height: 100vh;
   display: flex;
   overflow: hidden;
-  .el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px;
-  }
-  .el-menu-vertical-demo:not(.el-menu--collapse) .el-submenu__title {
-    width: 200px;
-  }
   .el-menu-vertical-demo {
     height: 100%;
     overflow: auto;
-  }
-  .el-menu-vertical-demo::-webkit-scrollbar {
-    width: 0;
   }
   .container {
     // width: 1200px;

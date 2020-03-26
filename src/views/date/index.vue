@@ -1,5 +1,7 @@
 <template>
-  <div>date</div>
+  <div class="main-index">
+    我是时间刻度
+  </div>
 </template>
 
 <script>
@@ -10,4 +12,12 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scope>
+@import '~@/styles/index.scss';
+.main-index {
+  width: auto;
+  padding: 10px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+</style>

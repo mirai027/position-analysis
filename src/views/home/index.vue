@@ -65,7 +65,7 @@ export default {
 @import '~@/styles/index.scss';
 .main-index {
   width: auto;
-  background: #ff0;
+  // background: #ff0;
   padding: 10px;
   overflow: auto;
   overflow-x: hidden;
