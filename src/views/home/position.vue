@@ -1,5 +1,5 @@
 <template>
-  <div class="position">
+  <div class="position-container">
     <div class="left-container">
       <el-row :gutter="12" class="top">
         <el-col :span="8" class="box">
@@ -130,11 +130,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.position {
-  width: 100%;
-  height: 100%;
+.position-container {
+  width: auto;
+  height: auto;
   display: flex;
   position: relative;
+  padding: 20px;
   .left-container {
     width: 70%;
     position: relative;

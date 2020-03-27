@@ -1,5 +1,5 @@
 <template>
-  <div class="company-size">
+  <div class="company-size-container">
     <div ref="companySizeChart" class="chart" />
     <p class="title">企业规模统计</p>
   </div>
@@ -123,7 +123,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@/styles/index.scss';
 // $main-text-color: red;
-.company-size {
+.company-size-container {
   width: 100%;
   height: 100%;
   position: relative;

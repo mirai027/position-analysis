@@ -3,7 +3,9 @@
     <sidebar class="el-menu-vertical-demo" />
     <div class="container">
       <Navbar class="nav" />
-      <router-view class="view" />
+      <div class="view">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
@@ -47,19 +49,8 @@ export default {
     flex-direction: column;
     position: relative;
     .nav {
-      height: 40px;
-      display: flex;
-      align-items: center;
-      border-bottom: solid 1px #e6e6e6;
-      .close-nav {
-        width: 20px;
-        cursor: pointer;
-        margin: 0 20px;
-        transition: all 0.5s;
-      }
-      .breadcrumb {
-        font-size: 14px;
-      }
+      height: 39px;
+      border-bottom: solid 1px #eff1f4;
     }
     .view {
       position: absolute;
@@ -68,6 +59,7 @@ export default {
       bottom: 0;
       left: 0;
       background: #eff1f4;
+      overflow: hidden;
     }
   }
 }

@@ -34,8 +34,8 @@ export default {
         this.chartDOM.forEach(ele => {
           ele.resize()
         })
-      }, 200)
-    })
+      }, 1200)
+    }, 10)
   }
 }
 </script>

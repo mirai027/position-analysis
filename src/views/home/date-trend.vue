@@ -1,7 +1,7 @@
 <template>
   <div class="date-trend-container">
-    <div ref="update" class="chart"></div>
     <p class="title">全国招聘职位趋势图</p>
+    <div ref="update" class="chart"></div>
   </div>
 </template>
 
@@ -255,7 +255,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~@/styles/index.scss';
 .date-trend-container {
   width: 100%;

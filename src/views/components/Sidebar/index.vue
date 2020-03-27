@@ -1,6 +1,6 @@
 <template>
   <el-menu
-    default-active="1-1"
+    default-active="1-0"
     class="el-menu-vertical-demo"
     :collapse="toggleSidebar"
   >
@@ -9,14 +9,14 @@
         <i class="el-icon-house"></i>
         <span slot="title">首页</span>
       </template>
-      <el-menu-item-group>
-        <span slot="title">分组一</span>
-        <el-menu-item index="1-1">选项1</el-menu-item>
-        <el-menu-item index="1-2">选项2</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group title="分组2">
-        <el-menu-item index="1-3">选项3</el-menu-item>
-      </el-menu-item-group>
+      <el-menu-item
+        v-for="(item, idx) in pagePoint"
+        :key="idx"
+        :index="`1-${idx}`"
+        class="mirai-menu-item"
+        @click="handlePointIdx(idx)"
+        >{{ item.title }}</el-menu-item
+      >
     </el-submenu>
     <el-submenu index="2">
       <template slot="title">
@@ -61,9 +61,21 @@ export default {
     return {}
   },
   computed: {
-    ...mapGetters(['toggleSidebar'])
+    ...mapGetters(['toggleSidebar', 'pagePoint'])
   },
-  mounted() {}
+  watch: {
+    pagePoint: {
+      handler() {
+        console.log(this.pagePoint)
+      }
+    }
+  },
+  mounted() {},
+  methods: {
+    handlePointIdx(idx) {
+      this.$store.dispatch('pagePointIdx', idx)
+    }
+  }
 }
 </script>
 

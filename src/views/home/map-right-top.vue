@@ -108,7 +108,6 @@ export default {
         if (el.isSelect) {
           count += el.num
         }
-        console.log(el)
       })
       this.pctNum[pctAllIdx].num = count / 100
     }
