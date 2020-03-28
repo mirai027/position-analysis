@@ -2,7 +2,7 @@
   <div class="view-container">
     <div class="main-index">
       我系茵蒂克丝
-      <div class="test" style="width:auto;height: 9999px;background: red"></div>
+      <router-view />
     </div>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
   overflow-x: hidden;
   scroll-behavior: smooth;
   .main-index {
-    height: 6000px;
+    height: auto;
     padding: 10px;
   }
 }

@@ -1,6 +1,7 @@
 <template>
   <el-menu
-    default-active="1-0"
+    ref="sidebarMenu"
+    :default-active="$route.path"
     class="el-menu-vertical-demo"
     :collapse="toggleSidebar"
   >
@@ -10,46 +11,31 @@
         <span slot="title">首页</span>
       </template>
       <el-menu-item
-        v-for="(item, idx) in pagePoint"
+        v-for="(item, idx) in homeRoutes"
         :key="idx"
         :index="`1-${idx}`"
         class="mirai-menu-item"
         @click="handlePointIdx(idx)"
-        >{{ item.title }}</el-menu-item
+        >{{ item }}</el-menu-item
       >
     </el-submenu>
-    <el-submenu index="2">
+    <el-submenu
+      v-for="route in routes"
+      :key="route.path"
+      :index="`${route.path}`"
+    >
       <template slot="title">
-        <i class="el-icon-position"></i>
-        <span slot="title">茵蒂克丝</span>
+        <i :class="route.meta.icon"></i>
+        <span slot="title">{{ route.meta.title }}</span>
       </template>
-      <el-menu-item-group>
-        <span slot="title">分组一</span>
-        <el-menu-item index="2-1">选项1</el-menu-item>
-        <el-menu-item index="2-2">选项2</el-menu-item>
-      </el-menu-item-group>
-    </el-submenu>
-    <el-submenu index="3">
-      <template slot="title">
-        <i class="el-icon-date"></i>
-        <span slot="title">时间刻度</span>
-      </template>
-      <el-menu-item-group>
-        <span slot="title">分组一</span>
-        <el-menu-item index="3-1">选项1</el-menu-item>
-        <el-menu-item index="3-2">选项2</el-menu-item>
-      </el-menu-item-group>
-    </el-submenu>
-    <el-submenu index="4">
-      <template slot="title">
-        <i class="el-icon-toilet-paper"></i>
-        <span slot="title">职位分析</span>
-      </template>
-      <el-menu-item-group>
-        <span slot="title">分组一</span>
-        <el-menu-item index="4-1">选项1</el-menu-item>
-        <el-menu-item index="4-2">选项2</el-menu-item>
-      </el-menu-item-group>
+      <el-menu-item
+        v-for="child in route.children"
+        :key="child.path"
+        :index="`${child.path}`"
+        @click="$router.push(child.path)"
+      >
+        {{ child.meta.title }}
+      </el-menu-item>
     </el-submenu>
   </el-menu>
 </template>
@@ -58,22 +44,98 @@
 import { mapGetters } from 'vuex'
 export default {
   data() {
-    return {}
+    return {
+      homeRoutes: [
+        '全国省份信息',
+        '招聘数据趋势',
+        '职位招聘信息',
+        '企业规模-薪资福利'
+      ],
+      routes: [
+        {
+          path: '/province',
+          name: 'Province',
+          meta: {
+            title: '茵蒂克丝',
+            icon: 'el-icon-position'
+          },
+          children: [
+            {
+              path: '/province/test1',
+              name: 'Test1',
+              meta: { title: '测试一' }
+            },
+            {
+              path: '/province/test2',
+              name: 'Test2',
+              meta: { title: '测试二' }
+            }
+          ]
+        },
+        {
+          path: '/date',
+          name: 'Date',
+          meta: {
+            title: '时间刻度',
+            icon: 'el-icon-date'
+          },
+          children: [
+            {
+              path: '/date/test1',
+              name: 'Test1',
+              meta: { title: '测试一' }
+            },
+            {
+              path: '/date/test2',
+              name: 'Test2',
+              meta: { title: '测试二' }
+            }
+          ]
+        },
+        {
+          path: '/position',
+          name: 'Position',
+          meta: {
+            title: '职位分析',
+            icon: 'el-icon-toilet-paper'
+          },
+          children: [
+            {
+              path: '/position/test1',
+              name: 'Test1',
+              meta: { title: '测试一' }
+            },
+            {
+              path: '/position/test2',
+              name: 'Test2',
+              meta: { title: '测试二' }
+            }
+          ]
+        }
+      ]
+    }
   },
   computed: {
-    ...mapGetters(['toggleSidebar', 'pagePoint'])
+    ...mapGetters(['toggleSidebar'])
   },
   watch: {
-    pagePoint: {
-      handler() {
-        console.log(this.pagePoint)
+    $route() {
+      if (this.$route.name === 'Home') {
+        this.$refs.sidebarMenu.open('1')
       }
     }
   },
   mounted() {},
   methods: {
     handlePointIdx(idx) {
-      this.$store.dispatch('pagePointIdx', idx)
+      if (this.$route.path === '/') {
+        this.$store.dispatch('pagePointIdx', idx)
+      } else {
+        this.$router.push('/')
+        setTimeout(() => {
+          this.$store.dispatch('pagePointIdx', idx)
+        }, 1200)
+      }
     }
   }
 }
@@ -92,5 +154,15 @@ export default {
 }
 .el-menu-vertical-demo::-webkit-scrollbar {
   width: 0;
+}
+// .el-menu-item:focus,
+// .el-menu-item:hover {
+//   background-color: transparent !important;
+// }
+.mirai-menu-item:hover {
+  background-color: #ecf5ff !important;
+}
+.mirai-menu-item-active {
+  background-color: #ecf5ff !important;
 }
 </style>

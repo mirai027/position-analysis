@@ -2,7 +2,7 @@
   <div class="view-container">
     <div class="main-index">
       <div class="row row-map magical-point">
-        <div class="mirai-point-title">我系描点一</div>
+        <div class="mirai-point-title">全国省份信息</div>
         <div class="map-left">
           <mapTem />
         </div>
@@ -12,15 +12,15 @@
         </div>
       </div>
       <div class="date-trend magical-point">
-        <div class="mirai-point-title">我系描点二</div>
+        <div class="mirai-point-title">招聘数据趋势</div>
         <dateTrend />
       </div>
       <div class="position magical-point">
-        <div class="mirai-point-title">我系描点三</div>
+        <div class="mirai-point-title">职位招聘信息</div>
         <position />
       </div>
       <div class="row magical-point">
-        <div class="mirai-point-title">我系描点四</div>
+        <div class="mirai-point-title">企业规模-薪资福利</div>
         <companySize class="company-size" />
         <benefit class="benefit" />
       </div>
@@ -38,7 +38,7 @@ import dateTrend from './date-trend'
 import eduPos from './edu-pos'
 import mapRightTop from './map-right-top'
 import { mapGetters } from 'vuex'
-// import debounce from '@/utils/debounce.js'
+import debounce from '@/utils/debounce.js'
 export default {
   components: {
     // eduPos: () => import('./edu-pos'),
@@ -58,44 +58,52 @@ export default {
     pagePointIdx: {
       handler() {
         // console.log(12112)
+        const point = this.getPointLocation()
         const viewContainer = document.querySelector('.view-container')
-        viewContainer.scrollTop =
-          this.pagePoint[this.pagePointIdx.idx].location - 10
+        viewContainer.scrollTop = point[this.pagePointIdx.idx].location - 10
       },
       deep: true
     }
   },
   mounted() {
+    //   .querySelectorAll('.mirai-menu-item')[0]
+    //   .classList.add('is-active', 'mirai-menu-item-active')
+
     /**
      * 因为滚动条是属于组件内部的，所以不能直接监听 window的 scroll。请监听真正事件滚动的 .view-container
      * scrollTop获取当前滚动条的位置
      * 每次滚动循环 Vuex中 pagePoint里每个描点所存的位置 location，判断 scrollTop值是否小于描点的位置值。如果为 true,则代表当前滚动位置属于此描点位置，获取其 index
      * 为避免污染其他侧栏的 class类，添加 miraiMenuItem为自定义添加的侧栏导航 item类。每次滚动设置侧栏中添加了miraiMenuItem类的 item的类为默认值 'el-menu-item mirai-menu-item'。
      * 为 miraiMenuItem类中的第[index]个添加 elementui默认选中类 'is-active'
+     * 为方便滚动时控制样式，重写（覆盖）了 elementui中原始的 fouse, hover的样式。
      */
     const viewContainer = document.querySelector('.view-container')
-    viewContainer.addEventListener('scroll', () => {
-      const scrollTop = viewContainer.scrollTop
-      const miraiMenuItem = document.querySelectorAll('.mirai-menu-item')
-      for (let index = 0; index < this.pagePoint.length; index++) {
-        miraiMenuItem.forEach(element => {
-          element.className = 'el-menu-item mirai-menu-item'
-        })
-        const { location } = this.pagePoint[index]
-        if (scrollTop <= location) {
-          miraiMenuItem[index].classList.add('is-active')
-          return
-        }
-      }
-    })
+    viewContainer.addEventListener(
+      'scroll',
+      debounce(this.selectPointIndex, 200)
+    )
+    this.selectPointIndex()
 
-    /**
-     * 临时性处理滚动联动
-     * .magical-point 为唯一获取描点位置的类
-     * .mirai-point-title 为描点文字，对应侧栏和顶部面包屑的标题
-     * 获取到所有描点的位置和标题后，提交到vuex中，侧栏监听 pagePoint的变化来生成对应的侧栏子项
-     */
-    this.$nextTick(() => {
+    // this.$store.dispatch('pagePoint', point)
+    console.log(this.getPointLocation())
+  },
+  activated() {},
+  deactivated() {
+    // 因为在mounted中使用了 selectPointIndex方法，导致选中的 item会一直用用 is-active样式。所以在离开组件时重置样式
+    const miraiMenuItem = document.querySelectorAll('.mirai-menu-item')
+    miraiMenuItem.forEach(element => {
+      element.className = 'el-menu-item mirai-menu-item'
+    })
+  },
+  updated() {},
+  methods: {
+    getPointLocation() {
+      /**
+       * 临时性处理滚动联动
+       * .magical-point 为唯一获取描点位置的类
+       * .mirai-point-title 为描点文字，对应侧栏和顶部面包屑的标题
+       * 获取到所有描点的位置和标题后，提交到vuex中，侧栏监听 pagePoint的变化来生成对应的侧栏子项
+       */
       const pointListLoc = []
       const pointListTitle = []
       document.querySelectorAll('.magical-point').forEach(el => {
@@ -111,14 +119,26 @@ export default {
           title: pointListTitle[idx]
         })
       })
-      this.$store.dispatch('pagePoint', point)
-    })
-  },
-  activated() {},
-  updated() {
-    console.log(1233123123211111111111111111)
-  },
-  methods: {}
+      return point
+    },
+    selectPointIndex() {
+      const viewContainer = document.querySelector('.view-container')
+      const point = this.getPointLocation()
+      const scrollTop = viewContainer.scrollTop
+      const miraiMenuItem = document.querySelectorAll('.mirai-menu-item')
+      for (let index = 0; index < point.length; index++) {
+        miraiMenuItem.forEach(element => {
+          element.className = 'el-menu-item mirai-menu-item'
+        })
+        const { location } = point[index]
+        if (scrollTop <= location) {
+          miraiMenuItem[index].classList.add('is-active')
+          this.$store.dispatch('pagePointTitle', point[index].title)
+          return
+        }
+      }
+    }
+  }
 }
 </script>
 

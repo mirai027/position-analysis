@@ -4,7 +4,9 @@
     <div class="container">
       <Navbar class="nav" />
       <div class="view">
-        <router-view />
+        <keep-alive>
+          <router-view />
+        </keep-alive>
       </div>
     </div>
   </div>

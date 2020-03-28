@@ -6,13 +6,33 @@
       src="@/assets/close.svg"
       @click="handleToggle"
     />
-    <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
-      <el-breadcrumb-item :to="{ path: '/province' }">
-        首页
-      </el-breadcrumb-item>
-      <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-      <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-      <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+    <el-breadcrumb
+      v-if="$route.name"
+      separator-class="el-icon-arrow-right"
+      class="breadcrumb"
+    >
+      <!-- 曲线救国，特殊对待 -->
+      <transition-group v-if="$route.name === 'Home'" name="breadcrumb">
+        <el-breadcrumb-item :key="$route.matched[0].path" class="main-title">
+          {{ $route.matched[0].meta.title }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item
+          v-show="homeAni"
+          :key="$route.path"
+          class="info-title"
+        >
+          {{ pagePointTitle }}
+        </el-breadcrumb-item>
+      </transition-group>
+
+      <transition-group v-else name="breadcrumb">
+        <el-breadcrumb-item :key="$route.matched[0].path" class="main-title">
+          {{ $route.matched[0].meta.title }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item :key="$route.path" class="info-title">
+          {{ $route.meta.title }}
+        </el-breadcrumb-item>
+      </transition-group>
     </el-breadcrumb>
   </div>
 </template>
@@ -22,11 +42,25 @@ import { mapGetters } from 'vuex'
 import debounce from '@/utils/debounce.js'
 export default {
   data() {
-    return {}
+    return {
+      routeWatch: '',
+      homeAni: true
+    }
   },
   computed: {
-    ...mapGetters(['toggleSidebar', 'chartDOM'])
+    ...mapGetters(['toggleSidebar', 'chartDOM', 'pagePointTitle'])
   },
+  watch: {
+    $route(to, from) {},
+    pagePointTitle() {
+      // 曲线救国方法，因为仅字符串变化无法触发动画。所以......
+      this.homeAni = false
+      setTimeout(() => {
+        this.homeAni = true
+      }, 10)
+    }
+  },
+  mounted() {},
   methods: {
     handleToggle: debounce(function() {
       this.$store.dispatch('toggleSideBar')
@@ -55,9 +89,37 @@ export default {
   }
   .breadcrumb {
     font-size: 14px;
+    .main-title span {
+      color: #303133;
+    }
+    .info-title span {
+      color: #909399;
+    }
   }
   .navbar-active {
     transform: rotate(180deg);
   }
+}
+</style>
+
+<style lang="scss">
+/* breadcrumb transition */
+.breadcrumb-enter-active,
+.breadcrumb-leave-active {
+  transition: all 0.5s;
+}
+
+.breadcrumb-enter,
+.breadcrumb-leave-active {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.breadcrumb-move {
+  transition: all 0.5s;
+}
+
+.breadcrumb-leave-active {
+  position: absolute;
 }
 </style>

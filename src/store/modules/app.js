@@ -5,7 +5,8 @@ const app = {
     pagePointIdx: {
       idx: 0,
       status: true
-    }
+    },
+    pagePointTitle: ''
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
@@ -24,6 +25,9 @@ const app = {
       // let { idx, status } = state.pagePointIdx
       // idx = index
       // status = !status
+    },
+    PAGE_POINT_TITLE: (state, title) => {
+      state.pagePointTitle = title
     }
   },
   actions: {
@@ -35,12 +39,16 @@ const app = {
     },
     pagePointIdx({ commit }, index) {
       commit('PAGE_POINT_IDX', index)
+    },
+    pagePointTitle({ commit }, title) {
+      commit('PAGE_POINT_TITLE', title)
     }
   },
   getters: {
     toggleSidebar: state => state.toggleSidebar,
     pagePoint: state => state.pagePoint,
-    pagePointIdx: state => state.pagePointIdx
+    pagePointIdx: state => state.pagePointIdx,
+    pagePointTitle: state => state.pagePointTitle
   }
 }
 export default app
