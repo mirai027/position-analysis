@@ -93,6 +93,7 @@ export default {
     const miraiMenuItem = document.querySelectorAll('.mirai-menu-item')
     miraiMenuItem.forEach(element => {
       element.className = 'el-menu-item mirai-menu-item'
+      element.style.backgroundColor = '#FFF'
     })
   },
   updated() {},
@@ -129,10 +130,12 @@ export default {
       for (let index = 0; index < point.length; index++) {
         miraiMenuItem.forEach(element => {
           element.className = 'el-menu-item mirai-menu-item'
+          element.style.backgroundColor = '#FFF'
         })
         const { location } = point[index]
         if (scrollTop <= location) {
           miraiMenuItem[index].classList.add('is-active')
+          miraiMenuItem[index].style.backgroundColor = '#ecf5ff'
           this.$store.dispatch('pagePointTitle', point[index].title)
           return
         }
