@@ -6,7 +6,7 @@ const app = {
       idx: 0,
       status: true
     },
-    pagePointTitle: ''
+    pagePointTitle: []
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
@@ -27,7 +27,10 @@ const app = {
       // status = !status
     },
     PAGE_POINT_TITLE: (state, title) => {
-      state.pagePointTitle = title
+      state.pagePointTitle.splice(0, 1)
+      setTimeout(() => {
+        state.pagePointTitle.push(title)
+      }, 300)
     }
   },
   actions: {

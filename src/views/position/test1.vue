@@ -1,6 +1,6 @@
 <template>
   <div>
-    date测试一
+    position测试一
   </div>
 </template>
 

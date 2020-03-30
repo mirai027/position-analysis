@@ -17,12 +17,15 @@
           {{ $route.matched[0].meta.title }}
         </el-breadcrumb-item>
         <el-breadcrumb-item
-          v-show="homeAni"
-          :key="$route.path"
+          v-for="item in pagePointTitle"
+          :key="item"
           class="info-title"
         >
-          {{ pagePointTitle }}
+          {{ item }}
         </el-breadcrumb-item>
+        <!-- <el-breadcrumb-item v-for="item in test" :key="item">
+          {{ item }}
+        </el-breadcrumb-item> -->
       </transition-group>
 
       <transition-group v-else name="breadcrumb">
@@ -43,8 +46,7 @@ import debounce from '@/utils/debounce.js'
 export default {
   data() {
     return {
-      routeWatch: '',
-      homeAni: true
+      routeWatch: ''
     }
   },
   computed: {
@@ -52,13 +54,7 @@ export default {
   },
   watch: {
     $route(to, from) {},
-    pagePointTitle() {
-      // 曲线救国方法，因为仅字符串变化无法触发动画。所以......
-      this.homeAni = false
-      setTimeout(() => {
-        this.homeAni = true
-      }, 10)
-    }
+    pagePointTitle() {}
   },
   mounted() {},
   methods: {
