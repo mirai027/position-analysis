@@ -1,17 +1,26 @@
 <template>
   <el-select
-    v-model="positionValue"
-    multiple
+    v-model="value"
+    :multiple="true"
     collapse-tags
     placeholder="请选择"
+    :filterable="true"
+    :clearable="true"
+    @change="changeSelect"
+    @visible-change="handleSelect"
   >
-    <el-option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value"
+    <el-option-group
+      v-for="group in options"
+      :key="group.label"
+      :label="group.label"
     >
-    </el-option>
+      <el-option
+        v-for="item in group.options"
+        :key="item.value"
+        :value="item.value"
+      >
+      </el-option>
+    </el-option-group>
   </el-select>
 </template>
 
@@ -21,27 +30,119 @@ export default {
     return {
       options: [
         {
-          value: '选项1',
-          label: '前端开发'
+          options: [
+            {
+              value: '我全都要'
+            }
+          ]
         },
         {
-          value: '选项2',
-          label: '后端开发'
+          label: '热门岗位',
+          options: [
+            {
+              value: '后端开发'
+            },
+            {
+              value: '测试'
+            },
+            {
+              value: '人工智能'
+            }
+          ]
         },
         {
-          value: '选项3',
-          label: '大数据'
-        },
-        {
-          value: '选项4',
-          label: '劈里啪啦'
-        },
-        {
-          value: '选项5',
-          label: '阿里里'
+          label: '岗位名',
+          options: [
+            {
+              value: '移动前端开发'
+            },
+            {
+              value: '运维'
+            },
+            {
+              value: '数据开发'
+            },
+            {
+              value: '前端开发'
+            },
+            {
+              value: '高端技术职位'
+            },
+            {
+              value: '项目管理'
+            },
+            {
+              value: '硬件开发'
+            },
+            {
+              value: '企业软件'
+            },
+            {
+              value: '产品经理'
+            },
+            {
+              value: '运营'
+            }
+          ]
         }
       ],
-      positionValue: []
+      value: [],
+      oldValue: []
+    }
+  },
+  computed: {},
+  methods: {
+    changeSelect(val) {
+      const allKey = ['我全都要', '后端开发', '测试', '人工智能', '移动前端开发', '运维', '数据开发', '前端开发', '高端技术职位', '项目管理', '硬件开发', '企业软件', '产品经理', '运营']
+      const nowFlag = val.some(item => { return item === '我全都要' }) // 当前是否包含 全选
+      const oldFlag = this.oldValue.some(item => { return item === '我全都要' }) // 上一次是否包含 全选
+      /**
+       * 声明 oldValue来存储上一次的值。用来比较与上一次的变化，来判断点击的选项是否是全选
+       * 当前有全选，上一次有全选。说明此次点击的是其他选项，即此次设置取消全选，点击的选项 "自适应"
+       * 当前有全选，上一次没有全选。说明点击的是全选，即此次设置全选
+       * 当前没全选，上一次有全选。说明此次点击的是全选，即此次设置全部不选
+       * 当前没有全选，上一次没有全选。如当前 val.length === 13，此次设置全选。否则点击的选项 "自适应"
+       */
+      // 优化前
+      // if (nowFlag && !oldFlag) {
+      //   this.value = allKey
+      // }
+      // if (nowFlag && oldFlag) {
+      //   this.value.splice(0, 1)
+      // }
+      // if (!nowFlag && oldFlag) {
+      //   this.value = []
+      // }
+      // if (!nowFlag && !oldFlag) {
+      //   if (val.length === 13) {
+      //     this.value = allKey
+      //   }
+      // }
+      ;(nowFlag && oldFlag) && this.value.splice(0, 1)
+      ;(nowFlag && !oldFlag) && (this.value = allKey)
+      ;(!nowFlag && oldFlag) && (this.value = [])
+      ;(!nowFlag && !oldFlag && (val.length === 13)) && (this.value = allKey)
+      this.oldValue = this.value
+      // if (nowFlag) {
+      //   if (oldFlag) {
+      //     this.value.splice(0, 1)
+      //   } else {
+      //     this.value = allKey
+      //   }
+      // } else {
+      //   if (oldFlag) {
+      //     this.value = []
+      //   } else {
+      //     if (val.length === 13) {
+      //       this.value = allKey
+      //     }
+      //   }
+      // }
+      // this.oldValue = this.value
+    },
+    handleSelect(flag) {
+      // console.log(this.value)
+      // console.log(flag)
     }
   }
 }
