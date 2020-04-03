@@ -80,7 +80,7 @@ export default {
     const viewContainer = document.querySelector('.view-container')
     viewContainer.addEventListener(
       'scroll',
-      debounce(this.selectPointIndex, 200)
+      debounce(this.selectPointIndex, 397)
     )
     this.selectPointIndex()
 

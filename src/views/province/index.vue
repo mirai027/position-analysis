@@ -1,7 +1,6 @@
 <template>
   <div class="view-container">
     <div class="main-index">
-      我系茵蒂克丝
       <router-view />
     </div>
   </div>
@@ -22,9 +21,15 @@ export default {
   overflow: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  position: relative;
   .main-index {
-    height: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     padding: 10px;
+    // background: red;
   }
 }
 </style>

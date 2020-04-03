@@ -2,6 +2,8 @@
   <div class="mirai">
     <div class="mirai-select">
       <selectTime />
+      <selectCity />
+      <selectPosition />
     </div>
     <table2 />
   </div>
@@ -9,11 +11,15 @@
 
 <script>
 import selectTime from './select-time'
+import selectCity from './select-city'
+import selectPosition from './select-position'
 import table2 from './table'
 export default {
   components: {
     selectTime,
-    table2
+    table2,
+    selectCity,
+    selectPosition
   },
   data() {
     return {}

@@ -61,6 +61,11 @@ export default {
           },
           children: [
             {
+              path: '/province/map',
+              name: 'Map',
+              meta: { title: '地图模块' }
+            },
+            {
               path: '/province/test1',
               name: 'Test1',
               meta: { title: '测试一' }
@@ -109,6 +114,21 @@ export default {
               path: '/position/test2',
               name: 'Test2',
               meta: { title: '测试二' }
+            }
+          ]
+        },
+        {
+          path: '/mirai',
+          name: 'Mirai',
+          meta: {
+            title: '实验室',
+            icon: 'el-icon-trophy-1'
+          },
+          children: [
+            {
+              path: '/mirai/table',
+              name: 'Table',
+              meta: { title: 'Table表格' }
             }
           ]
         }

@@ -22,6 +22,12 @@ const routes = [
     },
     children: [
       {
+        path: 'map',
+        name: 'Map',
+        component: () => import('../views/province/map.vue'),
+        meta: { title: '地图模块' }
+      },
+      {
         path: 'test1',
         name: 'Test1',
         component: () => import('../views/province/test1.vue'),
@@ -76,6 +82,22 @@ const routes = [
         name: 'Test2',
         component: () => import('../views/position/test2.vue'),
         meta: { title: '测试二' }
+      }
+    ]
+  },
+  {
+    path: '/mirai',
+    name: 'Mirai',
+    component: () => import('../views/mirai/index.vue'),
+    meta: {
+      title: '实验室'
+    },
+    children: [
+      {
+        path: 'table',
+        name: 'Table',
+        component: () => import('../views/mirai/mirai-table.vue'),
+        meta: { title: 'Table表格' }
       }
     ]
   }

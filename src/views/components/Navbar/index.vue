@@ -23,9 +23,6 @@
         >
           {{ item }}
         </el-breadcrumb-item>
-        <!-- <el-breadcrumb-item v-for="item in test" :key="item">
-          {{ item }}
-        </el-breadcrumb-item> -->
       </transition-group>
 
       <transition-group v-else name="breadcrumb">
