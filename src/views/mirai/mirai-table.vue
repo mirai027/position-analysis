@@ -1,9 +1,10 @@
 <template>
   <div class="mirai">
     <div class="mirai-select">
-      <selectTime />
-      <selectCity />
-      <selectPosition />
+      <selectTime class="select" />
+      <selectCity class="select" />
+      <selectPosition class="select" />
+      <selectSubmit class="select" />
     </div>
     <table2 />
   </div>
@@ -13,17 +14,20 @@
 import selectTime from './select-time'
 import selectCity from './select-city'
 import selectPosition from './select-position'
+import selectSubmit from './select-submit'
 import table2 from './table'
 export default {
   components: {
     selectTime,
     table2,
     selectCity,
-    selectPosition
+    selectPosition,
+    selectSubmit
   },
   data() {
     return {}
   },
+  mounted() {},
   methods: {}
 }
 </script>
@@ -34,6 +38,10 @@ export default {
   height: 100%;
   .mirai-select {
     display: flex;
+    margin-bottom: 10px;
+    .select {
+      margin-right: 20px;
+    }
   }
 }
 </style>

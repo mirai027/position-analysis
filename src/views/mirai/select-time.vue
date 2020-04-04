@@ -11,12 +11,15 @@
       :picker-options="pickerOptions"
       value-format="yyyy-MM-dd"
       format="yyyy 年 MM 月 dd 日"
+      @change="changeVal"
     >
     </el-date-picker>
   </div>
 </template>
 
 <script>
+import getTodayDate from '@/utils/getTodayDate'
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -55,15 +58,25 @@ export default {
           }
         ]
       },
-      timeValue: ['2020-02-19', '']
+      timeValue: ['2020-02-19', getTodayDate()]
     }
   },
-  created() {
-    var day = new Date()
-    day.setTime(day.getTime() - 24 * 60 * 60 * 1000)
-    var s = day.getFullYear() + '-' + (day.getMonth() + 1) + '-' + day.getDate()
-    this.timeValue[1] = s
-    console.log(this.timeValue)
+  computed: {
+    ...mapGetters(['tableForm', 'watchForm'])
+  },
+  watch: {
+    watchForm: {
+      handler() {
+        this.timeValue = this.tableForm.time
+      }
+    }
+  },
+  methods: {
+    changeVal() {
+      this.$store.dispatch('tableForm', {
+        time: this.timeValue
+      })
+    }
   }
 }
 </script>

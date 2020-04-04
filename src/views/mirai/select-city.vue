@@ -1,34 +1,62 @@
 <template>
-  <div>
-    <el-cascader
-      ref="elcascader"
-      v-model="value"
-      :options="options"
-      :show-all-levels="false"
-      filterable
-      :props="{ expandTrigger: 'hover', checkStrictly: true }"
-      @change="changeVal"
-    ></el-cascader>
-  </div>
+  <!-- <div class="flex"> -->
+  <!-- <p class="title">职位:</p> -->
+  <el-cascader
+    ref="elcascader"
+    v-model="value"
+    :options="options"
+    :show-all-levels="false"
+    filterable
+    clearable
+    :props="{ expandTrigger: 'hover', checkStrictly: true }"
+    @change="changeVal"
+  ></el-cascader>
+  <!-- </div> -->
 </template>
 
 <script>
 import options from './country-date'
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
       options: options,
-      value: ['中国', '北京市']
+      value: ['中国']
     }
   },
-  mounted() {},
+  computed: {
+    ...mapGetters(['tableForm', 'watchForm'])
+  },
+  watch: {
+    watchForm: {
+      handler() {
+        this.value = this.tableForm.location
+      }
+    }
+  },
+  mounted() {
+    console.log(this.value)
+  },
   methods: {
     changeVal() {
       this.$refs.elcascader.dropDownVisible = false
+      this.$store.dispatch('tableForm', {
+        location: this.value[this.value.length - 1]
+      })
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+// .flex {
+//   display: flex;
+//   align-items: center;
+//   .title {
+//     font-size: 16px;
+//   }
+// }
+</style>
 
 <style lang="scss">
 .el-cascader-menu {

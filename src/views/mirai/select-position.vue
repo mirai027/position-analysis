@@ -6,7 +6,7 @@
     placeholder="请选择"
     :filterable="true"
     :clearable="true"
-    @change="changeSelect"
+    @change="changeVal"
     @visible-change="handleSelect"
   >
     <el-option-group
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -86,16 +87,75 @@ export default {
           ]
         }
       ],
-      value: [],
-      oldValue: []
+      value: [
+        '我全都要',
+        '后端开发',
+        '测试',
+        '人工智能',
+        '移动前端开发',
+        '运维',
+        '数据开发',
+        '前端开发',
+        '高端技术职位',
+        '项目管理',
+        '硬件开发',
+        '企业软件',
+        '产品经理',
+        '运营'
+      ],
+      oldValue: [
+        '我全都要',
+        '后端开发',
+        '测试',
+        '人工智能',
+        '移动前端开发',
+        '运维',
+        '数据开发',
+        '前端开发',
+        '高端技术职位',
+        '项目管理',
+        '硬件开发',
+        '企业软件',
+        '产品经理',
+        '运营'
+      ]
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters(['tableForm', 'watchForm'])
+  },
+  watch: {
+    watchForm: {
+      handler() {
+        this.value = this.tableForm.position
+        this.oldValue = this.tableForm.position
+      }
+    }
+  },
   methods: {
-    changeSelect(val) {
-      const allKey = ['我全都要', '后端开发', '测试', '人工智能', '移动前端开发', '运维', '数据开发', '前端开发', '高端技术职位', '项目管理', '硬件开发', '企业软件', '产品经理', '运营']
-      const nowFlag = val.some(item => { return item === '我全都要' }) // 当前是否包含 全选
-      const oldFlag = this.oldValue.some(item => { return item === '我全都要' }) // 上一次是否包含 全选
+    changeVal(val) {
+      const allKey = [
+        '我全都要',
+        '后端开发',
+        '测试',
+        '人工智能',
+        '移动前端开发',
+        '运维',
+        '数据开发',
+        '前端开发',
+        '高端技术职位',
+        '项目管理',
+        '硬件开发',
+        '企业软件',
+        '产品经理',
+        '运营'
+      ]
+      const nowFlag = val.some((item) => {
+        return item === '我全都要'
+      }) // 当前是否包含 全选
+      const oldFlag = this.oldValue.some((item) => {
+        return item === '我全都要'
+      }) // 上一次是否包含 全选
       /**
        * 声明 oldValue来存储上一次的值。用来比较与上一次的变化，来判断点击的选项是否是全选
        * 当前有全选，上一次有全选。说明此次点击的是其他选项，即此次设置取消全选，点击的选项 "自适应"
@@ -118,11 +178,15 @@ export default {
       //     this.value = allKey
       //   }
       // }
-      ;(nowFlag && oldFlag) && this.value.splice(0, 1)
-      ;(nowFlag && !oldFlag) && (this.value = allKey)
-      ;(!nowFlag && oldFlag) && (this.value = [])
-      ;(!nowFlag && !oldFlag && (val.length === 13)) && (this.value = allKey)
+      nowFlag && oldFlag && this.value.splice(0, 1)
+      nowFlag && !oldFlag && (this.value = allKey)
+      !nowFlag && oldFlag && (this.value = [])
+      !nowFlag && !oldFlag && val.length === 13 && (this.value = allKey)
       this.oldValue = this.value
+
+      this.$store.dispatch('tableForm', {
+        position: this.value
+      })
       // if (nowFlag) {
       //   if (oldFlag) {
       //     this.value.splice(0, 1)
