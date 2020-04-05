@@ -80,4 +80,10 @@ export default {
 }
 // ::-webkit-scrollbar-track {// 轨道}
 // ::-webkit-scrollbar-corner {// 边角}
+body .el-table th.gutter {
+  display: table-cell !important;
+}
+body .el-table colgroup.gutter {
+  display: table-cell !important;
+}
 </style>

@@ -6,7 +6,9 @@
       <selectPosition class="select" />
       <selectSubmit class="select" />
     </div>
-    <table2 />
+    <div class="mirai-table">
+      <table2 />
+    </div>
   </div>
 </template>
 
@@ -43,6 +45,9 @@ export default {
       margin-right: 20px;
     }
   }
+  .mirai-table {
+    background: #000;
+  }
 }
 </style>
 
@@ -58,18 +63,5 @@ export default {
   margin-right: 0;
   margin-bottom: 0;
   width: 50%;
-}
-
-.el-table__expanded-cell[class*='cell'] {
-  padding: 0;
-  padding-left: 50px;
-}
-
-.el-table .warning-row {
-  background: oldlace;
-}
-
-.el-table .success-row {
-  background: #ecf5ff;
 }
 </style>
