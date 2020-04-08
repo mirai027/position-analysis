@@ -1,61 +1,68 @@
 <template>
-  <el-table
-    :data="miraiData"
-    border
-    :row-class-name="tableRowClassName"
-    :default-sort="{
-      prop: ['date', 'jobNum', 'positionNum']
-    }"
-    class="mirai-table-container"
-    :max-height="tableHeight"
-  >
-    <el-table-column v-if="true" type="expand" width="50" fixed>
-      <template slot-scope="props">
-        <el-table
-          :data="miraiHideData[props.row.index]"
-          border
-          :show-header="false"
-          class="second-table mirai-table-container"
-        >
-          <!-- <transition-group name="breadcrumb" tag> -->
-          <el-table-column
-            v-for="item in miraiColumn"
-            v-show="false"
-            :key="item.prop"
-            :align="item.align"
-            :prop="item.prop"
-            :label="item.label"
-            :width="item.width"
-            :sortable="item.sortable"
-            :show-overflow-tooltip="item.sot"
-            :type="item.type"
-            :fixed="item.fixed"
-          >
-          </el-table-column>
-          <!-- </transition-group> -->
-        </el-table>
-      </template>
-    </el-table-column>
-
-    <el-table-column
-      v-for="item in miraiColumn"
-      v-show="false"
-      :key="item.prop"
-      :align="item.align"
-      :prop="item.prop"
-      :label="item.label"
-      :width="item.width"
-      :sortable="item.sortable"
-      :show-overflow-tooltip="item.sot"
-      :type="item.type"
-      :fixed="item.fixed"
+  <div class="mirai-table-container">
+    <el-table
+      ref="tableDOM"
+      :data="miraiData"
+      border
+      :row-class-name="tableRowClassName"
+      :default-sort="{
+        prop: ['date', 'jobNum', 'positionNum']
+      }"
+      :max-height="tableHeight"
     >
-    </el-table-column>
-  </el-table>
+      <el-table-column v-if="true" type="expand" width="50" fixed>
+        <template slot-scope="props">
+          <el-table
+            :data="miraiHideData[props.row.index]"
+            border
+            :show-header="false"
+            class="second-table mirai-table-container"
+          >
+            <!-- <transition-group name="breadcrumb" tag> -->
+            <el-table-column
+              v-for="item in miraiColumn"
+              v-show="false"
+              :key="item.prop"
+              :align="item.align"
+              :prop="item.prop"
+              :label="item.label"
+              :width="item.width"
+              :sortable="item.sortable"
+              :show-overflow-tooltip="item.sot"
+              :type="item.type"
+              :fixed="item.fixed"
+            >
+            </el-table-column>
+            <!-- </transition-group> -->
+          </el-table>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        v-for="item in miraiColumn"
+        v-show="false"
+        :key="item.prop"
+        :align="item.align"
+        :prop="item.prop"
+        :label="item.label"
+        :width="item.width"
+        :sortable="item.sortable"
+        :show-overflow-tooltip="item.sot"
+        :type="item.type"
+        :fixed="item.fixed"
+      >
+      </el-table-column>
+      <!-- <p v-if="show" slot="append" v-loading="false" class="bottom-line"></p> -->
+      <p slot="append" v-loading="loading.flag" class="bottom-line">
+        {{ loading.text }}
+      </p>
+    </el-table>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import debounce from '@/utils/debounce'
 export default {
   props: {
     tableHeight: {
@@ -65,56 +72,7 @@ export default {
   },
   data() {
     return {
-      miraiData: [
-        {
-          index: 0,
-          date: '2020-04-05',
-          location: '广东省',
-          jobNum: 99,
-          jobSalary: '12580',
-          jobHotLocation: '广东省、浙江省、上海市',
-          jobCompanySize: '15-50人',
-          jobBenefit: '福利一、福利二、福利三、福利四、福利五',
-          positionName: '前端开发',
-          positionNum: 33,
-          positionSalary: '11024',
-          positionHotLocation: '广东省、浙江省、上海市',
-          positionCompanySize: '15-50人',
-          positionBenefit: '福利一、福利二、福利三、福利四、福利五'
-        },
-        {
-          index: 0,
-          date: '2020-04-06',
-          location: '广东省',
-          jobNum: 99,
-          jobSalary: '12580',
-          jobHotLocation: '广东省、浙江省、上海市',
-          jobCompanySize: '15-50人',
-          jobBenefit: '福利一、福利二、福利三、福利四、福利五',
-          positionName: '前端开发',
-          positionNum: 33,
-          positionSalary: '11024',
-          positionHotLocation: '广东省、浙江省、上海市',
-          positionCompanySize: '15-50人',
-          positionBenefit: '福利一、福利二、福利三、福利四、福利五'
-        },
-        {
-          index: 0,
-          date: '2020-04-07',
-          location: '广东省',
-          jobNum: 99,
-          jobSalary: '12580',
-          jobHotLocation: '广东省、浙江省、上海市',
-          jobCompanySize: '15-50人',
-          jobBenefit: '福利一、福利二、福利三、福利四、福利五',
-          positionName: '前端开发',
-          positionNum: 33,
-          positionSalary: '11024',
-          positionHotLocation: '广东省、浙江省、上海市',
-          positionCompanySize: '15-50人',
-          positionBenefit: '福利一、福利二、福利三、福利四、福利五'
-        }
-      ],
+      miraiData: [],
       miraiHideData: [
         [
           {
@@ -277,7 +235,12 @@ export default {
           width: 200,
           sot: true
         }
-      ]
+      ],
+      loading: {
+        text: '我也是有底线的 🤪',
+        flag: true,
+        index: 0
+      }
     }
   },
   computed: {
@@ -291,11 +254,84 @@ export default {
           return this.tableCheckboxTotal.some((cItem) => item.label === cItem)
         })
       }
+    },
+    tableHeight: {
+      handler() {
+        /**
+         * 加载时计算 table的高度能容纳多少条数据
+         * 父级放回计算过后的 table剩余高度，每一条 column高度约等于 46
+         * this.tableHeight / 46 一般会比实际多一条，再 +4。每次请求 table高度的 cloumn + 4的数量
+         */
+        const dataLength = Math.floor(this.tableHeight / 46) + 4
+        for (let index = 0; index < dataLength; index++) {
+          this.miraiData.push({
+            index: 0,
+            date: '2020-04-06',
+            location: '广东省',
+            jobNum: 99,
+            jobSalary: '12580',
+            jobHotLocation: '广东省、浙江省、上海市',
+            jobCompanySize: '15-50人',
+            jobBenefit: '福利一、福利二、福利三、福利四、福利五',
+            positionName: '前端开发',
+            positionNum: 33,
+            positionSalary: '11024',
+            positionHotLocation: '广东省、浙江省、上海市',
+            positionCompanySize: '15-50人',
+            positionBenefit: '福利一、福利二、福利三、福利四、福利五'
+          })
+        }
+      }
     }
   },
   mounted() {
     // el-table__header会自动计算宽度,导致添加行时会造成滚动
+    // console.log(this.$refs.tableDOM.bodyWrapper)
+    const tabelDom = this.$refs.tableDOM.bodyWrapper
+    tabelDom.addEventListener(
+      'scroll',
+      debounce(() => {
+        /**
+         * 因为 table中 append的内容如果是中途加入的，会影响到设置了 fixed的 column。所以必须一开始就显示 append的 loading条
+         * 折中方法，在没数据时，设置 loading消失，显示 “我也是有底线的” 提示用户已经没有数据了。在不影响 fixed的 column的同时，增加了用户体验。
+         */
+        const shouldShowHight =
+          tabelDom.scrollTop + tabelDom.clientHeight >=
+          tabelDom.scrollHeight - 200
+        if (shouldShowHight) {
+          this.loading.index++
+          if (this.loading.index >= 4) {
+            this.loading.flag = false
+          } else {
+            const dataLength = Math.floor(this.tableHeight / 46) + 4
+            for (let index = 0; index < dataLength; index++) {
+              this.miraiData.push({
+                index: 0,
+                date: '2020-04-06',
+                location: '广东省',
+                jobNum: 99,
+                jobSalary: '12580',
+                jobHotLocation: '广东省、浙江省、上海市',
+                jobCompanySize: '15-50人',
+                jobBenefit: '福利一、福利二、福利三、福利四、福利五',
+                positionName: '前端开发',
+                positionNum: 33,
+                positionSalary: '11024',
+                positionHotLocation: '广东省、浙江省、上海市',
+                positionCompanySize: '15-50人',
+                positionBenefit: '福利一、福利二、福利三、福利四、福利五'
+              })
+            }
+          }
+        }
+      }, 1000)
+    )
   },
+  // updated() {
+  //   console.log(this.tableHeight)
+
+  //   console.log(this.miraiData)
+  // },
   methods: {
     tableRowClassName({ row, rowIndex }) {
       return 'success-row'
@@ -304,9 +340,41 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .mirai-table-container {
   width: 100%;
+  position: relative;
+  .bottom-line {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    &::v-deep .el-loading-mask {
+      background-color: #eff1f4;
+    }
+    &::v-deep .el-loading-spinner {
+      height: 40px;
+      background-color: #eff1f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &::v-deep .el-loading-spinner .circular {
+      width: 30px;
+      height: 30px;
+    }
+    // position: absolute;
+    // bottom: 0;
+  }
+  // .loading {
+  //   width: 100%;
+  //   height: 40px;
+  //   // background: red;
+
+  //   &::v-deep .el-loading-spinner {
+
+  //   }
+  // }
 }
 </style>
 
