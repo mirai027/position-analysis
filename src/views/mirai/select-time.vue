@@ -11,6 +11,7 @@
       :picker-options="pickerOptions"
       value-format="yyyy-MM-dd"
       format="yyyy 年 MM 月 dd 日"
+      size="small"
       @change="changeVal"
     >
     </el-date-picker>

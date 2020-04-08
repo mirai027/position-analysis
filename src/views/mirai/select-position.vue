@@ -1,27 +1,30 @@
 <template>
-  <el-select
-    v-model="value"
-    :multiple="true"
-    collapse-tags
-    placeholder="请选择"
-    :filterable="true"
-    :clearable="true"
-    @change="changeVal"
-    @visible-change="handleSelect"
-  >
-    <el-option-group
-      v-for="group in options"
-      :key="group.label"
-      :label="group.label"
+  <el-tooltip :content="hoverText" placement="top">
+    <el-select
+      v-model="value"
+      :multiple="true"
+      collapse-tags
+      placeholder="请选择"
+      :filterable="true"
+      :clearable="true"
+      size="small"
+      @change="changeVal"
+      @visible-change="handleSelect"
     >
-      <el-option
-        v-for="item in group.options"
-        :key="item.value"
-        :value="item.value"
+      <el-option-group
+        v-for="group in options"
+        :key="group.label"
+        :label="group.label"
       >
-      </el-option>
-    </el-option-group>
-  </el-select>
+        <el-option
+          v-for="item in group.options"
+          :key="item.value"
+          :value="item.value"
+        >
+        </el-option>
+      </el-option-group>
+    </el-select>
+  </el-tooltip>
 </template>
 
 <script>
@@ -118,7 +121,9 @@ export default {
         '企业软件',
         '产品经理',
         '运营'
-      ]
+      ],
+      hoverText:
+        '后端开发、测试、人工智能、移动前端开发、运维、数据开发、前端开发、高端技术职位、项目管理、硬件开发、企业软件、产品经理、运营'
     }
   },
   computed: {
@@ -183,6 +188,12 @@ export default {
       !nowFlag && oldFlag && (this.value = [])
       !nowFlag && !oldFlag && val.length === 13 && (this.value = allKey)
       this.oldValue = this.value
+
+      let text = ''
+      this.value.forEach((element) => {
+        element !== '我全都要' && (text += element + '、')
+      })
+      this.hoverText = text.substring(0, text.length - 1)
 
       this.$store.dispatch('tableForm', {
         position: this.value

@@ -21,7 +21,12 @@ const miraiTable = {
         '运营'
       ]
     },
-    watchForm: false // 用于每次点击提交时，让选项组件自动更新值
+    watchForm: false, // 用于每次点击提交时，让选项组件自动更新值
+    tableCheckbox: {
+      location: [],
+      position: [],
+      total: []
+    }
   },
   mutations: {
     TABLE_FORM: (state, data) => {
@@ -32,6 +37,19 @@ const miraiTable = {
     },
     WATCH_FORM: (state) => {
       state.watchForm = !state.watchForm
+    },
+    TABLE_CHECKBOX: (state, ary) => {
+      const defaultVal = ['日期', '地区', '岗位']
+      // 为什么？为什么？？？用不了解构赋值？？？？？
+      // let { location, position, total } = state.tableCheckbox
+      ary.type === 'location'
+        ? (state.tableCheckbox.location = [...ary.value])
+        : (state.tableCheckbox.position = [...ary.value])
+      state.tableCheckbox.total = [
+        ...state.tableCheckbox.location,
+        ...state.tableCheckbox.position,
+        ...defaultVal
+      ]
     }
   },
   actions: {
@@ -40,11 +58,15 @@ const miraiTable = {
     },
     watchForm({ commit }) {
       commit('WATCH_FORM')
+    },
+    tableCheckbox({ commit }, ary) {
+      commit('TABLE_CHECKBOX', ary)
     }
   },
   getters: {
     tableForm: (state) => state.tableForm,
-    watchForm: (state) => state.watchForm
+    watchForm: (state) => state.watchForm,
+    tableCheckboxTotal: (state) => state.tableCheckbox.total
   }
 }
 export default miraiTable

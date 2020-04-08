@@ -1,16 +1,21 @@
 <template>
   <!-- <div class="flex"> -->
   <!-- <p class="title">职位:</p> -->
-  <el-cascader
-    ref="elcascader"
-    v-model="value"
-    :options="options"
-    :show-all-levels="false"
-    filterable
-    clearable
-    :props="{ expandTrigger: 'hover', checkStrictly: true }"
-    @change="changeVal"
-  ></el-cascader>
+  <el-tooltip :content="hoverText" placement="top">
+    <el-cascader
+      ref="elcascader"
+      v-model="value"
+      :options="options"
+      :show-all-levels="false"
+      filterable
+      clearable
+      :props="{ expandTrigger: 'hover', checkStrictly: true, multiple: true }"
+      size="small"
+      collapse-tags
+      class="city-select"
+      @change="changeVal"
+    ></el-cascader>
+  </el-tooltip>
   <!-- </div> -->
 </template>
 
@@ -21,7 +26,8 @@ export default {
   data() {
     return {
       options: options,
-      value: ['中国']
+      value: ['中国'],
+      hoverText: '中国'
     }
   },
   computed: {
@@ -34,15 +40,18 @@ export default {
       }
     }
   },
-  mounted() {
-    console.log(this.value)
-  },
+  mounted() {},
   methods: {
     changeVal() {
-      this.$refs.elcascader.dropDownVisible = false
-      this.$store.dispatch('tableForm', {
-        location: this.value[this.value.length - 1]
+      // this.$refs.elcascader.dropDownVisible = false
+      // this.$store.dispatch('tableForm', {
+      //   location: this.value[this.value.length - 1]
+      // })
+      let text = ''
+      this.value.forEach((element) => {
+        text += element[element.length - 1] + '、'
       })
+      this.hoverText = text.substring(0, text.length - 1)
     }
   }
 }
@@ -56,6 +65,14 @@ export default {
 //     font-size: 16px;
 //   }
 // }
+.city-select {
+  &::v-deep .el-input__inner {
+    height: 32px !important;
+  }
+  &::v-deep .el-cascader__tags .el-tag {
+    margin: 4px 0 2px 6px;
+  }
+}
 </style>
 
 <style lang="scss">
@@ -81,16 +98,27 @@ export default {
   right: -2px;
 }
 
-.el-cascader-panel .el-radio {
+// .el-cascader-panel .el-radio {
+//   width: 100%;
+//   height: 100%;
+//   z-index: 10;
+//   position: absolute;
+//   top: 0px;
+//   right: 0px;
+// }
+
+// .el-cascader-panel .el-radio__input {
+//   visibility: hidden;
+// }
+.el-checkbox {
+  position: absolute;
   width: 100%;
   height: 100%;
-  z-index: 10;
-  position: absolute;
-  top: 0px;
-  right: 0px;
+  // background: red;
+  top: 0;
+  left: 0;
 }
-
-.el-cascader-panel .el-radio__input {
+.el-checkbox__inner {
   visibility: hidden;
 }
 </style>
