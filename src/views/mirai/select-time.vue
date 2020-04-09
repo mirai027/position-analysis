@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import getTodayDate from '@/utils/getTodayDate'
+import getYesterday from '@/utils/getYesterday'
 import { mapGetters } from 'vuex'
 export default {
   data() {
@@ -59,7 +59,7 @@ export default {
           }
         ]
       },
-      timeValue: ['2020-02-19', getTodayDate()]
+      timeValue: ['2020-02-19', getYesterday()]
     }
   },
   computed: {

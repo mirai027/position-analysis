@@ -4,7 +4,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import getTodayDate from '@/utils/getTodayDate'
+import getYesterday from '@/utils/getYesterday'
+import getDayBetween from '@/utils/getDayBetween'
 export default {
   computed: {
     ...mapGetters(['tableForm'])
@@ -12,7 +13,7 @@ export default {
   methods: {
     submit() {
       let { time, position, location } = this.tableForm
-      !time && (time = ['2020-02-19', getTodayDate()])
+      !time && (time = ['2020-02-19', getYesterday()])
       !location && (location = '中国')
       !position.length &&
         (position = [
@@ -37,6 +38,8 @@ export default {
         position
       })
       this.$store.dispatch('watchForm')
+      console.log(getDayBetween(time[0], time[1]))
+      console.log(time)
     }
   }
 }

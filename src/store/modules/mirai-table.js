@@ -1,8 +1,8 @@
-import getTodayDate from '@/utils/getTodayDate'
+import getYesterday from '@/utils/getYesterday'
 const miraiTable = {
   state: {
     tableForm: {
-      time: ['2020-02-19', getTodayDate()],
+      time: ['2020-02-19', getYesterday()],
       location: '中国',
       position: [
         '我全都要',
