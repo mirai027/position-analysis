@@ -35,11 +35,15 @@ const miraiTable = {
         state.tableForm[key] = element
       }
     },
-    WATCH_FORM: (state) => {
+    WATCH_FORM: state => {
       state.watchForm = !state.watchForm
     },
     TABLE_CHECKBOX: (state, ary) => {
-      const defaultVal = ['日期', '地区', '岗位']
+      let defaultVal = ['日期', '地区', '岗位']
+      // 如果不显示岗位相关信息，则不显示岗位列
+      ary.type === 'position' &&
+        !ary.value.length &&
+        (defaultVal = ['日期', '地区'])
       // 为什么？为什么？？？用不了解构赋值？？？？？
       // let { location, position, total } = state.tableCheckbox
       ary.type === 'location'
@@ -64,9 +68,9 @@ const miraiTable = {
     }
   },
   getters: {
-    tableForm: (state) => state.tableForm,
-    watchForm: (state) => state.watchForm,
-    tableCheckboxTotal: (state) => state.tableCheckbox.total
+    tableForm: state => state.tableForm,
+    watchForm: state => state.watchForm,
+    tableCheckboxTotal: state => state.tableCheckbox.total
   }
 }
 export default miraiTable

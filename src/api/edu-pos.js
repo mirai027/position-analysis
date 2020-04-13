@@ -6,3 +6,10 @@ export function getAllEduPos() {
     methods: 'get'
   })
 }
+
+// export function getAllEduPos() {
+//   return request({
+//     url: '/CountryJobEdu_Top_Servlet',
+//     methods: 'get'
+//   })
+// }

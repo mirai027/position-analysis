@@ -329,11 +329,9 @@ export default {
       }, 1000)
     )
   },
-  // updated() {
-  //   console.log(this.tableHeight)
-
-  //   console.log(this.miraiData)
-  // },
+  updated() {
+    // 每一条数据的展开，都是对应日期的。也就是说，index对应的是每一个日期
+  },
   methods: {
     tableRowClassName({ row, rowIndex }) {
       return 'success-row'

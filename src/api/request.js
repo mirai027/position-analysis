@@ -7,10 +7,11 @@ const service = axios.create({})
  */
 switch (process.env.NODE_ENV) {
   case 'production':
-    service.defaults.baseURL = './mock/'
+    service.defaults.baseURL = ''
     // axios.defaults.baseURL = '/api'
     break
   case 'development':
+    // service.defaults.baseURL = '/api'
     service.defaults.baseURL = './mock/'
     break
 }
@@ -20,7 +21,8 @@ switch (process.env.NODE_ENV) {
  */
 service.defaults.timeout = 10000
 service.defaults.withCredentials = true
-
+// service.defaults.headers.post['Content-Type'] =
+//   'application/x-www-form-urlencoded'
 /**
  * 设置请求拦截器
  * Token校验

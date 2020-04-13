@@ -52,71 +52,71 @@ export default {
         '企业规模-薪资福利'
       ],
       routes: [
-        {
-          path: '/province',
-          name: 'Province',
-          meta: {
-            title: '茵蒂克丝',
-            icon: 'el-icon-position'
-          },
-          children: [
-            {
-              path: '/province/map',
-              name: 'Map',
-              meta: { title: '地图模块' }
-            },
-            {
-              path: '/province/test1',
-              name: 'Test1',
-              meta: { title: '测试一' }
-            },
-            {
-              path: '/province/test2',
-              name: 'Test2',
-              meta: { title: '测试二' }
-            }
-          ]
-        },
-        {
-          path: '/date',
-          name: 'Date',
-          meta: {
-            title: '时间刻度',
-            icon: 'el-icon-date'
-          },
-          children: [
-            {
-              path: '/date/test1',
-              name: 'Test1',
-              meta: { title: '测试一' }
-            },
-            {
-              path: '/date/test2',
-              name: 'Test2',
-              meta: { title: '测试二' }
-            }
-          ]
-        },
-        {
-          path: '/position',
-          name: 'Position',
-          meta: {
-            title: '职位分析',
-            icon: 'el-icon-toilet-paper'
-          },
-          children: [
-            {
-              path: '/position/test1',
-              name: 'Test1',
-              meta: { title: '测试一' }
-            },
-            {
-              path: '/position/test2',
-              name: 'Test2',
-              meta: { title: '测试二' }
-            }
-          ]
-        },
+        // {
+        //   path: '/province',
+        //   name: 'Province',
+        //   meta: {
+        //     title: '茵蒂克丝',
+        //     icon: 'el-icon-position'
+        //   },
+        //   children: [
+        //     {
+        //       path: '/province/map',
+        //       name: 'Map',
+        //       meta: { title: '地图模块' }
+        //     },
+        //     {
+        //       path: '/province/test1',
+        //       name: 'Test1',
+        //       meta: { title: '测试一' }
+        //     },
+        //     {
+        //       path: '/province/test2',
+        //       name: 'Test2',
+        //       meta: { title: '测试二' }
+        //     }
+        //   ]
+        // },
+        // {
+        //   path: '/date',
+        //   name: 'Date',
+        //   meta: {
+        //     title: '时间刻度',
+        //     icon: 'el-icon-date'
+        //   },
+        //   children: [
+        //     {
+        //       path: '/date/test1',
+        //       name: 'Test1',
+        //       meta: { title: '测试一' }
+        //     },
+        //     {
+        //       path: '/date/test2',
+        //       name: 'Test2',
+        //       meta: { title: '测试二' }
+        //     }
+        //   ]
+        // },
+        // {
+        //   path: '/position',
+        //   name: 'Position',
+        //   meta: {
+        //     title: '职位分析',
+        //     icon: 'el-icon-toilet-paper'
+        //   },
+        //   children: [
+        //     {
+        //       path: '/position/test1',
+        //       name: 'Test1',
+        //       meta: { title: '测试一' }
+        //     },
+        //     {
+        //       path: '/position/test2',
+        //       name: 'Test2',
+        //       meta: { title: '测试二' }
+        //     }
+        //   ]
+        // },
         {
           path: '/mirai',
           name: 'Mirai',

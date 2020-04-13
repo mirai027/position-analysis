@@ -47,6 +47,7 @@ export default {
       // this.$store.dispatch('tableForm', {
       //   location: this.value[this.value.length - 1]
       // })
+      console.log(this.value)
       let text = ''
       this.value.forEach((element) => {
         text += element[element.length - 1] + '、'

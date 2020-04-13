@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 @import '~@/styles/index.scss';
 .view-container {
   width: auto;
