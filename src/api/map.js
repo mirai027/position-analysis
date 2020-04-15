@@ -28,8 +28,6 @@ export function getAllUpdate() {
 //   })
 // }
 
-
-
 // export function getAllProvince() {
 //   return request({
 //     url: '/AllProvince_Job_Servlet',
@@ -42,7 +40,7 @@ export function getAllUpdate() {
 //     url: '/AllProvince_DayJob_Servlet',
 //     methods: 'get'
 //   })
-}
+// }
 
 // export function getAllDayBest() {
 //   return request({

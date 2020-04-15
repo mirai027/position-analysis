@@ -110,15 +110,15 @@ const routes = [
     },
     children: [
       {
-        path: 'test1',
-        name: 'Test1',
-        component: () => import('../views/position/test1.vue'),
+        path: 'default',
+        name: 'Default',
+        component: () => import('../views/rank/main.vue'),
         meta: { title: 'Default' }
       },
       {
-        path: 'test2',
-        name: 'Test2',
-        component: () => import('../views/position/test2.vue'),
+        path: 'language',
+        name: 'Language',
+        component: () => import('../views/rank/language.vue'),
         meta: { title: '编程语言排行榜' }
       }
     ]

@@ -118,6 +118,26 @@ export default {
         //   ]
         // },
         {
+          path: '/rank',
+          name: 'Rank',
+          meta: {
+            title: '排行榜',
+            icon: 'el-icon-medal'
+          },
+          children: [
+            {
+              path: '/rank/default',
+              name: 'Default',
+              meta: { title: 'Default' }
+            },
+            {
+              path: '/rank/language',
+              name: 'Language',
+              meta: { title: '编程语言排行榜' }
+            }
+          ]
+        },
+        {
           path: '/mirai',
           name: 'Mirai',
           meta: {
