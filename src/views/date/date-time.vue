@@ -1,6 +1,6 @@
 <template>
   <div>
-    date测试二
+    默认
   </div>
 </template>
 

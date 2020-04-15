@@ -1,7 +1,6 @@
 <template>
   <div class="view-container">
     <div class="main-index">
-      我是时间刻度
       <router-view />
     </div>
   </div>

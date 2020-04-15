@@ -1,6 +1,6 @@
 <template>
   <div>
-    position测试二
+    职位对比
   </div>
 </template>
 

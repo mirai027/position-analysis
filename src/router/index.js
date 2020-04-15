@@ -13,91 +13,41 @@ const routes = [
       title: '首页'
     }
   },
-  // {
-  //   path: '/province',
-  //   name: 'Province',
-  //   component: () => import('../views/province/index.vue'),
-  //   meta: {
-  //     title: '茵蒂克丝'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'map',
-  //       name: 'Map',
-  //       component: () => import('../views/province/map.vue'),
-  //       meta: { title: '地图模块' }
-  //     },
-  //     {
-  //       path: 'test1',
-  //       name: 'Test1',
-  //       component: () => import('../views/province/test1.vue'),
-  //       meta: { title: '测试一' }
-  //     },
-  //     {
-  //       path: 'test2',
-  //       name: 'Test2',
-  //       component: () => import('../views/province/test2.vue'),
-  //       meta: { title: '测试二' }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: '/date',
-  //   name: 'Date',
-  //   component: () => import('../views/date/index.vue'),
-  //   meta: {
-  //     title: '时间刻度'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'test1',
-  //       name: 'Test1',
-  //       component: () => import('../views/date/test1.vue'),
-  //       meta: { title: '测试一' }
-  //     },
-  //     {
-  //       path: 'test2',
-  //       name: 'Test2',
-  //       component: () => import('../views/date/test2.vue'),
-  //       meta: { title: '测试二' }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: '/position',
-  //   name: 'Position',
-  //   component: () => import('../views/position/index.vue'),
-  //   meta: {
-  //     title: '职位分析'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'test1',
-  //       name: 'Test1',
-  //       component: () => import('../views/position/test1.vue'),
-  //       meta: { title: '测试一' }
-  //     },
-  //     {
-  //       path: 'test2',
-  //       name: 'Test2',
-  //       component: () => import('../views/position/test2.vue'),
-  //       meta: { title: '测试二' }
-  //     }
-  //   ]
-  // },
   {
-    path: '/mirai',
-    name: 'Mirai',
-    component: () => import('../views/mirai/index.vue'),
+    path: '/position',
+    name: 'Position',
+    component: () => import('../views/position/index.vue'),
     meta: {
-      title: '实验室'
+      title: '职位前景'
     },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('../views/mirai/mirai-table.vue'),
-        meta: { title: 'Table表格' }
+        path: 'analysis',
+        name: 'Analysis',
+        component: () => import('../views/position/analysis.vue'),
+        meta: { title: '职位分析' }
+      },
+      {
+        path: 'compared',
+        name: 'Compared',
+        component: () => import('../views/position/compared.vue'),
+        meta: { title: '职位对比' }
+      }
+    ]
+  },
+  {
+    path: '/date',
+    name: 'Date',
+    component: () => import('../views/date/index.vue'),
+    meta: {
+      title: '时间刻度'
+    },
+    children: [
+      {
+        path: 'dateTime',
+        name: 'DateTime',
+        component: () => import('../views/date/date-time.vue'),
+        meta: { title: 'DateTime' }
       }
     ]
   },
@@ -120,6 +70,22 @@ const routes = [
         name: 'Language',
         component: () => import('../views/rank/language.vue'),
         meta: { title: '编程语言排行榜' }
+      }
+    ]
+  },
+  {
+    path: '/mirai',
+    name: 'Mirai',
+    component: () => import('../views/mirai/index.vue'),
+    meta: {
+      title: '实验室'
+    },
+    children: [
+      {
+        path: 'table',
+        name: 'Table',
+        component: () => import('../views/mirai/mirai-table.vue'),
+        meta: { title: 'Table表格' }
       }
     ]
   }
