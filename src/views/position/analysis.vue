@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="analysis">
     职位分析
   </div>
 </template>
@@ -8,4 +8,8 @@
 export default {}
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.analysis {
+  height: 200vh;
+}
+</style>

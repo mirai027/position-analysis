@@ -91,7 +91,7 @@ export default {
   deactivated() {
     // 因为在mounted中使用了 selectPointIndex方法，导致选中的 item会一直用用 is-active样式。所以在离开组件时重置样式
     const miraiMenuItem = document.querySelectorAll('.mirai-menu-item')
-    miraiMenuItem.forEach(element => {
+    miraiMenuItem.forEach((element) => {
       element.className = 'el-menu-item mirai-menu-item'
       element.style.backgroundColor = '#FFF'
     })
@@ -107,10 +107,10 @@ export default {
        */
       const pointListLoc = []
       const pointListTitle = []
-      document.querySelectorAll('.magical-point').forEach(el => {
+      document.querySelectorAll('.magical-point').forEach((el) => {
         pointListLoc.push(el.offsetTop)
       })
-      document.querySelectorAll('.mirai-point-title').forEach(el => {
+      document.querySelectorAll('.mirai-point-title').forEach((el) => {
         pointListTitle.push(el.innerText)
       })
       const point = []
@@ -123,12 +123,13 @@ export default {
       return point
     },
     selectPointIndex() {
+      console.log('我是Home组件的滚动')
       const viewContainer = document.querySelector('.view-container')
       const point = this.getPointLocation()
       const scrollTop = viewContainer.scrollTop
       const miraiMenuItem = document.querySelectorAll('.mirai-menu-item')
       for (let index = 0; index < point.length; index++) {
-        miraiMenuItem.forEach(element => {
+        miraiMenuItem.forEach((element) => {
           element.className = 'el-menu-item mirai-menu-item'
           element.style.backgroundColor = '#FFF'
         })

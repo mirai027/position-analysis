@@ -293,6 +293,7 @@ export default {
     tabelDom.addEventListener(
       'scroll',
       debounce(() => {
+        console.log('我是Table组件的滚动')
         /**
          * 因为 table中 append的内容如果是中途加入的，会影响到设置了 fixed的 column。所以必须一开始就显示 append的 loading条
          * 折中方法，在没数据时，设置 loading消失，显示 “我也是有底线的” 提示用户已经没有数据了。在不影响 fixed的 column的同时，增加了用户体验。
