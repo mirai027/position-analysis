@@ -17,13 +17,13 @@
 </template>
 
 <script>
-import selectTime from './select-time'
-import selectCity from './select-city'
-import selectPosition from './select-position'
-import selectSubmit from './select-submit'
-import locationCheckbox from './location-checkbox'
-import positionCheckbox from './position-checkbox'
-import miraiTable from './table'
+import selectTime from './mirai-table/select-time'
+import selectCity from './mirai-table/select-city'
+import selectPosition from './mirai-table/select-position'
+import selectSubmit from './mirai-table/select-submit'
+import locationCheckbox from './mirai-table/location-checkbox'
+import positionCheckbox from './mirai-table/position-checkbox'
+import miraiTable from './mirai-table/table'
 export default {
   components: {
     selectTime,

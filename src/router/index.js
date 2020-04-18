@@ -86,6 +86,12 @@ const routes = [
         name: 'Table',
         component: () => import('../views/mirai/mirai-table.vue'),
         meta: { title: 'Table表格' }
+      },
+      {
+        path: 'vcl',
+        name: 'Vcl',
+        component: () => import('../views/mirai/vcl.vue'),
+        meta: { title: '数据可视化' }
       }
     ]
   }

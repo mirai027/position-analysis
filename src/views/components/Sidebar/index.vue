@@ -119,6 +119,11 @@ export default {
               path: '/mirai/table',
               name: 'Table',
               meta: { title: 'Table表格' }
+            },
+            {
+              path: '/mirai/vcl',
+              name: 'Vcl',
+              meta: { title: '数据可视化' }
             }
           ]
         }
