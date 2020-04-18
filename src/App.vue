@@ -29,9 +29,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scope>
-@import '~@/styles/reset.scss';
-@import '~@/styles/index.scss';
+<style lang="scss" scoped>
 #app {
   width: 100%;
   height: 100vh;
@@ -68,6 +66,8 @@ export default {
 </style>
 
 <style lang="scss">
+@import '~@/styles/reset.scss';
+@import '~@/styles/index.scss';
 //滚动条的宽度
 ::-webkit-scrollbar {
   width: 10px;

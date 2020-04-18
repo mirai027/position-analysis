@@ -874,6 +874,9 @@ export default {
      * 后期可添加日期范围选择
      * 但日期数据搜索
      */
+  },
+  activated() {
+    console.log('vcl upupup')
     this.ininChart()
   },
   methods: {

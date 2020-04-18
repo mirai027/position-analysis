@@ -39,7 +39,9 @@ export default {
       tableHeight: 0
     }
   },
-  mounted() {
+  mounted() {},
+  updated() {},
+  activated() {
     this.$nextTick(() => {
       this.tableHeight =
         this.$refs.miraiDOM.offsetHeight -
@@ -47,8 +49,6 @@ export default {
         this.$refs.selectDOM.offsetHeight
     })
   },
-  updated() {},
-  activated() {},
   methods: {}
 }
 </script>

@@ -58,7 +58,7 @@ export default {
     handleToggle: debounce(function() {
       this.$store.dispatch('toggleSideBar')
       setTimeout(() => {
-        this.chartDOM.forEach(ele => {
+        this.chartDOM.forEach((ele) => {
           ele.resize()
         })
       }, 1200)
@@ -67,7 +67,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .nav {
   width: 100%;
   height: 100%;
