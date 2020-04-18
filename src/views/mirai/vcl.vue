@@ -863,7 +863,6 @@ export default {
       data: [],
       positionList: [],
       positionColors: [], // 可合并，但太赶了下次再说
-      lastData: [],
       dateList: [],
       timer: null,
       runFlag: false
@@ -871,8 +870,19 @@ export default {
   },
   mounted() {
     /**
-     * 后期可添加日期范围选择
-     * 但日期数据搜索
+     * 1.后期可添加日期范围选择
+     * 2.根据日期数据搜索
+     * ---------------------------------------------------------------------------
+     * 1. 通过定时器每秒计算出相邻的两天数据的差值
+     * 2. 计算出的差值 / 10, 即每 100毫秒需要往图表添加更新的数据 (100毫秒动画看着流畅).每秒必须清空内部定时器(内部 insideIndex, insideTimer控制)
+     * 3. positionColors 用于存储每个职位对应的颜色,用于区分职位.当前颜色由随机函数生成
+     * 4. 柱状图 bar和 y轴颜色由 echart提供的 formatter / color的回调函数配合 positionColors.find 当前颜色生成
+     * 5. index用于控制当前展示的是哪天的日期数据
+     * 6. timer用于控制定时器的开关(暂停/开始功能)
+     * 7. 当日期到了最终数据后(即 index === data.length - 1), 清空定时器 timer,重置按钮样式 runFlag
+     * 8. 根据按钮 runFlag的值来判断是 开始(true), 还是暂停(flag).如果 (index === data.length - 1), 重置 (index = 0)
+     * 9. { getDateList, getDateBetween }获取昨天到 2020-02-19 所有的 YY-MM-DD 日期数组, 提交到后端以获取数据
+     * ---------------------------------------------------------------------------
      */
   },
   activated() {
