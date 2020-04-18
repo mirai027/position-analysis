@@ -23,8 +23,13 @@ export default {
   overflow-x: hidden;
   scroll-behavior: smooth;
   .main-index {
-    height: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     padding: 10px;
+    overflow-y: auto;
   }
 }
 </style>

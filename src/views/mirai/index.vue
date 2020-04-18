@@ -31,7 +31,7 @@ export default {
     bottom: 0;
     left: 0;
     padding: 10px;
-    // background: red;
+    overflow-y: auto;
   }
 }
 </style>
