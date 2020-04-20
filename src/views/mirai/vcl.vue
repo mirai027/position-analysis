@@ -924,9 +924,9 @@ export default {
         insideIndex++
         // 获取每一秒各职位在一毫秒时的增速
         for (let index = 0; index < this.data.length; index++) {
-          const speed = mirai.find((item) => {
+          const { speed } = mirai.find((item) => {
             return item.name === this.data[index].name
-          }).speed
+          })
           this.data[index].value += speed
         }
 

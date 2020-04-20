@@ -6,6 +6,7 @@ module.exports = {
         polyfills: ['es6.promise', 'es6.symbol'],
         useBuiltIns: 'entry'
       }
+      // reset
     ]
   ]
 }

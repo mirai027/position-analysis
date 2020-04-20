@@ -30,7 +30,6 @@ export default {
     left: 0;
     padding: 10px;
     overflow-y: auto;
-    // background: red;
   }
 }
 </style>
