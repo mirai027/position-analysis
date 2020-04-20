@@ -4,6 +4,7 @@
 
 <script>
 import { getDateList, getDateBetween } from '@/utils/date'
+import mirai from '@/views/components/test-mock/vcl-mock'
 export default {
   data() {
     return {}
@@ -30,18 +31,18 @@ export default {
       '运营'
     ]
 
-    const service = positionList.map((item) => {
+    const service = positionList.map((item, index) => {
       // 获取随机颜色
       const color = `${Math.round(Math.random() * 255)}, ${Math.round(
         Math.random() * 255
       )}, ${Math.round(Math.random() * 255)}`
-      const data = dateList.map(() => {
-        return Math.round(Math.random() * 2000 + 100)
-      })
+      // const data = dateList.map(() => {
+      //   return Math.round(Math.random() * 2000 + 100)
+      // })
       return {
         name: item,
         type: 'line',
-        data: data,
+        data: mirai.data[index].value,
         markPoint: {
           data: [
             {
@@ -74,6 +75,7 @@ export default {
         // }
       }
     })
+    console.log(mirai.data)
 
     const chart = this.$echarts.init(this.$refs.dateTime)
     const option = {
