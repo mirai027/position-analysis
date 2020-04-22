@@ -1,7 +1,9 @@
 <template>
   <div class="view-container">
     <div class="main-index">
-      <router-view />
+      <keep-alive>
+        <router-view />
+      </keep-alive>
     </div>
   </div>
 </template>

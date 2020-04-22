@@ -1,15 +1,17 @@
 <template>
-  <div class="compared">
-    职位分析
-  </div>
+  <div class="compared"></div>
 </template>
 
 <script>
-export default {}
+export default {
+  components: {}
+}
 </script>
 
 <style lang="scss" scoped>
-.analysis {
-  height: 200vh;
+.compared {
+  width: 100%;
+  height: 100%;
+  background: #fff;
 }
 </style>

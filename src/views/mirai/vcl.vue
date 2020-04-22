@@ -87,8 +87,9 @@ export default {
         speed = Math.round(speed)
         mirai.push({ name: newData[index].name, speed })
       }
+
       let insideIndex = 0
-      console.log(3333333333)
+
       const insideTimer = setInterval(() => {
         insideIndex++
         // 获取每一秒各职位在一毫秒时的增速
