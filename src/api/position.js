@@ -1,15 +1,38 @@
 import request from './request'
 
-export function getAllDayPosition() {
+/**
+ * 暂时性使用固定参数，后续看要求可改成 ...args
+ */
+
+export function getPositionHeatmap(loc = '前端开发', pos = '广东省') {
   return request({
-    url: 'position/all-day-position.json',
-    method: 'get'
+    url: 'mirai-position/heat-map.json',
+    method: 'get',
+    params: {
+      loc,
+      pos
+    }
   })
 }
 
-export function getAllMonthPosition() {
+export function getCompanySize(loc = '前端开发', pos = '广东省') {
   return request({
-    url: 'position/all-month-position.json',
-    method: 'get'
+    url: 'mirai-position/company-size.json',
+    method: 'get',
+    params: {
+      loc,
+      pos
+    }
+  })
+}
+
+export function getEducation(loc = '前端开发', pos = '广东省') {
+  return request({
+    url: 'mirai-position/education.json',
+    method: 'get',
+    params: {
+      loc,
+      pos
+    }
   })
 }

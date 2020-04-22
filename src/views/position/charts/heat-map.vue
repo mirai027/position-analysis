@@ -90,7 +90,7 @@ export default {
       })
 
       const option = {
-        animation: false,
+        animation: true,
         grid: {
           bottom: '20',
           left: '10',
@@ -104,12 +104,11 @@ export default {
             show: false
           },
           axisLabel: {
-            color: '#606266',
-            interval: 0
+            color: '#303133'
           },
           axisLine: {
             lineStyle: {
-              color: '#606266'
+              color: '#E9E9EB'
             }
           }
         },
