@@ -7,6 +7,7 @@
     </div>
     <div class="third-container">
       <wordCloud class="word-cloud" :benefit-data="benefitData" />
+      <pie class="finance-stage" :finance-stage-data="financeStage" />
     </div>
   </div>
 </template>
@@ -16,25 +17,29 @@ import heatMap from './charts/heat-map'
 import columnBar from './charts/column-bar'
 import columnBarSub from './charts/column-bar-sub'
 import wordCloud from './charts/word-cloud'
+import pie from './charts/pie'
 import {
   getPositionHeatmap,
   getCompanySize,
   getEducation,
-  getBenefit
+  getBenefit,
+  getFinanceStage
 } from '@/api/position'
 export default {
   components: {
     heatMap,
     columnBar,
     columnBarSub,
-    wordCloud
+    wordCloud,
+    pie
   },
   data() {
     return {
       heatMapData: [],
       companySizeData: [],
       educationData: [],
-      benefitData: []
+      benefitData: [],
+      financeStage: []
     }
   },
   mounted() {
@@ -42,6 +47,7 @@ export default {
     this.getCompanySizeData()
     this.getEducationData()
     this.getBenefitData()
+    this.getFinanceStageData()
   },
   activated() {},
   methods: {
@@ -60,6 +66,10 @@ export default {
     async getBenefitData() {
       const { data } = await getBenefit()
       this.benefitData = data
+    },
+    async getFinanceStageData() {
+      const { data } = await getFinanceStage()
+      this.financeStage = data
     }
   }
 }
@@ -67,12 +77,14 @@ export default {
 
 <style lang="scss" scoped>
 .analysis {
-  width: 100%;
+  // width: 100%;
   height: auto;
   overflow: hidden;
-  overflow-y: scroll;
+  // overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
   .heat-map {
-    width: 100%;
+    // width: 100%;
     height: 400px;
     background: #fff;
   }
@@ -94,6 +106,12 @@ export default {
     display: flex;
     .word-cloud {
       height: 400px;
+      background: #fff;
+    }
+    .finance-stage {
+      margin-left: 10px;
+      height: 400px;
+      background: #fff;
     }
   }
 }

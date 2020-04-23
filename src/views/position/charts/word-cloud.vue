@@ -48,11 +48,11 @@ export default {
         },
         series: [
           {
-            width: '90%',
+            width: '98%',
             height: '90%',
             name: '热点分析', //数据提示窗标题
             type: 'wordCloud',
-            sizeRange: [6, 70], //画布范围，如果设置太大会出现少词（溢出屏幕）
+            sizeRange: [10, 127], //画布范围，如果设置太大会出现少词（溢出屏幕）
             rotationRange: [-45, 120], //数据翻转范围
             //shape: 'circle',
             textPadding: 0,

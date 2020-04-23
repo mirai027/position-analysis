@@ -47,3 +47,14 @@ export function getBenefit(loc = '前端开发', pos = '广东省') {
     }
   })
 }
+
+export function getFinanceStage(loc = '前端开发', pos = '广东省') {
+  return request({
+    url: 'mirai-position/financeStage.json',
+    method: 'get',
+    params: {
+      loc,
+      pos
+    }
+  })
+}
