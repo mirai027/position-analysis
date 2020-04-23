@@ -1,5 +1,6 @@
 <template>
   <div class="analysis">
+    <position class="position" :position-data="positionData" />
     <heat-map class="heat-map" :heat-map-data="heatMapData" />
     <div class="second-container">
       <columnBar class="company-size" :company-size-data="companySizeData" />
@@ -13,12 +14,14 @@
 </template>
 
 <script>
+import position from './position'
 import heatMap from './charts/heat-map'
 import columnBar from './charts/column-bar'
 import columnBarSub from './charts/column-bar-sub'
 import wordCloud from './charts/word-cloud'
 import pie from './charts/pie'
 import {
+  getPosition,
   getPositionHeatmap,
   getCompanySize,
   getEducation,
@@ -27,6 +30,7 @@ import {
 } from '@/api/position'
 export default {
   components: {
+    position,
     heatMap,
     columnBar,
     columnBarSub,
@@ -35,6 +39,7 @@ export default {
   },
   data() {
     return {
+      positionData: {},
       heatMapData: [],
       companySizeData: [],
       educationData: [],
@@ -43,6 +48,7 @@ export default {
     }
   },
   mounted() {
+    this.getPositionData()
     this.getHeatmapData()
     this.getCompanySizeData()
     this.getEducationData()
@@ -70,6 +76,10 @@ export default {
     async getFinanceStageData() {
       const { data } = await getFinanceStage()
       this.financeStage = data
+    },
+    async getPositionData() {
+      const { data } = await getPosition()
+      this.positionData = data
     }
   }
 }
@@ -77,14 +87,16 @@ export default {
 
 <style lang="scss" scoped>
 .analysis {
-  // width: 100%;
   height: auto;
   overflow: hidden;
-  // overflow-y: scroll;
   display: flex;
   flex-direction: column;
+  .position {
+    height: auto;
+    background: #fff;
+  }
   .heat-map {
-    // width: 100%;
+    margin-top: 10px;
     height: 400px;
     background: #fff;
   }
