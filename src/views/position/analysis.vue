@@ -5,6 +5,9 @@
       <columnBar class="company-size" :company-size-data="companySizeData" />
       <columnBarSub class="education" :education-data="educationData" />
     </div>
+    <div class="third-container">
+      <wordCloud class="word-cloud" :benefit-data="benefitData" />
+    </div>
   </div>
 </template>
 
@@ -12,28 +15,33 @@
 import heatMap from './charts/heat-map'
 import columnBar from './charts/column-bar'
 import columnBarSub from './charts/column-bar-sub'
+import wordCloud from './charts/word-cloud'
 import {
   getPositionHeatmap,
   getCompanySize,
-  getEducation
+  getEducation,
+  getBenefit
 } from '@/api/position'
 export default {
   components: {
     heatMap,
     columnBar,
-    columnBarSub
+    columnBarSub,
+    wordCloud
   },
   data() {
     return {
       heatMapData: [],
       companySizeData: [],
-      educationData: []
+      educationData: [],
+      benefitData: []
     }
   },
   mounted() {
     this.getHeatmapData()
     this.getCompanySizeData()
     this.getEducationData()
+    this.getBenefitData()
   },
   activated() {},
   methods: {
@@ -48,6 +56,10 @@ export default {
     async getEducationData() {
       const { data } = await getEducation()
       this.educationData = data
+    },
+    async getBenefitData() {
+      const { data } = await getBenefit()
+      this.benefitData = data
     }
   }
 }
@@ -75,6 +87,13 @@ export default {
       margin-left: 10px;
       height: 400px;
       background: #fff;
+    }
+  }
+  .third-container {
+    margin-top: 10px;
+    display: flex;
+    .word-cloud {
+      height: 400px;
     }
   }
 }

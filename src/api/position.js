@@ -36,3 +36,14 @@ export function getEducation(loc = '前端开发', pos = '广东省') {
     }
   })
 }
+
+export function getBenefit(loc = '前端开发', pos = '广东省') {
+  return request({
+    url: 'mirai-position/benefit.json',
+    method: 'get',
+    params: {
+      loc,
+      pos
+    }
+  })
+}

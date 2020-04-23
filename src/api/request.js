@@ -7,7 +7,7 @@ const service = axios.create({})
  */
 switch (process.env.NODE_ENV) {
   case 'production':
-    service.defaults.baseURL = ''
+    service.defaults.baseURL = './mock/'
     // axios.defaults.baseURL = '/api'
     break
   case 'development':
@@ -28,12 +28,12 @@ service.defaults.withCredentials = true
  * Token校验
  */
 service.interceptors.request.use(
-  config => {
+  (config) => {
     const token = localStorage.getItem('token')
     token && (config.headers.Authorization = token)
     return config
   },
-  error => {
+  (error) => {
     return Promise.reject(error)
   }
 )
@@ -42,7 +42,7 @@ service.interceptors.request.use(
  * 设置响应拦截器
  */
 service.interceptors.response.use(
-  response => {
+  (response) => {
     const res = response.data
     if (res.code !== 200) {
       return Promise.reject(new Error(res.msg))
@@ -50,7 +50,7 @@ service.interceptors.response.use(
       return res
     }
   },
-  error => {
+  (error) => {
     return Promise.reject(error)
   }
 )

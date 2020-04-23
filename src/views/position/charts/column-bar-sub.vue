@@ -34,7 +34,7 @@ export default {
     this.companySizepDom = this.$echarts.init(this.$refs.companySize)
   },
   methods: {
-    async initCompanySize() {
+    initCompanySize() {
       /**
        * 阶梯瀑布图
        * 其实就是两个叠在一起（stack 相同）的 bar的组合
@@ -60,12 +60,11 @@ export default {
         color: ['#3398DB'],
         tooltip: {
           trigger: 'axis',
-          backgroundColor: 'rgba(0,0,0,0.4)',
+          backgroundColor: 'rgba(0, 0, 0, 0.4)',
           axisPointer: {
-            type: 'cross',
-            label: {
-              precision: '0',
-              backgroundColor: '#409EFF'
+            type: 'shadow',
+            shadowStyle: {
+              color: 'rgba(0, 0, 0, 0.1)'
             }
           },
           formatter(params) {
