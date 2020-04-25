@@ -171,6 +171,9 @@ export default {
       this.positionVideo = this.positionData.video
     },
     changeRegion(value) {
+      /**
+       * 清空时 value.name 为 undefinds,此时不做请求的处理
+       */
       console.log(value)
     }
   }

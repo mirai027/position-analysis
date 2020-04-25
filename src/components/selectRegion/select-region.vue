@@ -35,8 +35,13 @@ export default {
     changeVal() {
       // 关闭下拉框
       this.$refs.elcascader.dropDownVisible = false
-      const value = this.value[this.value.length - 1]
-      this.$emit('changeRegion', value)
+      const length = this.value.length
+      const name = this.value[length - 1]
+      /**
+       * 传出 地区 name 和 地区级联 level
+       * 清空时 name 为 undefined
+       */
+      this.$emit('changeRegion', { name, level: length - 1 })
     }
   }
 }

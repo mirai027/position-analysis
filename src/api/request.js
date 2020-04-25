@@ -3,15 +3,17 @@ import axios from 'axios'
 /**
  * 设置默认地址
  * 设置超时时间
+ * 设置请求头 Content-Type
  * 设置跨域是否允许带凭证
  */
 const service = axios.create({
   baseURL: `${process.env.VUE_APP_BASE_API}`,
   timeout: 10000,
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
   withCredentials: true
 })
-
-console.log(process.env.VUE_APP_BASE_API)
 
 // /**
 //  * 根据环境变量区分接口默认地址

@@ -4,80 +4,86 @@ import request from './request'
  * 暂时性使用固定参数，后续看要求可改成 ...args
  */
 
-export function getPositionHeatmap(region = '前端开发', position = '广东省') {
+export function getPositionHeatmap(
+  region = '前端开发',
+  position = '广东省',
+  level
+) {
   return request({
     url: '/mirai-position/heat-map.json',
     method: 'get',
-    // 请求时换成 post
-    // method: 'post',
     params: {
       region,
-      position
+      position,
+      level
     }
   })
 }
 
-export function getCompanySize(region = '前端开发', position = '广东省') {
+export function getCompanySize(
+  region = '前端开发',
+  position = '广东省',
+  level
+) {
   return request({
     url: '/mirai-position/company-size.json',
     method: 'get',
-    // 请求时换成 post
-    // method: 'post',
     params: {
       region,
-      position
+      position,
+      level
     }
   })
 }
 
-export function getEducation(region = '前端开发', position = '广东省') {
+export function getEducation(region = '前端开发', position = '广东省', level) {
   return request({
     url: '/mirai-position/education.json',
     method: 'get',
-    // 请求时换成 post
-    // method: 'post',
     params: {
       region,
-      position
+      position,
+      level
     }
   })
 }
 
-export function getBenefit(region = '前端开发', position = '广东省') {
+export function getBenefit(region = '前端开发', position = '广东省', level) {
   return request({
     url: '/mirai-position/benefit.json',
     method: 'get',
-    // 请求时换成 post
-    // method: 'post',
     params: {
       region,
-      position
+      position,
+      level
     }
   })
 }
 
-export function getFinanceStage(region = '前端开发', position = '广东省') {
+export function getFinanceStage(
+  region = '前端开发',
+  position = '广东省',
+  level
+) {
   return request({
     url: '/mirai-position/financeStage.json',
     method: 'get',
-    // 请求时换成 post
-    // method: 'post',
     params: {
       region,
-      position
+      position,
+      level
     }
   })
 }
 
-export function getPosition(region = '前端开发', position = '广东省') {
+export function getPosition(region = '前端开发', position = '广东省', level) {
   return request({
     url: '/mirai-position/position.json',
     method: 'get',
-    // 请求时换成 post
-    // method: 'post',
     params: {
       region,
-      position
+      position,
+      level
     }
   })
 }
