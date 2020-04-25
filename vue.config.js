@@ -1,9 +1,12 @@
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+//   .BundleAnalyzerPlugin
 module.exports = {
-  publicPath: './',
+  // publicPath: process.env.NODE_ENV === 'production' ? './' : './',
   devServer: {
     proxy: {
       '/api': {
-        target: 'https://39.106.60.145/Hbase_3.0',
+        target: 'bai',
+        // target: process.env.VUE_APP_BASE_API,
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
@@ -11,4 +14,9 @@ module.exports = {
       }
     }
   }
+  // configureWebpack: (config) => {
+  //   if (process.env.NODE_ENV === 'production') {
+  //     config.plugins.push(new BundleAnalyzerPlugin())
+  //   }
+  // }
 }

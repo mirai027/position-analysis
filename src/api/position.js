@@ -6,8 +6,10 @@ import request from './request'
 
 export function getPositionHeatmap(region = '前端开发', position = '广东省') {
   return request({
-    url: 'mirai-position/heat-map.json',
+    url: '/mirai-position/heat-map.json',
     method: 'get',
+    // 请求时换成 post
+    // method: 'post',
     params: {
       region,
       position
@@ -17,8 +19,10 @@ export function getPositionHeatmap(region = '前端开发', position = '广东�
 
 export function getCompanySize(region = '前端开发', position = '广东省') {
   return request({
-    url: 'mirai-position/company-size.json',
+    url: '/mirai-position/company-size.json',
     method: 'get',
+    // 请求时换成 post
+    // method: 'post',
     params: {
       region,
       position
@@ -28,8 +32,10 @@ export function getCompanySize(region = '前端开发', position = '广东省') 
 
 export function getEducation(region = '前端开发', position = '广东省') {
   return request({
-    url: 'mirai-position/education.json',
+    url: '/mirai-position/education.json',
     method: 'get',
+    // 请求时换成 post
+    // method: 'post',
     params: {
       region,
       position
@@ -39,8 +45,10 @@ export function getEducation(region = '前端开发', position = '广东省') {
 
 export function getBenefit(region = '前端开发', position = '广东省') {
   return request({
-    url: 'mirai-position/benefit.json',
+    url: '/mirai-position/benefit.json',
     method: 'get',
+    // 请求时换成 post
+    // method: 'post',
     params: {
       region,
       position
@@ -50,8 +58,10 @@ export function getBenefit(region = '前端开发', position = '广东省') {
 
 export function getFinanceStage(region = '前端开发', position = '广东省') {
   return request({
-    url: 'mirai-position/financeStage.json',
+    url: '/mirai-position/financeStage.json',
     method: 'get',
+    // 请求时换成 post
+    // method: 'post',
     params: {
       region,
       position
@@ -61,8 +71,10 @@ export function getFinanceStage(region = '前端开发', position = '广东省')
 
 export function getPosition(region = '前端开发', position = '广东省') {
   return request({
-    url: 'mirai-position/position.json',
+    url: '/mirai-position/position.json',
     method: 'get',
+    // 请求时换成 post
+    // method: 'post',
     params: {
       region,
       position

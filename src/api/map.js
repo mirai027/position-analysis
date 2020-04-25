@@ -2,14 +2,14 @@ import request from './request'
 
 export function getAllProvince() {
   return request({
-    url: 'map/all-day-province.json',
+    url: '/map/all-day-province.json',
     method: 'get'
   })
 }
 
 export function getAllUpdate() {
   return request({
-    url: 'map/all-update.json',
+    url: '/map/all-update.json',
     method: 'get'
   })
 }

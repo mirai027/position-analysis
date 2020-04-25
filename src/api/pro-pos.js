@@ -2,7 +2,7 @@ import request from './request'
 
 export function getProPos(pro, pos) {
   return request({
-    url: 'province/pro-pos.json',
+    url: '/province/pro-pos.json',
     method: 'get',
     data: {
       pro,

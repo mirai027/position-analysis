@@ -1,26 +1,32 @@
 import axios from 'axios'
 
-const service = axios.create({})
-
 /**
- * 根据环境变量区分接口默认地址
+ * 设置默认地址
+ * 设置超时时间
+ * 设置跨域是否允许带凭证
  */
-switch (process.env.NODE_ENV) {
-  case 'production':
-    service.defaults.baseURL = './mock/'
-    // axios.defaults.baseURL = '/api'
-    break
-  case 'development':
-    // service.defaults.baseURL = '/api'
-    service.defaults.baseURL = './mock/'
-    break
-}
+const service = axios.create({
+  baseURL: `${process.env.VUE_APP_BASE_API}`,
+  timeout: 10000,
+  withCredentials: true
+})
 
-/**
- * 设置超时时间和跨域是否允许带凭证
- */
-service.defaults.timeout = 10000
-service.defaults.withCredentials = true
+console.log(process.env.VUE_APP_BASE_API)
+
+// /**
+//  * 根据环境变量区分接口默认地址
+//  */
+// switch (process.env.NODE_ENV) {
+//   case 'production':
+//     service.defaults.baseURL = './mock/'
+//     // axios.defaults.baseURL = '/api'
+//     break
+//   case 'development':
+//     // service.defaults.baseURL = '/api'
+//     service.defaults.baseURL = './mock/'
+//     break
+// }
+
 // service.defaults.headers.post['Content-Type'] =
 //   'application/x-www-form-urlencoded'
 /**
