@@ -7,7 +7,7 @@ import request from './request'
 export function getPositionHeatmap(
   region = '前端开发',
   position = '广东省',
-  level
+  level = 1
 ) {
   return request({
     url: '/mirai-position/heat-map.json',
@@ -23,7 +23,7 @@ export function getPositionHeatmap(
 export function getCompanySize(
   region = '前端开发',
   position = '广东省',
-  level
+  level = 1
 ) {
   return request({
     url: '/mirai-position/company-size.json',
@@ -63,7 +63,7 @@ export function getBenefit(region = '前端开发', position = '广东省', leve
 export function getFinanceStage(
   region = '前端开发',
   position = '广东省',
-  level
+  level = 1
 ) {
   return request({
     url: '/mirai-position/financeStage.json',
@@ -76,7 +76,11 @@ export function getFinanceStage(
   })
 }
 
-export function getPosition(region = '前端开发', position = '广东省', level) {
+export function getPosition(
+  region = '前端开发',
+  position = '广东省',
+  level = 1
+) {
   return request({
     url: '/mirai-position/position.json',
     method: 'get',
