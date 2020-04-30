@@ -6,33 +6,41 @@
         <div class="location-rank-main">
            <el-table
             :data="locationData"
-            style="width: 100%; font-size: 24px "
-            height="325">
+            style="width: 100%; font-size: 20px "
+            height="325"
+            :row-class-name="tableRowClassName">
             <el-table-column
-              prop="name"
+              type="index"
+              width="50">
+            </el-table-column>
+            <el-table-column
               label="省份"
-              width="350">
+              width="300">
+              <template slot-scope="scope">
+                <i class="el-icon-location-information"></i>
+                <span style="margin-left: 10px">{{ scope.row.name }}</span>
+              </template>
             </el-table-column>
             <el-table-column
               prop="value"
               label="数量"
-              width="350">
+              width="300">
             </el-table-column>
           </el-table>
         </div>
       </el-collapse-item>
     </el-collapse>
-    <funnel class="top" :funnel-data="locationData" title="地区排行榜"></funnel>
+    <verticalColumn class="top" :column-data="locationData" title="地区排行榜"></verticalColumn>
   </div>
 </template>
 
 <script>
 import { getAllProvince } from '@/api/map'
 import { TopFiveDate } from '@/utils/sortData'
-import funnel from '@/components/charts/funnel'
+import verticalColumn from '@/components/charts/vertical-column'
 export default {
   components: {
-    funnel
+    verticalColumn
   },
   data() {
     return {
@@ -44,6 +52,12 @@ export default {
     this.getTop()
   },
   methods: {
+    tableRowClassName({ row, rowIndex }) {
+      if (rowIndex === 0) {
+        return 'first-row'
+      }
+      return ''
+    },
     async getTop() {
       const { data } = await getAllProvince()
       this.locationData = TopFiveDate(data)
@@ -52,25 +66,29 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .location-rank-container {
   width: 100%;
   height: 100%;
    display: flex;
   .location-table {
-    flex: 1;
+    flex: 4;
     .title {
       font-size: 28px;
       margin-left: 20px;
     }
     .location-rank-main {
       margin: 0 20px;
+      .el-table .first-row {
+        background: oldlace;
+      }
     }
   }
   .top {
-    flex: 1;
+    flex: 6;
     height: 400px;
     width: 100%;
+    margin-top: 20px;
   }
 }
 
