@@ -1,6 +1,7 @@
 <template>
   <div class="wordcloud-container">
     <div ref="wordcloud" v-loading="loading" class="chart" />
+    <p class="title">{{ title }}</p>
   </div>
 </template>
 
@@ -9,11 +10,15 @@ require('echarts-wordcloud')
 
 export default {
   props: {
-    benefitData: {
+    wordCloudData: {
       type: Array,
       default: function() {
         return []
       }
+    },
+    title: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -24,9 +29,9 @@ export default {
     }
   },
   watch: {
-    benefitData: {
+    wordCloudData: {
       handler() {
-        this.data = this.benefitData
+        this.data = this.wordCloudData
         this.initBenefit()
       }
     }
@@ -92,6 +97,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/styles/index.scss';
 .wordcloud-container {
   width: 100%;
   height: 100%;
@@ -99,6 +105,9 @@ export default {
   .chart {
     width: 100%;
     height: 100%;
+  }
+  .title {
+    @include title-line($pos-top: 0px, $pos-left: 30px);
   }
 }
 </style>

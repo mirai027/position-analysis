@@ -7,7 +7,7 @@
       v-model="value"
       :options="options"
       :show-all-levels="false"
-      filterable
+      :filterable="isfilterable"
       clearable
       :props="{ expandTrigger: 'hover', checkStrictly: true, multiple: true }"
       size="small"
@@ -31,7 +31,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['tableForm', 'watchForm'])
+    ...mapGetters(['tableForm', 'watchForm']),
+    isfilterable() {
+      if (this.value.length) {
+        return false
+      } else {
+        return true
+      }
+    }
   },
   watch: {
     watchForm: {

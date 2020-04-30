@@ -2,19 +2,19 @@
   <div class="compared">
     <div class="analysis">
       <positionCopy class="position" :position-data="positionData" />
-      <heat-map class="heat-map" :heat-map-data="heatMapData" />
-      <columnBar class="company-size" :company-size-data="companySizeData" />
-      <columnBarSub class="education" :education-data="educationData" />
-      <wordCloud class="word-cloud" :benefit-data="benefitData" />
-      <pie class="finance-stage" :finance-stage-data="financeStage" />
+      <heat-map class="heat-map" :heat-map-data="heatMapData" title="预测薪资" />
+      <columnBar class="company-size" :column-data="companySizeData" title="企业规模" />
+      <columnBarSub class="education" :column-bar-data="educationData" title="学历要求" />
+      <wordCloud class="word-cloud" :word-cloud-data="benefitData" title="薪资福利" />
+      <pie class="finance-stage" :pie-data="financeStage" title="企业融资" />
     </div>
     <div class="analysis">
       <positionCopy class="position" :position-data="positionData" />
-      <heat-map class="heat-map" :heat-map-data="heatMapData" />
-      <columnBar class="company-size" :company-size-data="companySizeData" />
-      <columnBarSub class="education" :education-data="educationData" />
-      <wordCloud class="word-cloud" :benefit-data="benefitData" />
-      <pie class="finance-stage" :finance-stage-data="financeStage" />
+      <heat-map class="heat-map" :heat-map-data="heatMapData" title="预测薪资" />
+      <columnBar class="company-size" :column-data="companySizeData" title="企业规模" />
+      <columnBarSub class="education" :column-bar-data="educationData" title="学历要求" />
+      <wordCloud class="word-cloud" :word-cloud-data="benefitData" title="薪资福利" />
+      <pie class="finance-stage" :pie-data="financeStage" title="企业融资" />
     </div>
     <!-- <div class="analysis">
       <position class="position" :position-data="positionData" />
@@ -29,11 +29,11 @@
 
 <script>
 import positionCopy from './position-copy'
-import heatMap from './charts/heat-map'
-import columnBar from './charts/column-bar'
-import columnBarSub from './charts/column-bar-sub'
-import wordCloud from './charts/word-cloud'
-import pie from './charts/pie'
+import heatMap from '@/components/charts/heat-map'
+import columnBar from '@/components/charts/column-bar'
+import columnBarSub from '@/components/charts/column-bar-sub'
+import wordCloud from '@/components/charts/word-cloud'
+import pie from '@/components/charts/pie'
 import {
   getPosition,
   getPositionHeatmap,
