@@ -251,9 +251,12 @@ export default {
     tableCheckboxTotal: {
       handler() {
         // 过滤出需要显示的 column
+        console.log(JSON.stringify(this.miraiColumnAllShow))
+        console.log(JSON.stringify(this.tableCheckboxTotal))
         this.miraiColumn = this.miraiColumnAllShow.filter((item) => {
           return this.tableCheckboxTotal.some((cItem) => item.label === cItem)
         })
+        console.log(JSON.stringify(this.miraiColumn))
       }
     },
     tableHeight: {
