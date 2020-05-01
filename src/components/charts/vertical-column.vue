@@ -57,10 +57,16 @@ export default {
         rankArr.unshift([sign, item.value, item.name])
       })
       rankArr.unshift(header)
-      console.log(rankArr)
+
       const option = {
         dataset: {
           source: rankArr
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+          }
         },
         grid: { containLabel: true },
         xAxis: { name: '数量' },
@@ -79,11 +85,10 @@ export default {
         },
         series: [
           {
+            name: '招聘信息数量',
             type: 'bar',
             encode: {
-              // Map the "amount" column to X axis.
               x: 'nums',
-              // Map the "product" column to Y axis
               y: 'name'
             }
           }

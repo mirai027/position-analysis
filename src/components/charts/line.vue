@@ -76,6 +76,7 @@ export default {
           trigger: 'axis',
           backgroundColor: 'rgba(0,0,0,0.3)',
           axisPointer: {
+            animation: false,
             type: 'cross',
             label: {
               precision: '0'

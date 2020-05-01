@@ -11,11 +11,13 @@
             :row-class-name="tableRowClassName">
             <el-table-column
               type="index"
-              width="50">
+              width="100"
+              align="center">
             </el-table-column>
             <el-table-column
               label="日期"
-              width="300">
+              width="250"
+              align="center">
               <template slot-scope="scope">
                 <i class="el-icon-time"></i>
                 <span style="margin-left: 10px">{{ scope.row.name }}</span>
@@ -24,7 +26,8 @@
             <el-table-column
               prop="value"
               label="数量"
-              width="300">
+              width="300"
+              align="center">
             </el-table-column>
           </el-table>
         </div>

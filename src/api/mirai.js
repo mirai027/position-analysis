@@ -1,5 +1,11 @@
-// import request from './request'
+import request from './request'
 
+export function getLanguage() {
+  return request({
+    url: '/mirai/language.json',
+    method: 'get'
+  })
+}
 // Test
 // request({
 //   url: '/TableEnd_Servlet',

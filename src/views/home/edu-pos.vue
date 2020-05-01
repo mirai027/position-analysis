@@ -1,6 +1,6 @@
 <template>
   <div class="edu-pos-container">
-    <div ref="EDUPOSChart" class="edu-pos chart" title="全国职位趋势图" />
+    <div ref="EDUPOSChart" class="edu-pos chart" />
   </div>
 </template>
 
