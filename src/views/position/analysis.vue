@@ -1,15 +1,44 @@
 <template>
   <div class="analysis">
-    <position class="position" :position-data="positionData" />
-    <heat-map class="heat-map" :heat-map-data="heatMapData" title="预测薪资" />
+    <position
+      class="position"
+      :position-data="positionData"
+      :is-loading="isLoading"
+    />
+    <heat-map
+      class="heat-map"
+      :heat-map-data="heatMapData"
+      title="预测薪资"
+      :is-loading="isLoading"
+    />
     <div class="second-container">
-      <columnBar class="company-size" :column-data="companySizeData" title="企业规模" />
-      <columnBarSub class="education" :column-bar-data="educationData" title="学历要求" />
+      <columnBar
+        class="company-size"
+        :column-data="companySizeData"
+        title="企业规模"
+        :is-loading="isLoading"
+      />
+      <columnBarSub
+        class="education"
+        :column-bar-data="educationData"
+        title="学历要求"
+        :is-loading="isLoading"
+      />
     </div>
     <div class="third-container">
-        <wordCloud class="word-cloud" :word-cloud-data="benefitData" title="薪资福利" />
-        <pie class="finance-stage" :pie-data="financeStage" title="企业融资" />
-      </div>
+      <wordCloud
+        class="word-cloud"
+        :word-cloud-data="benefitData"
+        title="薪资福利"
+        :is-loading="isLoading"
+      />
+      <pie
+        class="finance-stage"
+        :pie-data="financeStage"
+        title="企业融资"
+        :is-loading="isLoading"
+      />
+    </div>
   </div>
 </template>
 
@@ -20,6 +49,7 @@ import columnBar from '@/components/charts/column-bar'
 import columnBarSub from '@/components/charts/column-bar-sub'
 import wordCloud from '@/components/charts/word-cloud'
 import pie from '@/components/charts/pie'
+import { mapGetters } from 'vuex'
 import {
   getPosition,
   getPositionHeatmap,
@@ -44,7 +74,26 @@ export default {
       companySizeData: [],
       educationData: [],
       benefitData: [],
-      financeStage: []
+      financeStage: [],
+      isLoading: true
+    }
+  },
+  computed: {
+    ...mapGetters(['positionForm'])
+  },
+  watch: {
+    positionForm: {
+      handler() {
+        // 用于设置子组件为 Loading 状态
+        this.isLoading = !this.isLoading
+        this.getPositionData(this.positionForm)
+        this.getHeatmapData(this.positionForm)
+        this.getCompanySizeData(this.positionForm)
+        this.getEducationData(this.positionForm)
+        this.getBenefitData(this.positionForm)
+        this.getFinanceStageData(this.positionForm)
+      },
+      deep: true
     }
   },
   mounted() {
@@ -57,28 +106,28 @@ export default {
   },
   activated() {},
   methods: {
-    async getHeatmapData() {
-      const { data } = await getPositionHeatmap()
+    async getHeatmapData(form = {}) {
+      const { data } = await getPositionHeatmap(form)
       this.heatMapData = data
     },
-    async getCompanySizeData() {
-      const { data } = await getCompanySize()
+    async getCompanySizeData(form = {}) {
+      const { data } = await getCompanySize(form)
       this.companySizeData = data
     },
-    async getEducationData() {
-      const { data } = await getEducation()
+    async getEducationData(form = {}) {
+      const { data } = await getEducation(form)
       this.educationData = data
     },
-    async getBenefitData() {
-      const { data } = await getBenefit()
+    async getBenefitData(form = {}) {
+      const { data } = await getBenefit(form)
       this.benefitData = data
     },
-    async getFinanceStageData() {
-      const { data } = await getFinanceStage()
+    async getFinanceStageData(form = {}) {
+      const { data } = await getFinanceStage(form)
       this.financeStage = data
     },
-    async getPositionData() {
-      const { data } = await getPosition()
+    async getPositionData(form = {}) {
+      const { data } = await getPosition(form)
       this.positionData = data
     }
   }

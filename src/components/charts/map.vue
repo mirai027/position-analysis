@@ -1,8 +1,8 @@
 <template>
-    <div class="map-container">
-        <div ref="map" v-loading="loading" class="map-main" />
-        <p class="title">{{ title }}</p>
-    </div>
+  <div class="map-container">
+    <div ref="map" v-loading="loading" class="map-main" />
+    <p class="title">{{ title }}</p>
+  </div>
 </template>
 
 <script>
@@ -18,6 +18,10 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    isLoading: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -28,6 +32,12 @@ export default {
     }
   },
   watch: {
+    isLoading: {
+      handler() {
+        //  用于设置子组件为 Loading 状态
+        this.loading = true
+      }
+    },
     mapData: {
       handler() {
         this.data = this.mapData
@@ -119,7 +129,7 @@ export default {
 
       this.mapDom.setOption(option)
       this.$store.dispatch('setChartDOM', [this.mapDom])
-      this.mapDom.on('click', params => {
+      this.mapDom.on('click', (params) => {
         const { name } = params
         this.$router.push({
           path: '/province',
@@ -143,7 +153,7 @@ export default {
     height: 100%;
   }
   .title {
-    @include title-line($pos-top: 0px, $pos-left: 30px);
+    @include title-line($pos-top: 10px, $pos-left: 30px);
   }
 }
 </style>

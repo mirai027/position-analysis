@@ -1,7 +1,7 @@
 <template>
-    <div class="column-container">
-        <div ref="column" v-loading="loading" class="chart" />
-        <p class="title">{{ title }}</p>
+  <div class="column-container">
+    <div ref="column" v-loading="loading" class="chart" />
+    <p class="title">{{ title }}</p>
   </div>
 </template>
 
@@ -17,6 +17,10 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    isLoading: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -27,6 +31,12 @@ export default {
     }
   },
   watch: {
+    isLoading: {
+      handler() {
+        //  用于设置子组件为 Loading 状态
+        this.loading = true
+      }
+    },
     columnData: {
       handler() {
         this.data = this.columnData
@@ -64,7 +74,8 @@ export default {
         },
         tooltip: {
           trigger: 'axis',
-          axisPointer: { // 坐标轴指示器，坐标轴触发有效
+          axisPointer: {
+            // 坐标轴指示器，坐标轴触发有效
             type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
           }
         },
@@ -98,9 +109,7 @@ export default {
       this.columnDom.setOption(option)
       this.$store.dispatch('setChartDOM', [this.columnDom])
     }
-
   }
-
 }
 </script>
 
@@ -116,7 +125,7 @@ export default {
     width: 100%;
     height: 100%;
   }
- .title {
+  .title {
     @include title-line($pos-top: 10px, $pos-left: 30px);
   }
 }

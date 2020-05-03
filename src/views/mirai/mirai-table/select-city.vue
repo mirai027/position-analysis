@@ -33,6 +33,7 @@ export default {
   computed: {
     ...mapGetters(['tableForm', 'watchForm']),
     isfilterable() {
+      // 存在值时不可搜索
       if (this.value.length) {
         return false
       } else {

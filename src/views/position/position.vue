@@ -108,6 +108,7 @@
           :key="idx"
           :span="8"
           class="bottom-right-item"
+          @click.native="handleOther(item.name)"
         >
           <p class="item-name">{{ item.name }}</p>
           <p class="item-num">
@@ -132,6 +133,10 @@ export default {
       default: function() {
         return []
       }
+    },
+    isLoading: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -146,6 +151,12 @@ export default {
     }
   },
   watch: {
+    isLoading: {
+      handler() {
+        //  用于设置子组件为 Loading 状态
+        this.loading = true
+      }
+    },
     positionData: {
       handler() {
         this.initPositionData()
@@ -174,7 +185,19 @@ export default {
       /**
        * 清空时 value.name 为 undefinds,此时不做请求的处理
        */
-      console.log(value)
+      if (value.name) {
+        this.$store.dispatch('setPositionForm', {
+          key: 'region',
+          value: value.name
+        })
+        this.$store.dispatch('setPositionForm', {
+          key: 'level',
+          value: value.level
+        })
+      }
+    },
+    handleOther(name) {
+      this.$store.dispatch('setPositionForm', { key: 'position', value: name })
     }
   }
 }
@@ -185,6 +208,7 @@ export default {
 .position-container {
   width: auto;
   height: auto;
+  min-height: 300px;
   display: flex;
   position: relative;
   padding: 20px;
