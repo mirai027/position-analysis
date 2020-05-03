@@ -112,12 +112,12 @@ export default {
   height: 100%;
   position: relative;
   .chart {
-    margin-top: 10px;
+    // margin-top: 10px;
     width: 100%;
     height: 100%;
   }
  .title {
-    @include title-line($pos-top: 0px, $pos-left: 30px);
+    @include title-line($pos-top: 10px, $pos-left: 30px);
   }
 }
 </style>

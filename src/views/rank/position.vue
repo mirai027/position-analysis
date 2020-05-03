@@ -7,16 +7,14 @@
            <el-table
             :data="positionData"
             style="width: 100%; font-size: 20px "
-            height="325"
             :row-class-name="tableRowClassName">
             <el-table-column
               type="index"
-              width="100"
-              align="center">
+              width="50"
+              align="right">
             </el-table-column>
             <el-table-column
               label="日期"
-              width="250"
               align="center">
               <template slot-scope="scope">
                 <i class="el-icon-user"></i>
@@ -26,7 +24,6 @@
             <el-table-column
               prop="value"
               label="数量"
-              width="300"
               align="center">
             </el-table-column>
           </el-table>
@@ -93,7 +90,7 @@ export default {
     flex: 6;
     height: 400px;
     width: 100%;
-    margin-top: 20px;
+    // margin-top: 20px;
   }
 }
 
