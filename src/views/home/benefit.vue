@@ -1,85 +1,45 @@
 <template>
-  <div class="wordcloud-container">
-    <div ref="wordcloudChart" class="chart" />
-  </div>
+  <div class="benefit-container">
+    <word-cloud class="benefit" :word-cloud-data="benefitData" title="薪资福利" />
+</div>
 </template>
 
 <script>
-require('echarts-wordcloud')
 import { getAllBenefit } from '@/api/benefit'
+import wordCloud from '@/components/charts/word-cloud'
 
 export default {
+  components: {
+    wordCloud
+  },
+  data() {
+    return {
+      benefitData: []
+    }
+  },
+
   mounted() {
-    this.initBenefit()
+    // this.initBenefit()
+    this.getBenefit()
   },
   methods: {
-    async initBenefit() {
+    async getBenefit() {
       const { data } = await getAllBenefit()
-      const option = {
-        // title: {
-        //   text: '词云', //标题
-        //   x: 'center',
-        //   textStyle: {
-        //     fontSize: 23
-        //   }
-        // },
-        backgroundColor: '#FFF',
-        tooltip: {
-          show: true
-        },
-        series: [
-          {
-            width: '90%',
-            height: '90%',
-            name: '热点分析', //数据提示窗标题
-            type: 'wordCloud',
-            sizeRange: [6, 70], //画布范围，如果设置太大会出现少词（溢出屏幕）
-            rotationRange: [-45, 120], //数据翻转范围
-            //shape: 'circle',
-            textPadding: 0,
-            autoSize: {
-              enable: true,
-              minSize: 6
-            },
-            textStyle: {
-              normal: {
-                color: function() {
-                  return (
-                    'rgb(' +
-                    [
-                      Math.round(Math.random() * 160),
-                      Math.round(Math.random() * 160),
-                      Math.round(Math.random() * 160)
-                    ].join(',') +
-                    ')'
-                  )
-                }
-              },
-              emphasis: {
-                shadowBlur: 10,
-                shadowColor: '#333'
-              }
-            },
-            data: data
-          }
-        ]
-      }
-      const chart = this.$echarts.init(this.$refs.wordcloudChart)
-      chart.setOption(option)
-      this.$store.dispatch('setChartDOM', [chart])
+      this.benefitData = data
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.wordcloud-container {
+.benefit-container {
   width: 100%;
   height: 100%;
-  position: relative;
-  .chart {
-    width: 100%;
-    height: 100%;
-  }
+  // position: relative;
+  // .heat-map {
+  //     height: 400px;
+  //     background: #fff;
+  //   }
 }
+
 </style>

@@ -1,18 +1,22 @@
 <template>
   <div class="company-size-container">
     <div ref="companySize" v-loading="loading" class="chart" />
-    <p class="title">学历要求</p>
+    <p class="title">{{ title }}</p>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    educationData: {
+    columnBarData: {
       type: Array,
       default: function() {
         return []
       }
+    },
+    title: {
+      type: String,
+      default: null
     }
   },
   data() {
@@ -23,9 +27,9 @@ export default {
     }
   },
   watch: {
-    educationData: {
+    columnBarData: {
       handler() {
-        this.data = this.educationData
+        this.data = this.columnBarData
         this.initCompanySize()
       }
     }
@@ -175,7 +179,7 @@ export default {
         ]
       }
       this.companySizepDom.setOption(option)
-      // this.$store.dispatch('setChartDOM', [chart])
+      this.$store.dispatch('setChartDOM', [this.companySizepDom])
     }
   }
 }
@@ -193,7 +197,7 @@ export default {
     height: 100%;
   }
   .title {
-    @include title-line($pos-top: 10px, $pos-left: 30px);
+    @include title-line($pos-top: 0px, $pos-left: 30px);
   }
 }
 </style>

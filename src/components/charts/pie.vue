@@ -1,18 +1,22 @@
 <template>
   <div class="company-size-container">
     <div ref="financeStage" v-loading="loading" class="chart" />
-    <!-- <p class="title">学历要求</p> -->
+    <p class="title">{{ title }}</p>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    financeStageData: {
+    pieData: {
       type: Array,
       default: function() {
         return []
       }
+    },
+    title: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -23,9 +27,9 @@ export default {
     }
   },
   watch: {
-    financeStageData: {
+    pieData: {
       handler() {
-        this.data = this.financeStageData
+        this.data = this.pieData
         this.initPie()
       }
     }
@@ -161,6 +165,7 @@ export default {
         ]
       }
       this.financeStageDom.setOption(option)
+      this.$store.dispatch('setChartDOM', [this.financeStageDom])
     }
   }
 }

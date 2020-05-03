@@ -21,9 +21,10 @@
       </div>
       <div class="row magical-point">
         <div class="mirai-point-title">企业规模-薪资福利</div>
-        <companySize class="company-size" />
-        <benefit class="benefit" />
+          <companySize class="company-size" />
+          <benefit class="benefit" />
       </div>
+
     </div>
   </div>
 </template>
@@ -39,6 +40,7 @@ import eduPos from './edu-pos'
 import mapRightTop from './map-right-top'
 import { mapGetters } from 'vuex'
 import debounce from '@/utils/debounce.js'
+
 export default {
   components: {
     // eduPos: () => import('./edu-pos'),
