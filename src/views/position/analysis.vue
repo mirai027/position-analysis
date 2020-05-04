@@ -119,7 +119,14 @@ export default {
       this.educationData = data
     },
     async getBenefitData(form = {}) {
-      const { data } = await getBenefit(form)
+      let { data } = await getBenefit(form)
+      if (data.length === 0) {
+        data = [
+          { name: 'CodeRush', value: 2739 },
+          { name: '大数据招聘分析平台', value: 2739 },
+          { name: '广告位招租', value: 2739 }
+        ]
+      }
       this.benefitData = data
     },
     async getFinanceStageData(form = {}) {

@@ -1,29 +1,81 @@
 <template>
   <div class="compared">
     <div class="analysis">
-      <positionCopy class="position" :position-data="positionData" />
-      <heat-map class="heat-map" :heat-map-data="heatMapData" title="预测薪资" />
-      <columnBar class="company-size" :column-data="companySizeData" title="企业规模" />
-      <columnBarSub class="education" :column-bar-data="educationData" title="学历要求" />
-      <wordCloud class="word-cloud" :word-cloud-data="benefitData" title="薪资福利" />
-      <pie class="finance-stage" :pie-data="financeStage" title="企业融资" />
+      <positionCopy
+        class="position"
+        :position-data="leftData.positionData"
+        action-type="setComparedLeftForm"
+        :is-loading="leftData.isLoading"
+      />
+      <heat-map
+        class="heat-map"
+        :heat-map-data="leftData.heatMapData"
+        title="预测薪资"
+        :is-loading="leftData.isLoading"
+      />
+      <columnBar
+        class="company-size"
+        :column-data="leftData.companySizeData"
+        title="企业规模"
+        :is-loading="leftData.isLoading"
+      />
+      <columnBarSub
+        class="education"
+        :column-bar-data="leftData.educationData"
+        title="学历要求"
+        :is-loading="leftData.isLoading"
+      />
+      <wordCloud
+        class="word-cloud"
+        :word-cloud-data="leftData.benefitData"
+        title="薪资福利"
+        :is-loading="leftData.isLoading"
+      />
+      <pie
+        class="finance-stage"
+        :pie-data="leftData.financeStage"
+        title="企业融资"
+        :is-loading="leftData.isLoading"
+      />
     </div>
     <div class="analysis">
-      <positionCopy class="position" :position-data="positionData" />
-      <heat-map class="heat-map" :heat-map-data="heatMapData" title="预测薪资" />
-      <columnBar class="company-size" :column-data="companySizeData" title="企业规模" />
-      <columnBarSub class="education" :column-bar-data="educationData" title="学历要求" />
-      <wordCloud class="word-cloud" :word-cloud-data="benefitData" title="薪资福利" />
-      <pie class="finance-stage" :pie-data="financeStage" title="企业融资" />
+      <positionCopy
+        class="position"
+        :position-data="rightData.positionData"
+        action-type="setComparedRightForm"
+        :is-loading="rightData.isLoading"
+      />
+      <heat-map
+        class="heat-map"
+        :heat-map-data="rightData.heatMapData"
+        title="预测薪资"
+        :is-loading="rightData.isLoading"
+      />
+      <columnBar
+        class="company-size"
+        :column-data="rightData.companySizeData"
+        title="企业规模"
+        :is-loading="rightData.isLoading"
+      />
+      <columnBarSub
+        class="education"
+        :column-bar-data="rightData.educationData"
+        title="学历要求"
+        :is-loading="rightData.isLoading"
+      />
+      <wordCloud
+        class="word-cloud"
+        :word-cloud-data="rightData.benefitData"
+        title="薪资福利"
+        :is-loading="rightData.isLoading"
+      />
+      <pie
+        class="finance-stage"
+        :pie-data="rightData.financeStage"
+        title="企业融资"
+        :is-loading="rightData.isLoading"
+      />
     </div>
-    <!-- <div class="analysis">
-      <position class="position" :position-data="positionData" />
-      <heat-map class="heat-map" :heat-map-data="heatMapData" />
-      <columnBar class="company-size" :company-size-data="companySizeData" />
-      <columnBarSub class="education" :education-data="educationData" />
-      <wordCloud class="word-cloud" :benefit-data="benefitData" />
-      <pie class="finance-stage" :finance-stage-data="financeStage" />
-    </div> -->
   </div>
 </template>
 
@@ -34,6 +86,7 @@ import columnBar from '@/components/charts/column-bar'
 import columnBarSub from '@/components/charts/column-bar-sub'
 import wordCloud from '@/components/charts/word-cloud'
 import pie from '@/components/charts/pie'
+import { mapGetters } from 'vuex'
 import {
   getPosition,
   getPositionHeatmap,
@@ -53,47 +106,104 @@ export default {
   },
   data() {
     return {
-      positionData: {},
-      heatMapData: [],
-      companySizeData: [],
-      educationData: [],
-      benefitData: [],
-      financeStage: []
+      leftData: {
+        positionData: {},
+        heatMapData: [],
+        companySizeData: [],
+        educationData: [],
+        benefitData: [],
+        financeStage: [],
+        isLoading: true
+      },
+      rightData: {
+        positionData: {},
+        heatMapData: [],
+        companySizeData: [],
+        educationData: [],
+        benefitData: [],
+        financeStage: [],
+        isLoading: true
+      }
+    }
+  },
+  computed: {
+    ...mapGetters(['comparedLeftForm', 'comparedRightForm'])
+  },
+  watch: {
+    comparedLeftForm: {
+      handler() {
+        // 用于设置子组件为 Loading 状态
+        this.leftData.isLoading = !this.leftData.isLoading
+        this.getLeftData(this.comparedLeftForm)
+      },
+      deep: true
+    },
+    comparedRightForm: {
+      handler() {
+        // 用于设置子组件为 Loading 状态
+        this.rightData.isLoading = !this.rightData.isLoading
+        this.getRightData(this.comparedRightForm)
+      },
+      deep: true
     }
   },
   mounted() {
-    this.getPositionData()
-    this.getHeatmapData()
-    this.getCompanySizeData()
-    this.getEducationData()
-    this.getBenefitData()
-    this.getFinanceStageData()
+    this.getLeftData(this.comparedLeftForm)
+    this.getRightData(this.comparedRightForm)
   },
   activated() {},
   methods: {
-    async getHeatmapData() {
-      const { data } = await getPositionHeatmap()
-      this.heatMapData = data
+    async getLeftData(form = {}) {
+      const { data: heatmap } = await getPositionHeatmap(form)
+      this.leftData.heatMapData = heatmap
+
+      const { data: companySize } = await getCompanySize(form)
+      this.leftData.companySizeData = companySize
+
+      const { data: education } = await getEducation(form)
+      this.leftData.educationData = education
+
+      let { data: benefit } = await getBenefit(form)
+      if (benefit.length === 0) {
+        benefit = [
+          { name: 'CodeRush', value: 2739 },
+          { name: '大数据招聘分析平台', value: 2739 },
+          { name: '广告位招租', value: 2739 }
+        ]
+      }
+      this.leftData.benefitData = benefit
+
+      const { data: financeStage } = await getFinanceStage(form)
+      this.leftData.financeStage = financeStage
+
+      const { data: position } = await getPosition(form)
+      this.leftData.positionData = position
     },
-    async getCompanySizeData() {
-      const { data } = await getCompanySize()
-      this.companySizeData = data
-    },
-    async getEducationData() {
-      const { data } = await getEducation()
-      this.educationData = data
-    },
-    async getBenefitData() {
-      const { data } = await getBenefit()
-      this.benefitData = data
-    },
-    async getFinanceStageData() {
-      const { data } = await getFinanceStage()
-      this.financeStage = data
-    },
-    async getPositionData() {
-      const { data } = await getPosition()
-      this.positionData = data
+    async getRightData(form = {}) {
+      const { data: heatmap } = await getPositionHeatmap(form)
+      this.rightData.heatMapData = heatmap
+
+      const { data: companySize } = await getCompanySize(form)
+      this.rightData.companySizeData = companySize
+
+      const { data: education } = await getEducation(form)
+      this.rightData.educationData = education
+
+      let { data: benefit } = await getBenefit(form)
+      if (benefit.length === 0) {
+        benefit = [
+          { name: 'CodeRush', value: 2739 },
+          { name: '大数据招聘分析平台', value: 2739 },
+          { name: '广告位招租', value: 2739 }
+        ]
+      }
+      this.rightData.benefitData = benefit
+
+      const { data: financeStage } = await getFinanceStage(form)
+      this.rightData.financeStage = financeStage
+
+      const { data: position } = await getPosition(form)
+      this.rightData.positionData = position
     }
   }
 }

@@ -40,7 +40,11 @@ export default {
     pieData: {
       handler() {
         this.data = this.pieData
-        this.initPie()
+        let sum = 0
+        this.pieData.forEach((item) => {
+          sum += item.value
+        })
+        this.initPie(sum)
       }
     }
   },
@@ -48,7 +52,7 @@ export default {
     this.financeStageDom = this.$echarts.init(this.$refs.financeStage)
   },
   methods: {
-    initPie() {
+    initPie(valueSum) {
       // 300毫秒延迟会使动画看起来更人性化（其实就是看起来得到结果更快）
       setTimeout(() => {
         this.loading = false
@@ -70,7 +74,7 @@ export default {
       // const _this = this
       const option = {
         title: {
-          text: '{name|' + '总量' + '}\n{val|' + formatNumber(12456) + '}',
+          text: '{name|' + '总量' + '}\n{val|' + formatNumber(valueSum) + '}',
           top: 'center',
           left: 'center',
           textStyle: {

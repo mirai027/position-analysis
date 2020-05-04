@@ -63,7 +63,6 @@ export default {
       }
 
       const xData = this.data.map((item) => item.name)
-      console.log(subData)
 
       // 300毫秒延迟会使动画看起来更人性化（其实就是看起来得到结果更快）
       setTimeout(() => {
