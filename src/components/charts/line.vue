@@ -1,5 +1,5 @@
 <template>
-  <div class="line-chart-container">
+  <div class="chart-container">
     <div ref="update" class="chart"></div>
     <p class="title">{{ title }}</p>
   </div>
@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       data: [],
-      lineDom: {}
+      chartDom: {}
     }
   },
   watch: {
@@ -35,9 +35,14 @@ export default {
     }
   },
   mounted() {
-    this.lineDom = this.$echarts.init(this.$refs.update)
+    this.chartDom = this.$echarts.init(this.$refs.update)
+    this.upLoad()
   },
   methods: {
+    upLoad() {
+      this.$emit('fromSonComp', this.chartDom)
+    },
+
     async initUpdate() {
       const lineData = []
       const updateBarData = []
@@ -259,12 +264,12 @@ export default {
         ]
       }
 
-      this.lineDom.setOption(option)
-      this.$store.dispatch('setChartDOM', [this.lineDom])
-      this.lineDom.getZr().on('click', params => {
+      this.chartDom.setOption(option)
+      // this.$store.dispatch('setChartDOM', [this.lineDom])
+      this.chartDom.getZr().on('click', params => {
         // console.log(params.event.offsetY)
         if (params.event.offsetY > 60) {
-          const name = getEchartXAxisName(this.lineDom, params)
+          const name = getEchartXAxisName(this.chartDom, params)
           this.$router.push({
             path: '/date',
             query: { name }
@@ -278,7 +283,7 @@ export default {
 
 <style lang="scss">
 @import '~@/styles/index.scss';
-.line-chart-container {
+.chart-container {
   width: 100%;
   height: 100%;
   position: relative;

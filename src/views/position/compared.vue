@@ -2,19 +2,19 @@
   <div class="compared">
     <div class="analysis">
       <positionCopy class="position" :position-data="positionData" />
-      <heat-map class="heat-map" :heat-map-data="heatMapData" title="预测薪资" />
-      <columnBar class="company-size" :column-data="companySizeData" title="企业规模" />
-      <columnBarSub class="education" :column-bar-data="educationData" title="学历要求" />
-      <wordCloud class="word-cloud" :word-cloud-data="benefitData" title="薪资福利" />
-      <pie class="finance-stage" :pie-data="financeStage" title="企业融资" />
+      <heat-map class="heat-map" :heat-map-data="heatMapData" title="预测薪资" @fromSonComp="getFromHeat" />
+      <columnBar class="company-size" :column-data="companySizeData" title="企业规模" @fromSonComp="getFromBar" />
+      <columnBarSub class="education" :column-bar-data="educationData" title="学历要求" @fromSonComp="getFromBarSub" />
+      <wordCloud class="word-cloud" :word-cloud-data="benefitData" title="薪资福利" @fromSonComp="getFromWordCloud" />
+      <pie class="finance-stage" :pie-data="financeStage" title="企业融资" @fromSonComp="getFromPie" />
     </div>
     <div class="analysis">
       <positionCopy class="position" :position-data="positionData" />
-      <heat-map class="heat-map" :heat-map-data="heatMapData" title="预测薪资" />
-      <columnBar class="company-size" :column-data="companySizeData" title="企业规模" />
-      <columnBarSub class="education" :column-bar-data="educationData" title="学历要求" />
-      <wordCloud class="word-cloud" :word-cloud-data="benefitData" title="薪资福利" />
-      <pie class="finance-stage" :pie-data="financeStage" title="企业融资" />
+      <heat-map class="heat-map" :heat-map-data="heatMapData" title="预测薪资" @fromSonComp="_getFromHeat" />
+      <columnBar class="company-size" :column-data="companySizeData" title="企业规模" @fromSonComp="_getFromBar" />
+      <columnBarSub class="education" :column-bar-data="educationData" title="学历要求" @fromSonComp="_getFromBarSub" />
+      <wordCloud class="word-cloud" :word-cloud-data="benefitData" title="薪资福利" @fromSonComp="_getFromWordCloud" />
+      <pie class="finance-stage" :pie-data="financeStage" title="企业融资" @fromSonComp="_getFromPie" />
     </div>
     <!-- <div class="analysis">
       <position class="position" :position-data="positionData" />
@@ -34,6 +34,7 @@ import columnBar from '@/components/charts/column-bar'
 import columnBarSub from '@/components/charts/column-bar-sub'
 import wordCloud from '@/components/charts/word-cloud'
 import pie from '@/components/charts/pie'
+import { mapGetters } from 'vuex'
 import {
   getPosition,
   getPositionHeatmap,
@@ -61,6 +62,12 @@ export default {
       financeStage: []
     }
   },
+  computed: {
+    ...mapGetters(['changedPage', 'showingName'])
+  },
+  created() {
+    this.compArr = []
+  },
   mounted() {
     this.getPositionData()
     this.getHeatmapData()
@@ -68,9 +75,82 @@ export default {
     this.getEducationData()
     this.getBenefitData()
     this.getFinanceStageData()
+      .then(() => {
+        this.$store.dispatch('setChartDOM', this.compArr)
+      })
   },
-  activated() {},
+  activated() {
+    this.$store.dispatch('getName', ['compared-salaryExp', 'compared-companySize', 'compared-education', 'compared-benefit', 'compared-financeStage', '_compared-salaryExp', '_compared-companySize', '_compared-education', '_compared-benefit', '_compared-financeStage'])
+    if (this.changedPage.includes('compared')) {
+      this.$store.dispatch('getShowingName')
+      this.showingName.map(ele => {
+        ele.chartDom.resize()
+      })
+      this.$store.dispatch('deleteChangePage', 'compared')
+    }
+  },
   methods: {
+    getFromHeat(chartDom) {
+      this.compArr.push({
+        name: 'compared-salaryExp',
+        chartDom: chartDom
+      })
+    },
+    getFromBar(chartDom) {
+      this.compArr.push({
+        name: 'compared-companySize',
+        chartDom: chartDom
+      })
+    },
+    getFromBarSub(chartDom) {
+      this.compArr.push({
+        name: 'compared-education',
+        chartDom: chartDom
+      })
+    },
+    getFromWordCloud(chartDom) {
+      this.compArr.push({
+        name: 'compared-benefit',
+        chartDom: chartDom
+      })
+    },
+    getFromPie(chartDom) {
+      this.compArr.push({
+        name: 'compared-financeStage',
+        chartDom: chartDom
+      })
+    },
+    _getFromHeat(chartDom) {
+      this.compArr.push({
+        name: '_compared-salaryExp',
+        chartDom: chartDom
+      })
+    },
+    _getFromBar(chartDom) {
+      this.compArr.push({
+        name: '_compared-companySize',
+        chartDom: chartDom
+      })
+    },
+    _getFromBarSub(chartDom) {
+      this.compArr.push({
+        name: '_compared-education',
+        chartDom: chartDom
+      })
+    },
+    _getFromWordCloud(chartDom) {
+      this.compArr.push({
+        name: '_compared-benefit',
+        chartDom: chartDom
+      })
+    },
+    _getFromPie(chartDom) {
+      this.compArr.push({
+        name: '_compared-financeStage',
+        chartDom: chartDom
+      })
+    },
+
     async getHeatmapData() {
       const { data } = await getPositionHeatmap()
       this.heatMapData = data

@@ -1,5 +1,5 @@
 <template>
-  <div class="company-size-container">
+  <div class="chart-container">
     <div ref="companySize" v-loading="loading" class="chart" />
     <p class="title">{{ title }}</p>
   </div>
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       loading: true,
-      companySizeDom: {},
+      chartDom: {},
       data: []
     }
   },
@@ -30,15 +30,20 @@ export default {
     columnBarData: {
       handler() {
         this.data = this.columnBarData
-        this.initCompanySize()
+        this.initColumnBar()
       }
     }
   },
   mounted() {
-    this.companySizepDom = this.$echarts.init(this.$refs.companySize)
+    this.chartDom = this.$echarts.init(this.$refs.companySize)
+    this.upLoad()
   },
   methods: {
-    initCompanySize() {
+    upLoad() {
+      this.$emit('fromSonComp', this.chartDom)
+    },
+
+    initColumnBar() {
       /**
        * 阶梯瀑布图
        * 其实就是两个叠在一起（stack 相同）的 bar的组合
@@ -178,8 +183,8 @@ export default {
           }
         ]
       }
-      this.companySizepDom.setOption(option)
-      this.$store.dispatch('setChartDOM', [this.companySizepDom])
+      this.chartDom.setOption(option)
+      // this.$store.dispatch('setChartDOM', [this.companySizepDom])
     }
   }
 }
@@ -188,7 +193,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@/styles/index.scss';
 // $main-text-color: red;
-.company-size-container {
+.chart-container {
   width: 100%;
   height: 100%;
   position: relative;

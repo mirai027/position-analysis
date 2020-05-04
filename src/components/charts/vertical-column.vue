@@ -1,5 +1,5 @@
 <template>
-    <div class="column-container">
+    <div class="chart-container">
         <div ref="column" v-loading="loading" class="chart" />
         <p class="title">{{ title }}</p>
   </div>
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       loading: true,
-      columnDom: {},
+      chartDom: {},
       data: []
     }
   },
@@ -35,9 +35,14 @@ export default {
     }
   },
   mounted() {
-    this.columnDom = this.$echarts.init(this.$refs.column)
+    this.chartDom = this.$echarts.init(this.$refs.column)
+    this.upLoad()
   },
   methods: {
+    upLoad() {
+      this.$emit('fromSonComp', this.chartDom)
+    },
+
     initColumn() {
       setTimeout(() => {
         this.loading = false
@@ -95,8 +100,8 @@ export default {
         ]
       }
 
-      this.columnDom.setOption(option)
-      this.$store.dispatch('setChartDOM', [this.columnDom])
+      this.chartDom.setOption(option)
+      // this.$store.dispatch('setChartDOM', [this.chartDom])
     }
 
   }
@@ -107,17 +112,17 @@ export default {
 <style lang="scss" scoped>
 @import '~@/styles/index.scss';
 // $main-text-color: red;
-.column-container {
+.chart-container {
   width: 100%;
   height: 100%;
   position: relative;
   .chart {
-    // margin-top: 10px;
+    margin-top: 10px;
     width: 100%;
     height: 100%;
   }
  .title {
-    @include title-line($pos-top: 10px, $pos-left: 30px);
+    @include title-line($pos-top: 0px, $pos-left: 30px);
   }
 }
 </style>

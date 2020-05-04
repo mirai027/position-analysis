@@ -1,5 +1,5 @@
 <template>
-    <div class="stacked-line-container">
+    <div class="chart-container">
         <div ref="stackedLine" v-loading="loading" class="stacked-line-main" />
         <p class="title">{{ title }}</p>
     </div>
@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       loading: true,
-      stackedLineDom: {},
+      chartDom: {},
       xData: [],
       legend: []
     }
@@ -44,9 +44,14 @@ export default {
     }
   },
   mounted() {
-    this.stackedLineDom = this.$echarts.init(this.$refs.stackedLine)
+    this.chartDom = this.$echarts.init(this.$refs.stackedLine)
+    this.upLoad()
   },
   methods: {
+    upLoad() {
+      this.$emit('fromSonComp', this.chartDom)
+    },
+
     async initstackedLine() {
       setTimeout(() => {
         this.loading = false
@@ -119,8 +124,8 @@ export default {
         }]
       }
 
-      this.stackedLineDom.setOption(option)
-      this.$store.dispatch('setChartDOM', [this.stackedLineDom])
+      this.chartDom.setOption(option)
+      // this.$store.dispatch('setChartDOM', [this.chartDom])
     }
   }
 }
@@ -128,7 +133,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/styles/index.scss';
-.stacked-line-container {
+.chart-container {
   width: 100%;
   height: 100%;
   position: relative;

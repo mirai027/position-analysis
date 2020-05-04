@@ -1,6 +1,6 @@
 <template>
   <div class="language-container">
-    <stackedLine class="stacked-line" :stacked-line-legend="languageLegend" :stacked-line-xdata="languageXdata" title="热门编程语言"></stackedLine>
+    <stackedLine class="stacked-line" :stacked-line-legend="languageLegend" :stacked-line-xdata="languageXdata" title="热门编程语言" @fromSonComp="getFromSon"></stackedLine>
     <el-collapse v-model="activeNames" class="date-table">
       <el-collapse-item name="1">
         <template slot="title"><span class="title"><i class="el-icon-medal"></i>编程语言排行榜</span></template>
@@ -60,6 +60,7 @@
 <script>
 import { getLanguage } from '@/api/mirai'
 import stackedLine from '@/components/charts/stacked-line'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     stackedLine
@@ -73,10 +74,29 @@ export default {
       title: '编程语言排行榜'
     }
   },
+  computed: {
+    ...mapGetters(['changedPage', 'showingName'])
+  },
   mounted() {
     this._getLanguage()
   },
+  activated() {
+    this.$store.dispatch('getName', ['rank-language'])
+    if (this.changedPage.includes('rank-language')) {
+      this.$store.dispatch('getShowingName')
+      this.showingName.map(ele => {
+        ele.chartDom.resize()
+      })
+      this.$store.dispatch('deleteChangePage', 'rank-language')
+    }
+  },
   methods: {
+    getFromSon(chartDom) {
+      this.$store.dispatch('setChartDOM', [{
+        name: 'rank-language',
+        chartDom: chartDom
+      }])
+    },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex === 0 || rowIndex === 1 || rowIndex === 2) {
         return 'first-row'
@@ -115,6 +135,9 @@ export default {
     }
     @media screen and (max-width: 1440px){
       width: 1000px;
+    }
+    @media screen and (max-width: 1100px){
+      width: 800px;
     }
     .el-table .first-row {
         background: oldlace ;

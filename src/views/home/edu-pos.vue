@@ -1,5 +1,5 @@
 <template>
-  <div class="edu-pos-container">
+  <div class="chart-container">
     <div ref="EDUPOSChart" class="edu-pos chart" />
   </div>
 </template>
@@ -7,14 +7,26 @@
 <script>
 import { getAllEduPos } from '@/api/edu-pos'
 import getEchartXAxisName from '@/utils/getEchartXAxisName'
+
 export default {
   data() {
     return {}
+  },
+  computed: {},
+  created() {
+    this._chartDom = {}
   },
   mounted() {
     this.ininEduPos()
   },
   methods: {
+    getFromSon(chartDom) {
+      this.$store.dispatch('setChartDOM', [{
+        name: 'home-eduPos',
+        chartDom: chartDom
+      }])
+      // console.log(this.chartDOM)
+    },
     async ininEduPos() {
       const {
         data: { position: categoryData, jc: JCBarData, rcc: RCCBarData }
@@ -181,14 +193,14 @@ export default {
           }
         ]
       }
-      const chart = this.$echarts.init(this.$refs.EDUPOSChart)
-      chart.setOption(option)
-      this.$store.dispatch('setChartDOM', [chart])
-
-      chart.getZr().on('click', params => {
+      this._chartDom = this.$echarts.init(this.$refs.EDUPOSChart)
+      this._chartDom.setOption(option)
+      // this.$store.dispatch('setChartDOM', [chartDom])
+      this.getFromSon(this._chartDom)
+      this._chartDom.getZr().on('click', params => {
         console.log()
         if (params.event.offsetY > 100) {
-          const name = getEchartXAxisName(chart, params)
+          const name = getEchartXAxisName(this._chartDom, params)
           console.log(name)
         }
       })
@@ -199,7 +211,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/styles/index.scss';
-.edu-pos-container {
+.chart-container {
   width: 100%;
   height: 100%;
   position: relative;

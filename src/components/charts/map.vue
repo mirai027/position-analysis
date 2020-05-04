@@ -1,5 +1,5 @@
 <template>
-    <div class="map-container">
+    <div class="chart-container">
         <div ref="map" v-loading="loading" class="map-main" />
         <p class="title">{{ title }}</p>
     </div>
@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       loading: true,
-      mapDom: {},
+      chartDom: {},
       data: []
     }
   },
@@ -36,9 +36,14 @@ export default {
     }
   },
   mounted() {
-    this.mapDom = this.$echarts.init(this.$refs.map)
+    this.chartDom = this.$echarts.init(this.$refs.map)
+    this.upLoad()
   },
   methods: {
+    upLoad() {
+      this.$emit('fromSonComp', this.chartDom)
+    },
+
     async initMap() {
       setTimeout(() => {
         this.loading = false
@@ -117,9 +122,9 @@ export default {
         ]
       }
 
-      this.mapDom.setOption(option)
-      this.$store.dispatch('setChartDOM', [this.mapDom])
-      this.mapDom.on('click', params => {
+      this.chartDom.setOption(option)
+      // this.$store.dispatch('setChartDOM', [this.mapDom])
+      this.chartDom.on('click', params => {
         const { name } = params
         this.$router.push({
           path: '/province',
@@ -134,7 +139,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/styles/index.scss';
-.map-container {
+.chart-container {
   width: 100%;
   height: 100%;
   position: relative;

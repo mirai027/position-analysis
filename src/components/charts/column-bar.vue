@@ -1,5 +1,5 @@
 <template>
-  <div class="company-size-container">
+  <div class="chart-container">
     <div ref="companySize" v-loading="loading" class="chart" />
     <p class="title">{{ title }}</p>
   </div>
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       loading: true,
-      companySizeDom: {},
+      chartDom: {},
       data: []
     }
   },
@@ -30,15 +30,20 @@ export default {
     columnData: {
       handler() {
         this.data = this.columnData
-        this.initCompanySize()
+        this.initColumnbar()
       }
     }
   },
   mounted() {
-    this.companySizepDom = this.$echarts.init(this.$refs.companySize)
+    this.chartDom = this.$echarts.init(this.$refs.companySize)
+    this.upLoad()
   },
   methods: {
-    async initCompanySize() {
+    upLoad() {
+      this.$emit('fromSonComp', this.chartDom)
+    },
+
+    async initColumnbar() {
       const xData = this.data.map((item) => item.name)
       // 300毫秒延迟会使动画看起来更人性化（其实就是看起来得到结果更快）
       setTimeout(() => {
@@ -144,8 +149,8 @@ export default {
           }
         ]
       }
-      this.companySizepDom.setOption(option)
-      this.$store.dispatch('setChartDOM', [this.companySizepDom])
+      this.chartDom.setOption(option)
+      // this.$store.dispatch('setChartDOM', [this.companySizepDom])
     }
   }
 }
@@ -154,7 +159,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@/styles/index.scss';
 // $main-text-color: red;
-.company-size-container {
+.chart-container {
   width: 100%;
   height: 100%;
   position: relative;

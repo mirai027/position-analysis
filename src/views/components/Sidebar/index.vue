@@ -149,7 +149,7 @@ export default {
         this.$router.push('/')
         setTimeout(() => {
           this.$store.dispatch('pagePointIdx', idx)
-        }, 1200)
+        }, 800)
       }
     }
   }

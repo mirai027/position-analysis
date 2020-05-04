@@ -1,6 +1,6 @@
 <template>
   <div class="company-size-container">
-    <columnBar :column-data="companySizeData" title="企业规模"></columnBar>
+    <columnBar :column-data="companySizeData" title="企业规模" @fromSonComp="getFromSon"></columnBar>
   </div>
 </template>
 
@@ -16,10 +16,18 @@ export default {
       companySizeData: []
     }
   },
+  computed: {},
   mounted() {
     this.getCompanySizeData()
   },
   methods: {
+    getFromSon(chartDom) {
+      this.$store.dispatch('setChartDOM', [{
+        name: 'home-companySize',
+        chartDom: chartDom
+      }])
+      // console.log(this.chartDOM)
+    },
     async getCompanySizeData() {
       const { data } = await getAllCompanySize()
       this.companySizeData = data

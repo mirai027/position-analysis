@@ -1,5 +1,5 @@
 <template>
-  <div class="heatmap-container">
+  <div class="chart-container">
     <div ref="heatmap" v-loading="loading" class="heatmap"></div>
     <p class="title">{{ title }}</p>
   </div>
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       loading: true,
-      heatMapDom: {},
+      chartDom: {},
       salary: [
         // 暂时性定死
         '3k及以下',
@@ -60,10 +60,15 @@ export default {
     }
   },
   mounted() {
-    this.heatMapDom = this.$echarts.init(this.$refs.heatmap)
+    this.chartDom = this.$echarts.init(this.$refs.heatmap)
+    this.upLoad()
   },
   activated() {},
   methods: {
+    upLoad() {
+      this.$emit('fromSonComp', this.chartDom)
+    },
+
     initHeatmap() {
       // 300毫秒延迟会使动画看起来更人性化（其实就是看起来得到结果更快）
       setTimeout(() => {
@@ -175,8 +180,8 @@ export default {
           }
         }
       }
-      this.heatMapDom.setOption(option)
-      this.$store.dispatch('setChartDOM', [this.heatMapDom])
+      this.chartDom.setOption(option)
+      // this.$store.dispatch('setChartDOM', [this.heatMapDom])
     }
   }
 }
@@ -184,7 +189,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/styles/index.scss';
-.heatmap-container {
+.chart-container {
   position: relative;
   .heatmap {
     width: 100%;
