@@ -23,6 +23,7 @@
 import { getDateList, getDateBetween } from '@/utils/date'
 // require('./vcl-mock')
 import mirai from '@/views/components/test-mock/vcl-mock'
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -36,6 +37,9 @@ export default {
       timer: null,
       runFlag: false
     }
+  },
+  computed: {
+    ...mapGetters(['changedPage', 'showingName'])
   },
   mounted() {
     /**
@@ -60,12 +64,28 @@ export default {
      * 3. 如果想 职位名称在 bar里面，value在 bar外面。可给每个 bar叠加一个 bar。一个 bar.label.position：'inside'。一个 bar.label.position: 'right'
      * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
      */
+    this.ininChart()
   },
   activated() {
     console.log('vcl upupup')
-    this.ininChart()
+    // this.ininChart()
+    this.$store.dispatch('getName', ['vcl'])
+    if (this.changedPage.includes('vcl')) {
+      this.$store.dispatch('getShowingName')
+      this.showingName.map(ele => {
+        ele.chartDom.resize()
+      })
+      this.$store.dispatch('deleteChangePage', 'vcl')
+    }
   },
   methods: {
+    getFromSon(chartDom) {
+      this.$store.dispatch('setChartDOM', [{
+        name: 'vcl',
+        chartDom: chartDom
+      }])
+      // console.log(this.chartDOM)
+    },
     getData(dataIndex) {
       // 获取索引的数据，用于更新图标数据
       const newData = this.vclData.map((item) => {
@@ -257,6 +277,7 @@ export default {
 
       // 渲染图表
       chart.setOption(this.option, this.data)
+      this.getFromSon(chart)
     }
   }
 }

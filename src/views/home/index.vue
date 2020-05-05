@@ -54,7 +54,7 @@ export default {
     mapRightTop
   },
   computed: {
-    ...mapGetters(['pagePoint', 'pagePointIdx'])
+    ...mapGetters(['pagePoint', 'pagePointIdx', 'changedPage', 'showingName'])
   },
   watch: {
     pagePointIdx: {
@@ -65,6 +65,17 @@ export default {
         viewContainer.scrollTop = point[this.pagePointIdx.idx].location - 10
       },
       deep: true
+    }
+  },
+  activated() {
+    this.$store.dispatch('getName', ['home-benefit', 'home-companySize', 'home-dateTrend', 'home-map', 'home-eduPos'])
+    if (this.changedPage.includes('home')) {
+      this.$store.dispatch('getShowingName')
+      this.showingName.map(ele => {
+        ele.chartDom.resize()
+        // console.log(ele.chartDom)
+      })
+      this.$store.dispatch('deleteChangePage', 'home')
     }
   },
   mounted() {
@@ -87,9 +98,8 @@ export default {
     this.selectPointIndex()
 
     // this.$store.dispatch('pagePoint', point)
-    console.log(this.getPointLocation())
+    // console.log(this.getPointLocation())
   },
-  activated() {},
   deactivated() {
     // 因为在mounted中使用了 selectPointIndex方法，导致选中的 item会一直用用 is-active样式。所以在离开组件时重置样式
     const miraiMenuItem = document.querySelectorAll('.mirai-menu-item')
@@ -125,7 +135,7 @@ export default {
       return point
     },
     selectPointIndex() {
-      console.log('我是Home组件的滚动')
+      // console.log('我是Home组件的滚动')
       const viewContainer = document.querySelector('.view-container')
       const point = this.getPointLocation()
       const scrollTop = viewContainer.scrollTop

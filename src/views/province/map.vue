@@ -74,7 +74,7 @@ export default {
       this.chart.setOption(option)
       this.$store.dispatch('setChartDOM', [this.chart])
       this.chart.on('click', params => {
-        console.log(params)
+        // console.log(params)
         if (!this.canRun) {
           const { name } = params
           this.chart.clear()

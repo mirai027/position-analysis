@@ -10,6 +10,7 @@
       :heat-map-data="heatMapData"
       title="预测薪资"
       :is-loading="isLoading"
+      @fromSonComp="getFromHeat"
     />
     <div class="second-container">
       <columnBar
@@ -17,12 +18,14 @@
         :column-data="companySizeData"
         title="企业规模"
         :is-loading="isLoading"
+        @fromSonComp="getFromBar"
       />
       <columnBarSub
         class="education"
         :column-bar-data="educationData"
         title="学历要求"
         :is-loading="isLoading"
+        @fromSonComp="getFromBarSub"
       />
     </div>
     <div class="third-container">
@@ -31,12 +34,14 @@
         :word-cloud-data="benefitData"
         title="薪资福利"
         :is-loading="isLoading"
+        @fromSonComp="getFromWordCloud"
       />
       <pie
         class="finance-stage"
         :pie-data="financeStage"
         title="企业融资"
         :is-loading="isLoading"
+        @fromSonComp="getFromPie"
       />
     </div>
   </div>
@@ -50,6 +55,7 @@ import columnBarSub from '@/components/charts/column-bar-sub'
 import wordCloud from '@/components/charts/word-cloud'
 import pie from '@/components/charts/pie'
 import { mapGetters } from 'vuex'
+// import debounce from '@/utils/debounce.js'
 import {
   getPosition,
   getPositionHeatmap,
@@ -79,7 +85,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['positionForm'])
+    ...mapGetters(['changedPage', 'showingName', 'positionForm'])
   },
   watch: {
     positionForm: {
@@ -96,16 +102,70 @@ export default {
       deep: true
     }
   },
+  created() {
+    this.compArr = []
+    this.isReady = false
+  },
   mounted() {
     this.getPositionData()
     this.getHeatmapData()
     this.getCompanySizeData()
     this.getEducationData()
     this.getBenefitData()
-    this.getFinanceStageData()
+    this.getFinanceStageData().then(() => {
+      this.$store.dispatch('setChartDOM', this.compArr)
+    })
   },
-  activated() {},
+  activated() {
+    this.$store.dispatch('getName', [
+      'analysis-salaryExp',
+      'analysis-companySize',
+      'analysis-education',
+      'analysis-benefit',
+      'analysis-financeStage'
+    ])
+    if (this.changedPage.includes('analysis')) {
+      this.$store.dispatch('getShowingName')
+
+      this.showingName.map((ele) => {
+        ele.chartDom.resize()
+      })
+      this.$store.dispatch('deleteChangePage', 'analysis')
+    }
+  },
+
   methods: {
+    getFromHeat(chartDom) {
+      this.compArr.push({
+        name: 'analysis-salaryExp',
+        chartDom: chartDom
+      })
+    },
+    getFromBar(chartDom) {
+      this.compArr.push({
+        name: 'analysis-companySize',
+        chartDom: chartDom
+      })
+    },
+    getFromBarSub(chartDom) {
+      this.compArr.push({
+        name: 'analysis-education',
+        chartDom: chartDom
+      })
+    },
+    getFromWordCloud(chartDom) {
+      this.compArr.push({
+        name: 'analysis-benefit',
+        chartDom: chartDom
+      })
+    },
+    getFromPie(chartDom) {
+      this.compArr.push({
+        name: 'analysis-financeStage',
+        chartDom: chartDom
+      })
+    },
+
     async getHeatmapData(form = {}) {
       const { data } = await getPositionHeatmap(form)
       this.heatMapData = data

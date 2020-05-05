@@ -1,6 +1,6 @@
 <template>
-  <div class="company-size-container">
-    <div ref="financeStage" v-loading="loading" class="chart" />
+  <div class="chart-container">
+    <div ref="pie" v-loading="loading" class="chart" />
     <p class="title">{{ title }}</p>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       loading: true,
-      financeStageDom: {},
+      chartDom: {},
       data: []
     }
   },
@@ -49,9 +49,14 @@ export default {
     }
   },
   mounted() {
-    this.financeStageDom = this.$echarts.init(this.$refs.financeStage)
+    this.chartDom = this.$echarts.init(this.$refs.pie)
+    this.upLoad()
   },
   methods: {
+    upLoad() {
+      this.$emit('fromSonComp', this.chartDom)
+    },
+
     initPie(valueSum) {
       // 300毫秒延迟会使动画看起来更人性化（其实就是看起来得到结果更快）
       setTimeout(() => {
@@ -178,8 +183,8 @@ export default {
           }
         ]
       }
-      this.financeStageDom.setOption(option)
-      this.$store.dispatch('setChartDOM', [this.financeStageDom])
+      this.chartDom.setOption(option)
+      // this.$store.dispatch('setChartDOM', [this.pieDom])
     }
   }
 }
@@ -188,7 +193,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@/styles/index.scss';
 // $main-text-color: red;
-.company-size-container {
+.chart-container {
   width: 100%;
   height: 100%;
   position: relative;

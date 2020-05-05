@@ -1,13 +1,12 @@
 <template>
   <div class="benefit-container">
-    <word-cloud class="benefit" :word-cloud-data="benefitData" title="薪资福利" />
+    <word-cloud class="benefit" :word-cloud-data="benefitData" title="薪资福利" @fromSonComp="getFromSon" />
 </div>
 </template>
 
 <script>
 import { getAllBenefit } from '@/api/benefit'
 import wordCloud from '@/components/charts/word-cloud'
-
 export default {
   components: {
     wordCloud
@@ -17,12 +16,17 @@ export default {
       benefitData: []
     }
   },
-
+  computed: {},
   mounted() {
-    // this.initBenefit()
     this.getBenefit()
   },
   methods: {
+    getFromSon(chartDom) {
+      this.$store.dispatch('setChartDOM', [{
+        name: 'home-benefit',
+        chartDom: chartDom
+      }])
+    },
     async getBenefit() {
       const { data } = await getAllBenefit()
       this.benefitData = data

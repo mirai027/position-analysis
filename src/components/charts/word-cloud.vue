@@ -1,5 +1,5 @@
 <template>
-  <div class="wordcloud-container">
+  <div class="chart-container">
     <div ref="wordcloud" v-loading="loading" class="chart" />
     <p class="title">{{ title }}</p>
   </div>
@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       loading: true,
-      wordcloudDom: {},
+      chartDom: {},
       data: []
     }
   },
@@ -47,9 +47,14 @@ export default {
     }
   },
   mounted() {
-    this.wordcloudDom = this.$echarts.init(this.$refs.wordcloud)
+    this.chartDom = this.$echarts.init(this.$refs.wordcloud)
+    this.upLoad()
   },
   methods: {
+    upLoad() {
+      this.$emit('fromSonComp', this.chartDom)
+    },
+
     initBenefit() {
       // 300毫秒延迟会使动画看起来更人性化（其实就是看起来得到结果更快）
       setTimeout(() => {
@@ -99,8 +104,8 @@ export default {
         ]
       }
 
-      this.wordcloudDom.setOption(option)
-      this.$store.dispatch('setChartDOM', [this.wordcloudDom])
+      this.chartDom.setOption(option)
+      // this.$store.dispatch('setChartDOM', [this.chartDom])
     }
   }
 }
@@ -108,7 +113,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/styles/index.scss';
-.wordcloud-container {
+.chart-container {
   width: 100%;
   height: 100%;
   position: relative;

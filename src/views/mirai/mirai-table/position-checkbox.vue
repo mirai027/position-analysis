@@ -53,7 +53,7 @@ export default {
       this.submitAction(this.checkedPosition)
     },
     submitAction(value) {
-      this.$store.dispatch('tableCheckbox', { value, type: 'position' })
+      this.$store.dispatch('tableCheckbox', { value, key: 'position' })
     }
   }
 }

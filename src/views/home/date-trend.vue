@@ -1,6 +1,6 @@
 <template>
   <div class="date-trend-container">
-    <line-chart :line-data="lineData" title="招聘数据趋势" />
+    <line-chart :line-data="lineData" title="招聘数据趋势" @fromSonComp="getFromSon" />
   </div>
 </template>
 
@@ -16,10 +16,18 @@ export default {
       lineData: []
     }
   },
+  computed: {},
   mounted() {
     this.getUpdate()
   },
   methods: {
+    getFromSon(chartDom) {
+      this.$store.dispatch('setChartDOM', [{
+        name: 'home-dateTrend',
+        chartDom: chartDom
+      }])
+      // console.log(this.chartDOM)
+    },
     async getUpdate() {
       const { data } = await getAllUpdate()
       this.lineData = data

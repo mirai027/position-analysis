@@ -47,7 +47,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['toggleSidebar', 'chartDOM', 'pagePointTitle'])
+    ...mapGetters(['toggleSidebar', 'showingName', 'pagePointTitle'])
   },
   watch: {
     $route(to, from) {},
@@ -57,11 +57,15 @@ export default {
   methods: {
     handleToggle: debounce(function() {
       this.$store.dispatch('toggleSideBar')
+      this.$store.dispatch('getShowingName')
+      this.$store.dispatch('getChangedPage', ['home', 'analysis', 'compared', 'rank', 'rank-language', 'date', 'vcl'])
+      const that = this
       setTimeout(() => {
-        this.chartDOM.forEach((ele) => {
-          ele.resize()
+        that.showingName.map(ele => {
+          ele.chartDom.resize()
+        // console.log(ele.chartDom)
         })
-      }, 1200)
+      }, 1000)
     }, 10)
   }
 }

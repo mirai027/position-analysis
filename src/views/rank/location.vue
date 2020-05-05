@@ -29,6 +29,7 @@
       class="top"
       :column-data="locationData"
       title="地区排行榜"
+      @fromSonComp="getFromSon"
     ></verticalColumn>
   </div>
 </template>
@@ -51,6 +52,14 @@ export default {
     this.getTop()
   },
   methods: {
+    getFromSon(chartDom) {
+      this.$store.dispatch('setChartDOM', [
+        {
+          name: 'rank-location',
+          chartDom: chartDom
+        }
+      ])
+    },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex === 0) {
         return 'first-row'

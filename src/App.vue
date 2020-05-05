@@ -15,6 +15,8 @@
 <script>
 import Sidebar from './views/components/Sidebar/index'
 import Navbar from './views/components/Navbar/index'
+import debounce from '@/utils/debounce.js'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     Sidebar,
@@ -23,8 +25,20 @@ export default {
   data() {
     return {}
   },
-  computed: {},
+  computed: {
+    ...mapGetters(['showingName'])
+  },
   watch: {},
+  mounted() {
+    window.onresize = debounce(() => {
+      this.$store.dispatch('getShowingName')
+      this.$store.dispatch('getChangedPage', ['home', 'analysis', 'compared', 'rank', 'rank-language', 'date', 'vcl'])
+      this.showingName.map(ele => {
+        ele.chartDom.resize()
+        // console.log(ele.chartDom)
+      })
+    }, 1000)
+  },
   methods: {}
 }
 </script>
