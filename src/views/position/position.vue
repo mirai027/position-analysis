@@ -1,7 +1,11 @@
 <template>
   <div v-loading="loading" class="position-container">
     <div class="left-container">
-      <selectRegion class="select-region" @changeRegion="changeRegion" />
+      <selectRegion
+        class="select-region"
+        default-value="广东省"
+        @changeRegion="changeRegion"
+      />
       <el-row :gutter="12" class="top">
         <el-col
           v-if="Object.keys(positionDest).length > 0"
@@ -23,9 +27,27 @@
             </div>
           </div>
         </el-col>
+        <!-- 临时更改 -->
+        <el-col v-else :span="8" class="box">
+          <div class="title">
+            <p>CodeRush</p>
+            <span>TOP 39</span>
+          </div>
+          <div class="num">
+            <div class="num-item">
+              <p class="item-name">今月新增</p>
+              <p class="item-num">0</p>
+            </div>
+            <div class="num-item">
+              <p class="item-name">职位总量</p>
+              <p class="item-num">0</p>
+            </div>
+          </div>
+        </el-col>
+        <!-- 临时更改 -->
         <el-col :span="8" class="box">
           <div class="title">
-            <p class="city">热门城市</p>
+            <p class="city">热门地区</p>
             <!-- <span>TOP1</span> -->
           </div>
           <div v-if="positionHotRegion.length > 0" class="num">
@@ -38,12 +60,18 @@
               <p class="item-num">{{ item.value }}</p>
             </div>
           </div>
+          <div v-else class="num">
+            <div v-for="(item, idx) in 3" :key="idx" class="num-item">
+              <p class="item-name">CodeRush</p>
+              <p class="item-num ">0</p>
+            </div>
+          </div>
         </el-col>
       </el-row>
       <el-row class="bottom">
-        <el-col v-if="positionSkill.length > 0" :span="8" class="box">
+        <el-col :span="8" class="box">
           <div class="title">{{ positionDest.title }}技术栈要求</div>
-          <ul>
+          <ul v-if="positionSkill.length > 0">
             <el-popover
               v-for="(item, index) in positionSkill"
               :key="item.name"
@@ -60,10 +88,15 @@
               }}</el-button>
             </el-popover>
           </ul>
+          <ul v-else>
+            <li class="card-li-null">
+              {{ positionForm.region }}没有"{{ positionDest.title }}"的职位哦～
+            </li>
+          </ul>
         </el-col>
-        <el-col v-if="positionCommunity.length > 0" :span="8" class="box">
+        <el-col :span="8" class="box">
           <div class="title">技术社区</div>
-          <ul>
+          <ul v-if="positionCommunity.length > 0">
             <el-popover
               v-for="item in positionCommunity"
               :key="item.name"
@@ -79,10 +112,15 @@
               </el-button>
             </el-popover>
           </ul>
+          <ul v-else>
+            <li class="card-li-null">
+              广告位招租
+            </li>
+          </ul>
         </el-col>
-        <el-col v-if="positionVideo.length > 0" :span="8" class="box">
+        <el-col :span="8" class="box">
           <div class="title">视频学习网站</div>
-          <ul>
+          <ul v-if="positionVideo.length > 0">
             <el-popover
               v-for="item in positionVideo"
               :key="item.name"
@@ -98,6 +136,11 @@
               </el-button>
             </el-popover>
           </ul>
+          <ul v-else>
+            <li class="card-li-null">
+              广告位招租
+            </li>
+          </ul>
         </el-col>
       </el-row>
     </div>
@@ -108,6 +151,7 @@
           :key="idx"
           :span="8"
           class="bottom-right-item"
+          @click.native="handleOther(item.name)"
         >
           <p class="item-name">{{ item.name }}</p>
           <p class="item-num">
@@ -122,6 +166,7 @@
 
 <script>
 import selectRegion from '@/components/selectRegion/select-region'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     selectRegion
@@ -132,6 +177,10 @@ export default {
       default: function() {
         return []
       }
+    },
+    isLoading: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -143,9 +192,19 @@ export default {
       positionCommunity: [],
       positionVideo: [],
       loading: true
+      // listLoading: true
     }
   },
+  computed: {
+    ...mapGetters(['positionForm'])
+  },
   watch: {
+    isLoading: {
+      handler() {
+        //  用于设置子组件为 Loading 状态
+        this.loading = true
+      }
+    },
     positionData: {
       handler() {
         this.initPositionData()
@@ -174,7 +233,19 @@ export default {
       /**
        * 清空时 value.name 为 undefinds,此时不做请求的处理
        */
-      console.log(value)
+      if (value.name) {
+        this.$store.dispatch('setPositionForm', {
+          key: 'region',
+          value: value.name
+        })
+        this.$store.dispatch('setPositionForm', {
+          key: 'level',
+          value: value.level
+        })
+      }
+    },
+    handleOther(name) {
+      this.$store.dispatch('setPositionForm', { key: 'position', value: name })
     }
   }
 }
@@ -195,6 +266,7 @@ export default {
       position: absolute;
       right: 30px;
       top: 0px;
+      // z-index: 99999;
     }
     .top {
       width: 70%;
@@ -235,6 +307,7 @@ export default {
     }
     .bottom {
       width: 100%;
+      min-height: 200px;
       // background: #00f;
       .box {
         padding-right: 20px;
@@ -272,6 +345,10 @@ export default {
               margin-left: 5px;
             }
           }
+        }
+        .card-li-null {
+          font-size: 20px;
+          margin-top: 30px;
         }
       }
     }

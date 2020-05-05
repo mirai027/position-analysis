@@ -18,6 +18,10 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    isLoading: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -27,6 +31,12 @@ export default {
     }
   },
   watch: {
+    isLoading: {
+      handler() {
+        //  用于设置子组件为 Loading 状态
+        this.loading = true
+      }
+    },
     lineData: {
       handler() {
         this.data = this.lineData
@@ -93,7 +103,7 @@ export default {
              * componentIndex === 1 bar chart
              */
             const fm = {}
-            params.forEach(element => {
+            params.forEach((element) => {
               const { componentIndex } = element
               if (componentIndex === 0) {
                 const line = `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${element.color};"></span>${element.name} 共 <span style="color: #F13000;">${element.value}</span> 条招聘数据`
@@ -266,7 +276,7 @@ export default {
 
       this.chartDom.setOption(option)
       // this.$store.dispatch('setChartDOM', [this.lineDom])
-      this.chartDom.getZr().on('click', params => {
+      this.chartDom.getZr().on('click', (params) => {
         // console.log(params.event.offsetY)
         if (params.event.offsetY > 60) {
           const name = getEchartXAxisName(this.chartDom, params)
@@ -292,7 +302,7 @@ export default {
     height: 100%;
   }
   .title {
-    @include title-line($pos-top: 0px, $pos-left: 30px);
+    @include title-line($pos-top: 10px, $pos-left: 30px);
   }
 }
 </style>

@@ -16,10 +16,16 @@
 <script>
 import options from './country-date'
 export default {
+  props: {
+    defaultValue: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       options: options,
-      value: '中国'
+      value: this.defaultValue
     }
   },
   computed: {},
@@ -41,7 +47,7 @@ export default {
        * 传出 地区 name 和 地区级联 level
        * 清空时 name 为 undefined
        */
-      this.$emit('changeRegion', { name, level: length - 1 })
+      this.$emit('changeRegion', { name, level: length })
     }
   }
 }

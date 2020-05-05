@@ -17,6 +17,10 @@ export default {
     title: {
       type: String,
       default: null
+    },
+    isLoading: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -27,6 +31,12 @@ export default {
     }
   },
   watch: {
+    isLoading: {
+      handler() {
+        //  用于设置子组件为 Loading 状态
+        this.loading = true
+      }
+    },
     columnBarData: {
       handler() {
         this.data = this.columnBarData
@@ -58,7 +68,7 @@ export default {
       }
 
       const xData = this.data.map((item) => item.name)
-      console.log(subData)
+      // console.log(subData)
 
       // 300毫秒延迟会使动画看起来更人性化（其实就是看起来得到结果更快）
       setTimeout(() => {
@@ -202,7 +212,7 @@ export default {
     height: 100%;
   }
   .title {
-    @include title-line($pos-top: 0px, $pos-left: 30px);
+    @include title-line($pos-top: 10px, $pos-left: 30px);
   }
 }
 </style>

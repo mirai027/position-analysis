@@ -17,6 +17,10 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    isLoading: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -52,6 +56,12 @@ export default {
     }
   },
   watch: {
+    isLoading: {
+      handler() {
+        //  用于设置子组件为 Loading 状态
+        this.loading = true
+      }
+    },
     heatMapData: {
       handler() {
         this.data = this.heatMapData
@@ -148,17 +158,18 @@ export default {
         // },
         visualMap: {
           type: 'piecewise',
-          pieces: [
-            { gte: 80, color: '#0087dc' },
-            { gt: 60, lte: 80, color: '#1ca2dc' },
-            { gt: 40, lte: 60, color: '#5bc3f0' },
-            {
-              gt: 20,
-              lte: 40,
-              color: '#A0CFFF'
-            },
-            { lte: 20, color: '#C6E2FF' }
-          ],
+          // pieces: [
+          //   { gte: 80, color: '#0087dc' },
+          //   { gt: 60, lte: 80, color: '#1ca2dc' },
+          //   { gt: 40, lte: 60, color: '#5bc3f0' },
+          //   {
+          //     gt: 20,
+          //     lte: 40,
+          //     color: '#A0CFFF'
+          //   },
+          //   { lte: 20, color: '#C6E2FF' }
+          // ],
+          color: ['#0087dc', '#1ca2dc', '#5bc3f0', '#A0CFFF', '#C6E2FF'],
           textStyle: {
             color: '#606266'
           },
@@ -196,7 +207,7 @@ export default {
     height: 100%;
   }
   .title {
-    @include title-line($pos-top: 0px, $pos-left: 30px);
+    @include title-line($pos-top: 10px, $pos-left: 30px);
   }
 }
 </style>

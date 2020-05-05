@@ -1,14 +1,48 @@
 <template>
   <div class="analysis">
-    <position class="position" :position-data="positionData" />
-    <heat-map class="heat-map" :heat-map-data="heatMapData" title="预测薪资" @fromSonComp="getFromHeat" />
+    <position
+      class="position"
+      :position-data="positionData"
+      :is-loading="isLoading"
+    />
+    <heat-map
+      class="heat-map"
+      :heat-map-data="heatMapData"
+      title="预测薪资"
+      :is-loading="isLoading"
+      @fromSonComp="getFromHeat"
+    />
     <div class="second-container">
-      <columnBar class="company-size" :column-data="companySizeData" title="企业规模" @fromSonComp="getFromBar" />
-      <columnBarSub class="education" :column-bar-data="educationData" title="学历要求" @fromSonComp="getFromBarSub" />
+      <columnBar
+        class="company-size"
+        :column-data="companySizeData"
+        title="企业规模"
+        :is-loading="isLoading"
+        @fromSonComp="getFromBar"
+      />
+      <columnBarSub
+        class="education"
+        :column-bar-data="educationData"
+        title="学历要求"
+        :is-loading="isLoading"
+        @fromSonComp="getFromBarSub"
+      />
     </div>
     <div class="third-container">
-        <wordCloud class="word-cloud" :word-cloud-data="benefitData" title="薪资福利" @fromSonComp="getFromWordCloud" />
-        <pie class="finance-stage" :pie-data="financeStage" title="企业融资" @fromSonComp="getFromPie" />
+      <wordCloud
+        class="word-cloud"
+        :word-cloud-data="benefitData"
+        title="薪资福利"
+        :is-loading="isLoading"
+        @fromSonComp="getFromWordCloud"
+      />
+      <pie
+        class="finance-stage"
+        :pie-data="financeStage"
+        title="企业融资"
+        :is-loading="isLoading"
+        @fromSonComp="getFromPie"
+      />
       </div>
   </div>
 </template>
@@ -46,11 +80,27 @@ export default {
       companySizeData: [],
       educationData: [],
       benefitData: [],
-      financeStage: []
+      financeStage: [],
+      isLoading: true
     }
   },
   computed: {
-    ...mapGetters(['changedPage', 'showingName'])
+    ...mapGetters(['changedPage', 'showingName', 'positionForm'])
+  },
+  watch: {
+    positionForm: {
+      handler() {
+        // 用于设置子组件为 Loading 状态
+        this.isLoading = !this.isLoading
+        this.getPositionData(this.positionForm)
+        this.getHeatmapData(this.positionForm)
+        this.getCompanySizeData(this.positionForm)
+        this.getEducationData(this.positionForm)
+        this.getBenefitData(this.positionForm)
+        this.getFinanceStageData(this.positionForm)
+      },
+      deep: true
+    }
   },
   created() {
     this.compArr = []
@@ -111,28 +161,35 @@ export default {
       })
     },
 
-    async getHeatmapData() {
-      const { data } = await getPositionHeatmap()
+    async getHeatmapData(form = {}) {
+      const { data } = await getPositionHeatmap(form)
       this.heatMapData = data
     },
-    async getCompanySizeData() {
-      const { data } = await getCompanySize()
+    async getCompanySizeData(form = {}) {
+      const { data } = await getCompanySize(form)
       this.companySizeData = data
     },
-    async getEducationData() {
-      const { data } = await getEducation()
+    async getEducationData(form = {}) {
+      const { data } = await getEducation(form)
       this.educationData = data
     },
-    async getBenefitData() {
-      const { data } = await getBenefit()
+    async getBenefitData(form = {}) {
+      let { data } = await getBenefit(form)
+      if (data.length === 0) {
+        data = [
+          { name: 'CodeRush', value: 2739 },
+          { name: '大数据招聘分析平台', value: 2739 },
+          { name: '广告位招租', value: 2739 }
+        ]
+      }
       this.benefitData = data
     },
-    async getFinanceStageData() {
-      const { data } = await getFinanceStage()
+    async getFinanceStageData(form = {}) {
+      const { data } = await getFinanceStage(form)
       this.financeStage = data
     },
-    async getPositionData() {
-      const { data } = await getPosition()
+    async getPositionData(form = {}) {
+      const { data } = await getPosition(form)
       this.positionData = data
     }
   }

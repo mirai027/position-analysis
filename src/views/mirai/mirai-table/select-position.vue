@@ -183,6 +183,10 @@ export default {
       //     this.value = allKey
       //   }
       // }
+      /**
+       * 💩一般的代码
+       * 优化方法参考 location-checkbox.vue
+       */
       nowFlag && oldFlag && this.value.splice(0, 1)
       nowFlag && !oldFlag && (this.value = allKey)
       !nowFlag && oldFlag && (this.value = [])

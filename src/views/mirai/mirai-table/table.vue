@@ -63,7 +63,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import debounce from '@/utils/debounce'
-import getDateList from '@/utils/getDateList'
+// import getDateList from '@/utils/getDateList'
 export default {
   props: {
     tableHeight: {
@@ -264,7 +264,6 @@ export default {
          * this.tableHeight / 46 一般会比实际多一条，再 +4。每次请求 table高度的 cloumn + 4的数量
          */
         const dataLength = Math.floor(this.tableHeight / 46) + 4
-        console.log(getDateList(4))
         for (let index = 0; index < dataLength; index++) {
           this.miraiData.push({
             index: 0,

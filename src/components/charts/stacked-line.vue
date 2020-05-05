@@ -1,7 +1,7 @@
 <template>
     <div class="chart-container">
-        <div ref="stackedLine" v-loading="loading" class="stacked-line-main" />
-        <p class="title">{{ title }}</p>
+      <div ref="stackedLine" v-loading="loading" class="stacked-line-main" />
+      <p class="title">{{ title }}</p>
     </div>
 </template>
 
@@ -23,6 +23,10 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    isLoading: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -34,6 +38,12 @@ export default {
     }
   },
   watch: {
+    isLoading: {
+      handler() {
+        //  用于设置子组件为 Loading 状态
+        this.loading = true
+      }
+    },
     stackedLineXdata: {
       handler() {
         this.xData = this.stackedLineXdata[0]
@@ -59,7 +69,7 @@ export default {
 
       const _xData = []
       const yData = []
-      this.xData.forEach(item => {
+      this.xData.forEach((item) => {
         _xData.push(item.date)
         yData.push(item.value)
       })
@@ -113,15 +123,17 @@ export default {
             }
           }
         },
-        series: [{
-          name: 'Java',
-          data: yData,
-          type: 'line',
-          lineStyle: {
-            width: 4
-          },
-          smooth: true
-        }]
+        series: [
+          {
+            name: 'Java',
+            data: yData,
+            type: 'line',
+            lineStyle: {
+              width: 4
+            },
+            smooth: true
+          }
+        ]
       }
 
       this.chartDom.setOption(option)
@@ -142,7 +154,7 @@ export default {
     height: 100%;
   }
   .title {
-    @include title-line($pos-top: 0px, $pos-left: 30px);
+    @include title-line($pos-top: 10px, $pos-left: 30px);
   }
 }
 </style>

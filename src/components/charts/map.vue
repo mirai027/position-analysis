@@ -18,6 +18,10 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    isLoading: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -28,6 +32,12 @@ export default {
     }
   },
   watch: {
+    isLoading: {
+      handler() {
+        //  用于设置子组件为 Loading 状态
+        this.loading = true
+      }
+    },
     mapData: {
       handler() {
         this.data = this.mapData
@@ -124,7 +134,7 @@ export default {
 
       this.chartDom.setOption(option)
       // this.$store.dispatch('setChartDOM', [this.mapDom])
-      this.chartDom.on('click', params => {
+      this.chartDom.on('click', (params) => {
         const { name } = params
         this.$router.push({
           path: '/province',
@@ -148,7 +158,7 @@ export default {
     height: 100%;
   }
   .title {
-    @include title-line($pos-top: 0px, $pos-left: 30px);
+    @include title-line($pos-top: 10px, $pos-left: 30px);
   }
 }
 </style>

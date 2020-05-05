@@ -2,9 +2,11 @@
   <div class="date-rank-container">
     <el-collapse v-model="activeNames" class="date-table">
       <el-collapse-item name="1">
-        <template slot="title"><span class="title"><i class="el-icon-medal"></i>日期排行榜</span></template>
+        <template slot="title">
+          <span class="title"><i class="el-icon-medal"></i>日期排行榜</span>
+          </template>
         <div class="date-rank-main">
-           <el-table
+          <el-table
             :data="updateData"
             style="width: 100%; font-size: 20px "
             :row-class-name="tableRowClassName">

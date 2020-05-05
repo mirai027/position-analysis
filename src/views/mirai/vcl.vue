@@ -51,7 +51,7 @@ export default {
      * 4. 柱状图 bar和 y轴颜色由 echart提供的 formatter / color的回调函数配合 positionColors.find 当前颜色生成
      * 5. index用于控制当前展示的是哪天的日期数据
      * 6. timer用于控制定时器的开关(暂停/开始功能)
-     * 7. 当日期到了最终数据后(即 index === data.length - 1), 清空定时器 timer,重置按钮样式 runFlag
+     * 7. 当日期到了最终数据后(即 index === data.length - 1), 清空定时器 timer,设置当前数据为请求数据的最后一项（确保精度问题）,重置按钮样式 runFlag
      * 8. 根据按钮 runFlag的值来判断是 开始(true), 还是暂停(flag).如果 (index === data.length - 1), 重置 (index = 0)
      * 9. { getDateList, getDateBetween }获取昨天到 2020-02-19 所有的 YY-MM-DD 日期数组, 提交到后端以获取数据
      * ---------------------------------------------------------------------------
