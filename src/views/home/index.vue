@@ -53,6 +53,9 @@ export default {
     eduPos,
     mapRightTop
   },
+  data() {
+    return {}
+  },
   computed: {
     ...mapGetters(['pagePoint', 'pagePointIdx', 'changedPage', 'showingName'])
   },

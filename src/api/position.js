@@ -96,88 +96,78 @@ export function getPosition({
   })
 }
 
-// export function getPosition() {
+// ***************************************** Mock Begin *****************************************
+
+// export function getPositionHeatmap(region = '后端开发', position = '广东省', level) {
 //   return request({
-//     url: '/CountryJob_DayTop_Servlet',
+//     url: '/mirai-position/heat-map.json',
 //     method: 'get',
-//     params: {}
+//     params: {
+//       region,
+//       position,
+//       level
+//     }
 //   })
 // }
 
-// ***************************************** Mock Begin *****************************************
+// export function getCompanySize(region = '后端开发', position = '广东省', level) {
+//   return request({
+//     url: '/mirai-position/company-size.json',
+//     method: 'get',
+//     params: {
+//       region,
+//       position,
+//       level
+//     }
+//   })
+// }
 
-/*
-export function getPositionHeatmap(arg) {
-  return request({
-    url: '/mirai-position/heat-map.json',
-    method: 'get',
-    params: {
-      region,
-      position,
-      level
-    }
-  })
-}
+// export function getEducation(region = '后端开发', position = '广东省', level) {
+//   return request({
+//     url: '/mirai-position/education.json',
+//     method: 'get',
+//     params: {
+//       region,
+//       position,
+//       level
+//     }
+//   })
+// }
 
-export function getCompanySize(arg) {
-  return request({
-    url: '/mirai-position/company-size.json',
-    method: 'get',
-    params: {
-      region,
-      position,
-      level
-    }
-  })
-}
+// export function getBenefit(region = '后端开发', position = '广东省', level) {
+//   return request({
+//     url: '/mirai-position/benefit.json',
+//     method: 'get',
+//     params: {
+//       region,
+//       position,
+//       level
+//     }
+//   })
+// }
 
-export function getEducation(region = '后端开发', position = '广东省', level) {
-  return request({
-    url: '/mirai-position/education.json',
-    method: 'get',
-    params: {
-      region,
-      position,
-      level
-    }
-  })
-}
+// export function getFinanceStage(region = '后端开发', position = '广东省', level) {
+//   return request({
+//     url: '/mirai-position/financeStage.json',
+//     method: 'get',
+//     params: {
+//       region,
+//       position,
+//       level
+//     }
+//   })
+// }
 
-export function getBenefit(region = '后端开发', position = '广东省', level) {
-  return request({
-    url: '/mirai-position/benefit.json',
-    method: 'get',
-    params: {
-      region,
-      position,
-      level
-    }
-  })
-}
-
-export function getFinanceStage(arg) {
-  return request({
-    url: '/mirai-position/financeStage.json',
-    method: 'get',
-    params: {
-      region,
-      position,
-      level
-    }
-  })
-}
-
-export function getPosition(arg) {
-  return request({
-    url: '/mirai-position/position.json',
-    method: 'get',
-    params: {
-      region,
-      position,
-      level
-    }
-  })
-}
-*/
+// export function getPosition(region = '后端开发', position = '广东省', level) {
+//   return request({
+//     url: '/mirai-position/position.json',
+//     method: 'get',
+//     params: {
+//       region,
+//       position,
+//       level
+//     }
+//   })
+// }
 
 // ***************************************** Mock End *****************************************

@@ -17,6 +17,7 @@
 </template>
 
 <script>
+
 import selectTime from './mirai-table/select-time'
 import selectCity from './mirai-table/select-city'
 import selectPosition from './mirai-table/select-position'
@@ -39,7 +40,8 @@ export default {
       tableHeight: 0
     }
   },
-  mounted() {},
+  mounted() {
+  },
   updated() {},
   activated() {
     this.$nextTick(() => {

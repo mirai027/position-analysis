@@ -67,10 +67,10 @@ export default {
       }
       return ''
     },
-    async getTop() {
-      const { data } = await getPosition()
-      const first = { name: data.desc.title, value: data.desc.total }
-      this.positionData = [first, ...TopFiveDate(data.other).slice(0, 4)]
+    async getTop(form = { position: 'other', region: '中国', level: 1 }) {
+      const { data } = await getPosition(form)
+
+      this.positionData = TopFiveDate(data.other)
     }
   }
 }

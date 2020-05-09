@@ -63,7 +63,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import debounce from '@/utils/debounce'
-// import getDateList from '@/utils/getDateList'
+// import {getDateList} from '@/utils/date'
 export default {
   props: {
     tableHeight: {

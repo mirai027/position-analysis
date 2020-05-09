@@ -2,7 +2,7 @@ import request from './request'
 
 export function getAllBenefit() {
   return request({
-    url: '/benefit/all-benefit.json',
+    url: '/CompanyWelfare_Servlet',
     method: 'get'
   })
 }

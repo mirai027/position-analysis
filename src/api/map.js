@@ -2,14 +2,14 @@ import request from './request'
 
 export function getAllProvince() {
   return request({
-    url: '/map/all-day-province.json',
+    url: '/AllProvince_Job_Servlet',
     method: 'get'
   })
 }
 
 export function getAllUpdate() {
   return request({
-    url: '/map/all-update.json',
+    url: '/AllProvince_DayJob_Servlet',
     method: 'get'
   })
 }
@@ -28,16 +28,18 @@ export function getAllUpdate() {
 //   })
 // }
 
+// ***************************************** Mock Begin *****************************************
+
 // export function getAllProvince() {
 //   return request({
-//     url: '/AllProvince_Job_Servlet',
+//     url: '/map/all-day-province.json',
 //     method: 'get'
 //   })
 // }
 
 // export function getAllUpdate() {
 //   return request({
-//     url: '/AllProvince_DayJob_Servlet',
+//     url: '/map/all-update.json',
 //     method: 'get'
 //   })
 // }
@@ -55,3 +57,6 @@ export function getAllUpdate() {
 //     method: 'get'
 //   })
 // }
+
+// ***************************************** Mock End *****************************************
+

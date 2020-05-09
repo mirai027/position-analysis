@@ -4,8 +4,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import getYesterday from '@/utils/getYesterday'
-import getDayBetween from '@/utils/getDayBetween'
+import { getDateBetween, getYesterday } from '@/utils/date'
 export default {
   computed: {
     ...mapGetters(['tableForm'])
@@ -38,7 +37,7 @@ export default {
         position
       })
       this.$store.dispatch('watchForm')
-      console.log(getDayBetween(time[0], time[1]))
+      console.log(getDateBetween(time[0], time[1]))
       console.log(time)
     }
   }
