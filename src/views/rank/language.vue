@@ -49,12 +49,12 @@
             </el-table-column>
             <el-table-column label="使用率" align="left">
               <template slot-scope="scope">
-                <span style="margin-left: 10px">{{ scope.row.value }}%</span>
+                <span style="margin-left: 10px">{{ scope.row.value }}</span>
               </template>
             </el-table-column>
             <el-table-column label="变化" align="left">
               <template slot-scope="scope">
-                <span style="margin-left: 10px">{{ scope.row.change }}%</span>
+                <span style="margin-left: 10px">{{ scope.row.change }}</span>
               </template>
             </el-table-column>
           </el-table>
@@ -117,6 +117,7 @@ export default {
       //以数组形式传入组件
       this.languageLegend = Object.keys(data.change)
       this.languageXdata = Object.values(data.change)
+      // console.log(this.languageXdata)
       this.languageRank = data.rank
     }
   }

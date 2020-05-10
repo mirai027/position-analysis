@@ -46,9 +46,8 @@ export default {
     },
     stackedLineXdata: {
       handler() {
-        this.xData = this.stackedLineXdata[0]
+        this.xData = this.stackedLineXdata
         this.legend = this.stackedLineLegend
-        // console.log(this.legend)
         this.initstackedLine()
       }
     }
@@ -67,11 +66,32 @@ export default {
         this.loading = false
       }, 300)
 
+      const allData = []
       const _xData = []
-      const yData = []
-      this.xData.forEach((item) => {
-        _xData.push(item.date)
-        yData.push(item.value)
+      var yArr = []
+      this.xData.map((item, index) => {
+        // eslint-disable-next-line no-array-constructor
+        const yData = []
+        if (index === 0) {
+          item.map((nItem, index) => {
+            _xData.push(nItem.date)
+          })
+        }
+
+        item.map((nItem, index) => {
+          yData.push(nItem.value)
+        })
+
+        yArr = yData
+        allData.push({
+          name: this.legend[index],
+          data: yArr,
+          type: 'line',
+          lineStyle: {
+            width: 4
+          },
+          smooth: true
+        })
       })
 
       const option = {
@@ -86,7 +106,7 @@ export default {
           }
         },
         legend: {
-          data: [this.legend[0]],
+          data: this.legend,
           textStyle: {
             fontSize: 18
           }
@@ -100,7 +120,7 @@ export default {
             interval: 10,
             formatter: function(value) {
               // var a = new Set(value)
-              return value.split('-')[0]
+              return value.replace(/[^0-9]/g, '')
               // console.log(value)
             }
           }
@@ -123,17 +143,7 @@ export default {
             }
           }
         },
-        series: [
-          {
-            name: 'Java',
-            data: yData,
-            type: 'line',
-            lineStyle: {
-              width: 4
-            },
-            smooth: true
-          }
-        ]
+        series: allData
       }
 
       this.chartDom.setOption(option)

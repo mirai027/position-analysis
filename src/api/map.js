@@ -14,19 +14,7 @@ export function getAllUpdate() {
   })
 }
 
-// export function getAllDayBest() {
-//   return request({
-//     url: 'map/all-day-best.json',
-//     method: 'get'
-//   })
-// }
-
-// export function getAllMonthBest() {
-//   return request({
-//     url: 'map/all-month-best.json',
-//     method: 'get'
-//   })
-// }
+// ***************************************** Mock Begin *****************************************
 
 // ***************************************** Mock Begin *****************************************
 

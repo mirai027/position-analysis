@@ -2,7 +2,7 @@ import request from './request'
 
 export function getLanguage() {
   return request({
-    url: '/mirai/language.json',
+    url: '/Language_Servlet',
     method: 'get'
   })
 }
@@ -37,6 +37,7 @@ export function getTableData() {
     }
   })
 }
+
 // Test
 // request({
 //   url: '/CountryDate_Job_Servlet',
