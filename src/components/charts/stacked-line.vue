@@ -48,7 +48,6 @@ export default {
       handler() {
         this.xData = this.stackedLineXdata
         this.legend = this.stackedLineLegend
-        console.log(this.legend)
         this.initstackedLine()
       }
     }
@@ -78,7 +77,7 @@ export default {
             _xData.push(nItem.date)
           })
         }
-        // console.log(item)
+
         item.map((nItem, index) => {
           yData.push(nItem.value)
         })

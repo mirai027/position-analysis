@@ -2,23 +2,23 @@ import request from './request'
 
 export function getLanguage() {
   return request({
-    url: '/mirai/language.json',
+    url: '/Language_Servlet',
     method: 'get'
   })
 }
-// export function getDateListData() {
-//   return request({
-//     url: '/CountryDate_Job_Servlet',
-//     method: 'post',
-//     headers: {
-//       'Content-Type': 'application/json;charset=UTF-8'
-//     },
-//     data: {
-//       //暂时只有这四天的数据
-//       time: ['2020-03-30', '2020-03-31', '2020-04-01', '2020-04-02']
-//     }
-//   })
-// }
+export function getDateListData() {
+  return request({
+    url: '/CountryDate_Job_Servlet',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data: {
+      //暂时只有这四天的数据
+      time: ['2020-03-30', '2020-03-31', '2020-04-01', '2020-04-02']
+    }
+  })
+}
 // export function getTableData() {
 //   request({
 //     url: '/TableEnd_Servlet',

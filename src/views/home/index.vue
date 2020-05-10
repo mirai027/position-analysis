@@ -70,7 +70,6 @@ export default {
   watch: {
     pagePointIdx: {
       handler() {
-        // console.log(12112)
         const point = this.getPointLocation()
         const viewContainer = document.querySelector('.view-container')
         viewContainer.scrollTop = point[this.pagePointIdx.idx].location - 10
@@ -84,7 +83,6 @@ export default {
       this.$store.dispatch('getShowingName')
       this.showingName.map(ele => {
         ele.chartDom.resize()
-        // console.log(ele.chartDom)
       })
       this.$store.dispatch('deleteChangePage', 'home')
     }
@@ -123,7 +121,7 @@ export default {
   methods: {
     async getPositionData(form = { regin: '中国', level: 1 }) {
       const { data } = await getPosition(form)
-      console.log(data)
+      // console.log(data)
       this.positionData = data
       this.isLoading = false
     },
