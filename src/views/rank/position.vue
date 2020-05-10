@@ -2,35 +2,35 @@
   <div class="position-container">
     <el-collapse v-model="activeNames" class="date-table">
       <el-collapse-item name="1">
-        <template slot="title"><span class="title"><i class="el-icon-medal"></i>职位排行榜</span></template>
+        <template slot="title">
+          <span class="title"><i class="el-icon-medal"></i>职位排行榜</span>
+        </template>
         <div class="position-main">
-           <el-table
+          <el-table
             :data="positionData"
             style="width: 100%; font-size: 20px "
-            :row-class-name="tableRowClassName">
-            <el-table-column
-              type="index"
-              width="50"
-              align="right">
+            :row-class-name="tableRowClassName"
+          >
+            <el-table-column type="index" width="50" align="right">
             </el-table-column>
-            <el-table-column
-              label="日期"
-              align="center">
+            <el-table-column label="日期" align="center">
               <template slot-scope="scope">
                 <i class="el-icon-user"></i>
                 <span style="margin-left: 10px">{{ scope.row.name }}</span>
               </template>
             </el-table-column>
-            <el-table-column
-              prop="value"
-              label="数量"
-              align="center">
+            <el-table-column prop="value" label="数量" align="center">
             </el-table-column>
           </el-table>
         </div>
       </el-collapse-item>
     </el-collapse>
-    <verticalColumn class="top" :column-data="positionData" title="职位排行榜" @fromSonComp="getFromSon"></verticalColumn>
+    <verticalColumn
+      class="top"
+      :column-data="positionData"
+      title="职位排行榜"
+      @fromSonComp="getFromSon"
+    ></verticalColumn>
   </div>
 </template>
 
@@ -54,10 +54,12 @@ export default {
   },
   methods: {
     getFromSon(chartDom) {
-      this.$store.dispatch('setChartDOM', [{
-        name: 'rank-position',
-        chartDom: chartDom
-      }])
+      this.$store.dispatch('setChartDOM', [
+        {
+          name: 'rank-position',
+          chartDom: chartDom
+        }
+      ])
     },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex === 0) {
@@ -65,16 +67,16 @@ export default {
       }
       return ''
     },
-    async getTop() {
-      const { data } = await getPosition()
-      const first = { name: data.desc.title, value: data.desc.total }
-      this.positionData = [first, ...TopFiveDate(data.other).slice(0, 4)]
+    async getTop(form = { position: 'other', region: '中国', level: 1 }) {
+      const { data } = await getPosition(form)
+
+      this.positionData = TopFiveDate(data.other)
     }
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .position-container {
   width: 100%;
   height: 100%;
@@ -87,8 +89,8 @@ export default {
     }
     .position-main {
       margin: 0 20px;
-       .el-table .first-row {
-        background: oldlace ;
+      .el-table .first-row {
+        background: oldlace;
       }
     }
   }
@@ -99,5 +101,4 @@ export default {
     // margin-top: 20px;
   }
 }
-
 </style>

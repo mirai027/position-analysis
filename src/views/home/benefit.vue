@@ -27,8 +27,8 @@ export default {
         chartDom: chartDom
       }])
     },
-    async getBenefit() {
-      const { data } = await getAllBenefit()
+    async getBenefit(form = {}) {
+      const { data } = await getAllBenefit(form)
       this.benefitData = data
     }
   }

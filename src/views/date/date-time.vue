@@ -4,17 +4,24 @@
 
 <script>
 import { getDateList, getDateBetween } from '@/utils/date'
-import mirai from '@/views/components/test-mock/vcl-mock'
+// import mirai from '@/views/components/test-mock/vcl-mock'
 import { mapGetters } from 'vuex'
+import { getDateListData } from '@/api/mirai'
+
 export default {
   data() {
-    return {}
+    return {
+      dateListData: []
+    }
   },
   computed: {
     ...mapGetters(['changedPage', 'showingName'])
   },
   mounted() {
-    this.initDateTime()
+    this._getDataListData()
+      .then(() => {
+        this.initDateTime()
+      })
   },
   activated() {
     this.$store.dispatch('getName', ['date-date-time'])
@@ -27,6 +34,10 @@ export default {
     }
   },
   methods: {
+    async _getDataListData() {
+      const { data } = await getDateListData()
+      this.dateListData = data
+    },
     getFromSon(chartDom) {
       this.$store.dispatch('setChartDOM', [{
         name: 'date-date-time',
@@ -35,26 +46,25 @@ export default {
       // console.log(this.chartDOM)
     },
     initDateTime() {
-      // 获取昨天到 2020-02-19相隔多少天
-      const dateNum = getDateBetween('2020-02-19', getDateList())
-      // 获取昨天到 2020-02-19的日期
+      // 获取昨天到 2020-03-30相隔多少天
+      const dateNum = getDateBetween('2020-03-30', getDateList())
+      // 获取昨天到 2020-03-30的日期
       const dateList = getDateList(dateNum + 1).reverse()
 
-      const positionList = [
-        '后端开发',
-        '测试',
-        '人工智能',
-        '移动前端开发',
-        '运维',
-        '数据开发',
-        '前端开发',
-        '高端技术职位',
-        '项目管理',
-        '硬件开发',
-        '企业软件',
-        '产品经理',
-        '运营'
-      ]
+      const positionList = []
+      //时间刻度默认显示的的职位
+      const selectObj = {}
+      this.dateListData.map((item) => {
+        positionList.push(item.name)
+      })
+      //默认让前三个显示
+      positionList.map((item, index) => {
+        if (index < 3) {
+          selectObj[item] = true
+        } else {
+          selectObj[item] = false
+        }
+      })
 
       const service = positionList.map((item, index) => {
       // 获取随机颜色
@@ -67,7 +77,7 @@ export default {
         return {
           name: item,
           type: 'line',
-          data: mirai.data[index].value,
+          data: this.dateListData[index].data,
           markPoint: {
             data: [
               {
@@ -104,38 +114,10 @@ export default {
 
       const option = {
         legend: {
-          data: [
-            '后端开发',
-            '测试',
-            '人工智能',
-            '移动前端开发',
-            '运维',
-            '数据开发',
-            '前端开发',
-            '高端技术职位',
-            '项目管理',
-            '硬件开发',
-            '企业软件',
-            '产品经理',
-            '运营'
-          ],
+          data: positionList,
           top: '20px',
           left: '1%',
-          selected: {
-            后端开发: true,
-            测试: true,
-            人工智能: false,
-            移动前端开发: false,
-            运维: false,
-            数据开发: false,
-            前端开发: true,
-            高端技术职位: false,
-            项目管理: false,
-            硬件开发: false,
-            企业软件: false,
-            产品经理: false,
-            运营: false
-          }
+          selected: selectObj
         },
         tooltip: {
           trigger: 'axis',

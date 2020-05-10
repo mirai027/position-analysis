@@ -1,7 +1,7 @@
 <template>
-    <div class="chart-container">
-      <div ref="column" v-loading="loading" class="chart" />
-      <p class="title">{{ title }}</p>
+  <div class="chart-container">
+    <div ref="column" v-loading="loading" class="chart" />
+    <p class="title">{{ title }}</p>
   </div>
 </template>
 
@@ -114,7 +114,6 @@ export default {
       // this.$store.dispatch('setChartDOM', [this.chartDom])
     }
   }
-
 }
 </script>
 
@@ -130,7 +129,7 @@ export default {
     width: 100%;
     height: 100%;
   }
- .title {
+  .title {
     @include title-line($pos-top: 10px, $pos-left: 30px);
   }
 }

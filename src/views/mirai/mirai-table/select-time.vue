@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import getYesterday from '@/utils/getYesterday'
+import { getYesterday } from '@/utils/date'
 import { mapGetters } from 'vuex'
 export default {
   data() {

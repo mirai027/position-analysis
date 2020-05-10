@@ -43,7 +43,7 @@
         :is-loading="isLoading"
         @fromSonComp="getFromPie"
       />
-      </div>
+    </div>
   </div>
 </template>
 
@@ -112,17 +112,22 @@ export default {
     this.getCompanySizeData()
     this.getEducationData()
     this.getBenefitData()
-    this.getFinanceStageData()
-      .then(() => {
-        this.$store.dispatch('setChartDOM', this.compArr)
-      })
+    this.getFinanceStageData().then(() => {
+      this.$store.dispatch('setChartDOM', this.compArr)
+    })
   },
   activated() {
-    this.$store.dispatch('getName', ['analysis-salaryExp', 'analysis-companySize', 'analysis-education', 'analysis-benefit', 'analysis-financeStage'])
+    this.$store.dispatch('getName', [
+      'analysis-salaryExp',
+      'analysis-companySize',
+      'analysis-education',
+      'analysis-benefit',
+      'analysis-financeStage'
+    ])
     if (this.changedPage.includes('analysis')) {
       this.$store.dispatch('getShowingName')
 
-      this.showingName.map(ele => {
+      this.showingName.map((ele) => {
         ele.chartDom.resize()
       })
       this.$store.dispatch('deleteChangePage', 'analysis')

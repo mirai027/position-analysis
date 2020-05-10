@@ -45,4 +45,3 @@ const positionForm = {
   }
 }
 export default positionForm
-

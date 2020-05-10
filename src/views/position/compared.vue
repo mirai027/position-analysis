@@ -47,7 +47,7 @@
       <positionCopy
         class="position"
         :position-data="rightData.positionData"
-        action-type="setComparedLeftForm"
+        action-type="setComparedRightForm"
         :is-loading="rightData.isLoading"
       />
       <heat-map
@@ -137,7 +137,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['comparedLeftForm', 'comparedRightForm', 'changedPage', 'showingName'])
+    ...mapGetters([
+      'comparedLeftForm',
+      'comparedRightForm',
+      'changedPage',
+      'showingName'
+    ])
   },
   watch: {
     comparedLeftForm: {
@@ -162,16 +167,26 @@ export default {
   },
   mounted() {
     this.getLeftData(this.comparedLeftForm)
-    this.getRightData(this.comparedRightForm)
-      .then(() => {
-        this.$store.dispatch('setChartDOM', this.compArr)
-      })
+    this.getRightData(this.comparedRightForm).then(() => {
+      this.$store.dispatch('setChartDOM', this.compArr)
+    })
   },
   activated() {
-    this.$store.dispatch('getName', ['compared-salaryExp', 'compared-companySize', 'compared-education', 'compared-benefit', 'compared-financeStage', '_compared-salaryExp', '_compared-companySize', '_compared-education', '_compared-benefit', '_compared-financeStage'])
+    this.$store.dispatch('getName', [
+      'compared-salaryExp',
+      'compared-companySize',
+      'compared-education',
+      'compared-benefit',
+      'compared-financeStage',
+      '_compared-salaryExp',
+      '_compared-companySize',
+      '_compared-education',
+      '_compared-benefit',
+      '_compared-financeStage'
+    ])
     if (this.changedPage.includes('compared')) {
       this.$store.dispatch('getShowingName')
-      this.showingName.map(ele => {
+      this.showingName.map((ele) => {
         ele.chartDom.resize()
       })
       this.$store.dispatch('deleteChangePage', 'compared')

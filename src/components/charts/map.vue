@@ -1,8 +1,8 @@
 <template>
-    <div class="chart-container">
-        <div ref="map" v-loading="loading" class="map-main" />
-        <p class="title">{{ title }}</p>
-    </div>
+  <div class="chart-container">
+    <div ref="map" v-loading="loading" class="map-main" />
+    <p class="title">{{ title }}</p>
+  </div>
 </template>
 
 <script>

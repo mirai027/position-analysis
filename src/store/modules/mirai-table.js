@@ -1,4 +1,4 @@
-import getYesterday from '@/utils/getYesterday'
+import { getYesterday } from '@/utils/date'
 const miraiTable = {
   state: {
     tableForm: {

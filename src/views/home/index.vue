@@ -17,7 +17,9 @@
       </div>
       <div class="position magical-point">
         <div class="mirai-point-title">职位招聘信息</div>
-        <position />
+        <position
+          :position-data="positionData"
+          :is-loading="_isLoading" />
       </div>
       <div class="row magical-point">
         <div class="mirai-point-title">企业规模-薪资福利</div>
@@ -40,7 +42,7 @@ import eduPos from './edu-pos'
 import mapRightTop from './map-right-top'
 import { mapGetters } from 'vuex'
 import debounce from '@/utils/debounce.js'
-
+import { getPosition } from '@/api/position'
 export default {
   components: {
     // eduPos: () => import('./edu-pos'),
@@ -53,8 +55,17 @@ export default {
     eduPos,
     mapRightTop
   },
+  data() {
+    return {
+      positionData: {},
+      isLoading: true
+    }
+  },
   computed: {
-    ...mapGetters(['pagePoint', 'pagePointIdx', 'changedPage', 'showingName'])
+    ...mapGetters(['pagePoint', 'pagePointIdx', 'changedPage', 'showingName']),
+    _isLoading() {
+      return this.isLoading
+    }
   },
   watch: {
     pagePointIdx: {
@@ -81,7 +92,7 @@ export default {
   mounted() {
     //   .querySelectorAll('.mirai-menu-item')[0]
     //   .classList.add('is-active', 'mirai-menu-item-active')
-
+    this.getPositionData()
     /**
      * 因为滚动条是属于组件内部的，所以不能直接监听 window的 scroll。请监听真正事件滚动的 .view-container
      * scrollTop获取当前滚动条的位置
@@ -110,6 +121,12 @@ export default {
   },
   updated() {},
   methods: {
+    async getPositionData(form = { regin: '中国', level: 1 }) {
+      const { data } = await getPosition(form)
+      console.log(data)
+      this.positionData = data
+      this.isLoading = false
+    },
     getPointLocation() {
       /**
        * 临时性处理滚动联动
