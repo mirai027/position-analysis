@@ -1,0 +1,148 @@
+{
+  "success": true,
+  "msg": null,
+  "code": 200,
+  "data": {
+    "desc": {
+      "title": "Web前端",
+      "rank": "TOP1",
+      "new": 2727,
+      "total": 3966
+    },
+    "hotRegion": [
+      {
+        "name": "广东省",
+        "value": "7345"
+      },
+      {
+        "name": "浙江省",
+        "value": "4345"
+      },
+      {
+        "name": "江苏省",
+        "value": "1245"
+      }
+    ],
+    "skill": [
+      {
+        "name": "React.js",
+        "total": 21802,
+        "new": 1865
+      },
+      {
+        "name": "Vue.js",
+        "total": 21802,
+        "new": 1865
+      },
+      {
+        "name": "Node.js",
+        "total": 21802,
+        "new": 1865
+      },
+      {
+        "name": "Webpack",
+        "total": 21802,
+        "new": 1865
+      },
+      {
+        "name": "Django",
+        "total": 21802,
+        "new": 1865
+      },
+      {
+        "name": "HTML",
+        "total": 21802,
+        "new": 1865
+      },
+      {
+        "name": "CSS",
+        "total": 21802,
+        "new": 1865
+      }
+    ],
+    "community": [
+      {
+        "name": "掘金",
+        "title": "掘金- juejin.im - 一个帮助开发者成长的社区",
+        "url": "https://juejin.im/timeline/frontend",
+        "icon": "https://zhengxin-pub.bj.bcebos.com/financepic/b2f06f9c723e48f30bc6587a48bf9467_fullsize.jpg"
+      },
+      {
+        "name": "SegmentFault",
+        "title": "SegmentFault 思否是中国领先的新一代开发者社区和专业的技术媒体。",
+        "url": "https://segmentfault.com/channel/frontend",
+        "icon": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584840008813&di=911f2bcfc0a59f5c82c2fdb47c92e5cf&imgtype=0&src=http%3A%2F%2Fimgcache.iyiou.com%2FCompany%2F2016-05-11%2Fcf-segmentfault.jpg"
+      }
+    ],
+    "video": [
+      {
+        "name": "bilibili",
+        "title": "哔哩哔哩 - 中国年轻世代高度聚集的文化社区和视频平台",
+        "url": "https://search.bilibili.com/all?keyword=%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91&from_source=nav_search_new",
+        "icon": "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2307900745,994930526&fm=26&gp=0.jpg"
+      },
+      {
+        "name": "bilibili2",
+        "title": "哔哩哔哩 - 中国年轻世代高度聚集的文化社区和视频平台",
+        "url": "https://search.bilibili.com/all?keyword=%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91&from_source=nav_search_new",
+        "icon": "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2307900745,994930526&fm=26&gp=0.jpg"
+      },
+      {
+        "name": "bilibili3",
+        "title": "哔哩哔哩 - 中国年轻世代高度聚集的文化社区和视频平台",
+        "url": "https://search.bilibili.com/all?keyword=%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91&from_source=nav_search_new",
+        "icon": "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2307900745,994930526&fm=26&gp=0.jpg"
+      }
+    ],
+    "other": [
+      {
+        "name": "后端开发",
+        "value": 1853
+      },
+      {
+        "name": "测试",
+        "value": 1986
+      },
+      {
+        "name": "人工智能",
+        "value": 705
+      },
+      {
+        "name": "移动前端开发",
+        "value": 322
+      },
+      {
+        "name": "运维",
+        "value": 1015
+      },
+      {
+        "name": "数据开发",
+        "value": 3285
+      },
+      {
+        "name": "高端技术职位",
+        "value": 2512
+      },
+      {
+        "name": "项目管理",
+        "value": 2220
+      },
+      {
+        "name": "硬件开发",
+        "value": 1748
+      },
+      {
+        "name": "企业软件",
+        "value": 1536
+      },
+      {
+        "name": "产品经理",
+        "value": 2873
+      },
+      {
+        "name": "运营",
+        "value": 2594
+      }
+    ]
+  }
+}

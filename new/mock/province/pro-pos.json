@@ -1,0 +1,172 @@
+{
+  "success": true,
+  "msg": null,
+  "code": 200,
+  "data": {
+    "position": "前端开发",
+    "positionList": [
+      {
+        "value": "后端开发"
+      },
+      {
+        "value": "测试"
+      },
+      {
+        "value": "人工智能"
+      },
+      {
+        "value": "移动前端开发"
+      },
+      {
+        "value": "运维"
+      },
+      {
+        "value": "数据开发"
+      },
+      {
+        "value": "前端开发"
+      },
+      {
+        "value": "高端技术职位"
+      },
+      {
+        "value": "项目管理"
+      },
+      {
+        "value": "硬件开发"
+      },
+      {
+        "value": "企业软件"
+      },
+      {
+        "value": "产品经理"
+      },
+      {
+        "value": "运营"
+      }
+    ],
+    "top": [
+      {
+        "name": "广州市",
+        "value": 3666
+      },
+      {
+        "name": "深圳市",
+        "value": 2666
+      },
+      {
+        "name": "佛山市",
+        "value": 1666
+      }
+    ],
+    "best": {
+      "name": "深圳市",
+      "list": [
+        {
+          "dc": "39%",
+          "num": "4977元",
+          "title": "一年经验平均薪资"
+        },
+        {
+          "dc": "49%",
+          "num": "2977条",
+          "title": "学历要求大专及以下"
+        },
+        {
+          "dc": "39%",
+          "num": "2977条",
+          "title": "一年工作经验"
+        },
+        {
+          "dc": "39%",
+          "num": "4977条",
+          "title": "公司规模"
+        }
+      ]
+    },
+    "feature": {
+      "list": [
+        {
+          "title": "前端开发技能要求",
+          "item": [
+            {
+              "name": "React.js",
+              "total": 21802,
+              "new": 1865
+            },
+            {
+              "name": "Vue.js",
+              "total": 21802,
+              "new": 1865
+            },
+            {
+              "name": "Node.js",
+              "total": 21802,
+              "new": 1865
+            },
+            {
+              "name": "Webpack",
+              "total": 21802,
+              "new": 1865
+            },
+            {
+              "name": "Django",
+              "total": 21802,
+              "new": 1865
+            },
+            {
+              "name": "HTML",
+              "total": 21802,
+              "new": 1865
+            },
+            {
+              "name": "CSS",
+              "total": 21802,
+              "new": 1865
+            }
+          ]
+        },
+        {
+          "title": "推荐的技术社区",
+          "item": [
+            {
+              "name": "掘金",
+              "title": "掘金- juejin.im - 一个帮助开发者成长的社区",
+              "url": "https://juejin.im/timeline/frontend",
+              "icon": "https://zhengxin-pub.bj.bcebos.com/financepic/b2f06f9c723e48f30bc6587a48bf9467_fullsize.jpg"
+            },
+            {
+              "name": "SegmentFault",
+              "title": "SegmentFault 思否是中国领先的新一代开发者社区和专业的技术媒体。",
+              "url": "https://segmentfault.com/channel/frontend",
+              "icon": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584840008813&di=911f2bcfc0a59f5c82c2fdb47c92e5cf&imgtype=0&src=http%3A%2F%2Fimgcache.iyiou.com%2FCompany%2F2016-05-11%2Fcf-segmentfault.jpg"
+            }
+          ]
+        },
+        {
+          "title": "推荐的视频学习网站",
+          "item": [
+            {
+              "name": "bilibili",
+              "title": "哔哩哔哩 - 中国年轻世代高度聚集的文化社区和视频平台",
+              "url": "https://search.bilibili.com/all?keyword=%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91&from_source=nav_search_new",
+              "icon": "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2307900745,994930526&fm=26&gp=0.jpg"
+            },
+            {
+              "name": "bilibili",
+              "title": "哔哩哔哩 - 中国年轻世代高度聚集的文化社区和视频平台",
+              "url": "https://search.bilibili.com/all?keyword=%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91&from_source=nav_search_new",
+              "icon": "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2307900745,994930526&fm=26&gp=0.jpg"
+            },
+            {
+              "name": "bilibili",
+              "title": "哔哩哔哩 - 中国年轻世代高度聚集的文化社区和视频平台",
+              "url": "https://search.bilibili.com/all?keyword=%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91&from_source=nav_search_new",
+              "icon": "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2307900745,994930526&fm=26&gp=0.jpg"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
