@@ -23,11 +23,18 @@ const positionList = [
 
 const mirai = positionList.map((item) => {
   let num = 0
-  const date = dateList.map(() => {
+  const data = dateList.map(() => {
     num += Math.round(Math.random() * 20000 + 100)
     return num
   })
-  return { name: item, value: date }
+  return { name: item, data }
+})
+
+console.log({
+  success: true,
+  msg: null,
+  code: 200,
+  data: mirai
 })
 
 export default {

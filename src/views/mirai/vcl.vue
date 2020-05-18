@@ -74,7 +74,7 @@ export default {
     this.$store.dispatch('getName', ['vcl'])
     if (this.changedPage.includes('vcl')) {
       this.$store.dispatch('getShowingName')
-      this.showingName.map((ele) => {
+      this.showingName.map(ele => {
         ele.chartDom.resize()
       })
       this.$store.dispatch('deleteChangePage', 'vcl')
@@ -82,86 +82,102 @@ export default {
   },
   methods: {
     getFromSon(chartDom) {
-      this.$store.dispatch('setChartDOM', [
-        {
-          name: 'vcl',
-          chartDom: chartDom
-        }
-      ])
+      this.$store.dispatch('setChartDOM', [{
+        name: 'vcl',
+        chartDom: chartDom
+      }])
       // console.log(this.chartDOM)
     },
     getData(dataIndex) {
       // 获取索引的数据，用于更新图标数据
-      console.log(this.vclData)
       const newData = this.vclData.map((item) => {
         return { name: item.name, value: item.data[dataIndex] }
       })
       // 图表数据排序
       this.data = newData.sort(function(a, b) {
-        return a.data - b.data
+        return a.value - b.value
       })
-
       // 图标 y轴名称随排序更换
       this.positionList = this.data.map((item) => {
         return item.name
       })
     },
-    run(chart) {
-      // 每次执行计算出相间的两组数据的数据差
+    run(chart, num) {
+      /**
+       * chart 图表 DOM元素
+       * num 每秒更新次数
+       */
+
+      // 旧数据(上一次的数据)
       const oldData = this.data
 
-      this.getData(++this.index)
+      // 每次 index自增
+      ++this.index
 
-      const newData = this.data
-      const mirai = []
-      for (let index = 0; index < newData.length; index++) {
-        let speed = (newData[index].value - oldData[index].value) / 10
-        speed = Math.round(speed)
-        mirai.push({ name: newData[index].name, speed })
-      }
+      // 自增后的新数据
+      const newData = this.vclData.map(item => {
+        return ({ name: item.name, value: item.data[this.index] })
+      })
 
+      // 计算出每秒(每天)新增各多少数据(与旧数据同样顺序)
+      const computeData = oldData.map((item, index) => {
+        // 按照旧数据的排序，重新获取新数据中对应旧数据第 index个的索引
+        const newIndex = newData.findIndex(el => el.name === item.name)
+        return { name: item.name, value: newData[newIndex].value - oldData[index].value }
+      })
+
+      // 每次更新 添加多少数据
+      const numData = computeData.map(item => {
+        return { name: item.name, value: Math.round(item.value / num) }
+      })
+
+      // 设置内置定时器计数器
       let insideIndex = 0
+      const timer = setInterval(() => {
+        // 旧数据中，每项的 value加 numData中对应的每项的 value（即速度）
+        oldData.forEach((item, index) => {
+          item.value += numData[index].value
+        })
 
-      const insideTimer = setInterval(() => {
+        // // ************************ Test Begin
+        // this.data = oldData
+
+        // this.data.sort(function(a, b) {
+        //   return a.value - b.value
+        // })
+        // // 获取对比后的(即更新后正确的排序) y轴的文本
+        // this.positionList = newData.map((item) => {
+        //   return item.name
+        // })
+        // // ************************ Test End
+
+        // 重新渲染图表，但不刷新 y轴文本的位置
+        this.option = this.getOption(this.positionList, oldData)
+        chart.setOption(this.option)
+        // 每次执行相加，内置定时器计数器 +1
         insideIndex++
-        // 获取每一秒各职位在一毫秒时的增速
-        for (let index = 0; index < this.data.length; index++) {
-          const { speed } = mirai.find((item) => {
-            return item.name === this.data[index].name
+        // 当计数器到达阈值时，重新更新图表为当前日期的最新数据并删除定时器
+        if (insideIndex === num) {
+          clearInterval(timer)
+          // 给 数据从小到大排序
+          newData.sort(function(a, b) {
+            return a.value - b.value
           })
-          this.data[index].value += speed
+
+          this.data = newData
+
+          // 获取对比后的(即更新后正确的排序) y轴的文本
+          this.positionList = newData.map((item) => {
+            return item.name
+          })
+          /**
+           * 重新更新 Echart图表
+           * 因为上文计算的每次自增会存在精度不准确问题，因此在切换下一日期前，直接替换成新数据
+           */
+          this.option = this.getOption(this.positionList, newData)
+          chart.setOption(this.option)
         }
-
-        // 图表数据排序
-        this.data.sort(function(a, b) {
-          return a.value - b.value
-        })
-
-        // 图标 y轴名称随排序更换
-        this.positionList = this.data.map((item) => {
-          return item.name
-        })
-
-        this.option = this.getOption(this.positionList, this.data)
-        chart.setOption(this.option, this.data)
-
-        /**
-         * 每秒钟清除自身定时器
-         * 如果到了最末尾的数据，设置当前数据为请求数据的最后一项（确保精度问题），并清空定时器
-         */
-        if (insideIndex === 10) {
-          if (this.index === this.dateList.length - 1) {
-            this.getData(this.dateList.length - 1)
-            this.option = this.getOption(this.positionList, this.data)
-            chart.setOption(this.option, this.data)
-
-            // 重置开关状态
-            this.runFlag = false
-            clearInterval(this.timer)
-          }
-          clearInterval(insideTimer)
-        }
-      }, 100)
+      }, 1000 / num)
     },
     getOption(positionList, data) {
       return {
@@ -190,7 +206,8 @@ export default {
           }
         },
         yAxis: {
-          show: true,
+          // 没空弄了，下次再来填坑吧
+          show: false,
           type: 'category',
           axisTick: {
             show: false
@@ -238,14 +255,14 @@ export default {
       }
     },
     handleRun() {
-      const chart = this.$echarts.init(this.$refs.vcl)
       if (this.index === this.dateList.length - 1) {
         this.index = 0
         this.ininChart()
       }
       if (this.runFlag) {
+        const chart = this.$echarts.init(this.$refs.vcl)
         this.timer = setInterval(() => {
-          this.run(chart)
+          this.run(chart, 10)
         }, 1000)
       } else {
         clearInterval(this.timer)
@@ -254,34 +271,26 @@ export default {
     ininChart() {
       // 获取昨天到 2020-02-19相隔多少天
       const dateNum = getDateBetween('2020-02-19', getDateList())
-
       // 获取昨天到 2020-02-19的日期
       const dateList = getDateList(dateNum + 1).reverse()
-
       this.dateList = dateList
-
       /**
        * 根据传入的索引获取对应索引（日期）的数据的函数
        */
       // 根据传入的索引获取对应索引（日期）的数据
       this.getData(this.index)
-
       const chart = this.$echarts.init(this.$refs.vcl)
-
       this.positionColors = this.positionList.map((item) => {
         const color = `rgb(${Math.round(Math.random() * 255)}, ${Math.round(
           Math.random() * 255
         )}, ${Math.round(Math.random() * 255)})`
         return { name: item, color }
       })
-
       // 更新 option里的数据的函数
-
       // 更新 option里的数据
       this.option = this.getOption(this.positionList, this.data)
-
       // 渲染图表
-      chart.setOption(this.option, this.data)
+      chart.setOption(this.option)
       this.getFromSon(chart)
     },
     async temporary() {
@@ -292,7 +301,6 @@ export default {
       const { data } = await getDateListData({ time: dateList })
       this.loading = false
       this.vclData = data
-
       this.ininChart()
     }
   }

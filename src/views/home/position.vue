@@ -3,7 +3,7 @@
     <div class="left-container">
       <selectRegion
         class="select-region"
-        default-value="广东省"
+        default-value="中国"
         @changeRegion="changeRegion"
       />
       <el-row :gutter="12" class="top">

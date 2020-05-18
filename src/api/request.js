@@ -8,7 +8,7 @@ import axios from 'axios'
  */
 const service = axios.create({
   baseURL: `${process.env.VUE_APP_BASE_API}`,
-  timeout: 20000,
+  timeout: 60000,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
   },

@@ -30,7 +30,8 @@ export default {
     },
     async getUpdate() {
       const { data } = await getAllUpdate()
-      this.lineData = data
+      this.lineData = data.reverse()
+      console.log(this.lineData)
     }
   }
 }

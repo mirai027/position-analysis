@@ -136,7 +136,7 @@ export default {
   },
   updated() {},
   methods: {
-    async getPositionData(form = { regin: '中国', level: 1, type: 'Month' }) {
+    async getPositionData(form = { region: '中国', level: 1, type: 'Month' }) {
       const { data } = await getPosition(form)
       this.positionData = data
     },

@@ -112,7 +112,7 @@ export default {
             params.forEach((element) => {
               const { componentIndex } = element
               if (componentIndex === 0) {
-                const line = `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${element.color};"></span>${element.name} 共 <span style="color: #F13000;">${element.value}</span> 条招聘数据`
+                const line = `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${element.color};"></span>${element.name} 共 <span style="color: ${element.color};">${element.value}</span> 条招聘数据`
                 fm.line = line
               }
               if (componentIndex === 1) {
