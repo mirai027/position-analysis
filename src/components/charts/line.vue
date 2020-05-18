@@ -1,6 +1,6 @@
 <template>
   <div class="chart-container">
-    <div ref="update" class="chart"></div>
+    <div ref="update" v-loading="loading" class="chart"></div>
     <p class="title">{{ title }}</p>
   </div>
 </template>
@@ -27,7 +27,8 @@ export default {
   data() {
     return {
       data: [],
-      chartDom: {}
+      chartDom: {},
+      loading: true
     }
   },
   watch: {
@@ -54,6 +55,11 @@ export default {
     },
 
     async initUpdate() {
+      // 300毫秒延迟会使动画看起来更人性化（其实就是看起来得到结果更快）
+      setTimeout(() => {
+        this.loading = false
+      }, 300)
+
       const lineData = []
       const updateBarData = []
       const xAxisData = []

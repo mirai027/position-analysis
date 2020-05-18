@@ -17,16 +17,13 @@
       </div>
       <div class="position magical-point">
         <div class="mirai-point-title">职位招聘信息</div>
-        <position
-          :position-data="positionData"
-          :is-loading="_isLoading" />
+        <position :position-data="positionData" :is-loading="_isLoading" />
       </div>
       <div class="row magical-point">
         <div class="mirai-point-title">企业规模-薪资福利</div>
-          <companySize class="company-size" />
-          <benefit class="benefit" />
+        <companySize class="company-size" />
+        <benefit class="benefit" />
       </div>
-
     </div>
   </div>
 </template>
@@ -62,7 +59,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['pagePoint', 'pagePointIdx', 'changedPage', 'showingName']),
+    ...mapGetters([
+      'pagePoint',
+      'pagePointIdx',
+      'changedPage',
+      'showingName',
+      'positionForm'
+    ]),
     _isLoading() {
       return this.isLoading
     }
@@ -75,13 +78,27 @@ export default {
         viewContainer.scrollTop = point[this.pagePointIdx.idx].location - 10
       },
       deep: true
+    },
+    positionForm: {
+      handler() {
+        // 用于设置子组件为 Loading 状态
+        this.isLoading = !this.isLoading
+        this.getPositionData(this.positionForm)
+      },
+      deep: true
     }
   },
   activated() {
-    this.$store.dispatch('getName', ['home-benefit', 'home-companySize', 'home-dateTrend', 'home-map', 'home-eduPos'])
+    this.$store.dispatch('getName', [
+      'home-benefit',
+      'home-companySize',
+      'home-dateTrend',
+      'home-map',
+      'home-eduPos'
+    ])
     if (this.changedPage.includes('home')) {
       this.$store.dispatch('getShowingName')
-      this.showingName.map(ele => {
+      this.showingName.map((ele) => {
         ele.chartDom.resize()
       })
       this.$store.dispatch('deleteChangePage', 'home')
@@ -119,11 +136,9 @@ export default {
   },
   updated() {},
   methods: {
-    async getPositionData(form = { regin: '中国', level: 1 }) {
+    async getPositionData(form = { regin: '中国', level: 1, type: 'Month' }) {
       const { data } = await getPosition(form)
-      // console.log(data)
       this.positionData = data
-      this.isLoading = false
     },
     getPointLocation() {
       /**

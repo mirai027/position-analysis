@@ -6,7 +6,9 @@ export function getLanguage() {
     method: 'get'
   })
 }
-export function getDateListData() {
+export function getDateListData({
+  time = ['2020-03-30', '2020-03-31', '2020-04-01', '2020-04-02']
+}) {
   return request({
     url: '/CountryDate_Job_Servlet',
     method: 'post',
@@ -15,7 +17,7 @@ export function getDateListData() {
     },
     data: {
       //暂时只有这四天的数据
-      time: ['2020-03-30', '2020-03-31', '2020-04-01', '2020-04-02']
+      time
     }
   })
 }

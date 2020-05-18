@@ -83,7 +83,8 @@ export function getFinanceStage({
 export function getPosition({
   region = '广东省',
   level = 2,
-  position = '后端开发'
+  position = '后端开发',
+  type = 'Month'
 }) {
   return request({
     url: '/CountryJob_DayTop_Servlet',
@@ -91,7 +92,8 @@ export function getPosition({
     params: {
       region,
       level,
-      position
+      position,
+      type
     }
   })
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="chart-container">
-    <div ref="EDUPOSChart" class="edu-pos chart" />
+    <div ref="EDUPOSChart" v-loading="loading" class="edu-pos chart" />
   </div>
 </template>
 
@@ -10,7 +10,9 @@ import getEchartXAxisName from '@/utils/getEchartXAxisName'
 
 export default {
   data() {
-    return {}
+    return {
+      loading: true
+    }
   },
   computed: {},
   created() {
@@ -21,18 +23,21 @@ export default {
   },
   methods: {
     getFromSon(chartDom) {
-      this.$store.dispatch('setChartDOM', [{
-        name: 'home-eduPos',
-        chartDom: chartDom
-      }])
+      this.$store.dispatch('setChartDOM', [
+        {
+          name: 'home-eduPos',
+          chartDom: chartDom
+        }
+      ])
       // console.log(this.chartDOM)
     },
     async ininEduPos() {
       const {
         data: { position: categoryData, jc: JCBarData, rcc: RCCBarData }
       } = await getAllEduPos()
+      this.loading = false
       const xCategory = []
-      categoryData.forEach(item => {
+      categoryData.forEach((item) => {
         xCategory.push(item.name)
       })
       const colors = ['#5793f3', '#d14a61', '#675bba']
@@ -95,7 +100,7 @@ export default {
           {
             position: 'right',
             axisLabel: {
-              formatter: params => {
+              formatter: (params) => {
                 return `${params / 1000}K`
               }
             },
@@ -116,7 +121,7 @@ export default {
           },
           {
             axisLabel: {
-              formatter: params => {
+              formatter: (params) => {
                 return `${params / 1000}K`
               }
             },
@@ -197,7 +202,7 @@ export default {
       this._chartDom.setOption(option)
       // this.$store.dispatch('setChartDOM', [chartDom])
       this.getFromSon(this._chartDom)
-      this._chartDom.getZr().on('click', params => {
+      this._chartDom.getZr().on('click', (params) => {
         console.log()
         if (params.event.offsetY > 100) {
           const name = getEchartXAxisName(this._chartDom, params)

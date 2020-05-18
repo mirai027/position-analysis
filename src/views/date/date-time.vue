@@ -1,5 +1,5 @@
 <template>
-  <div ref="dateTime" class="date-time"></div>
+  <div ref="dateTime" v-loading="loading" class="date-time"></div>
 </template>
 
 <script>
@@ -11,23 +11,23 @@ import { getDateListData } from '@/api/mirai'
 export default {
   data() {
     return {
-      dateListData: []
+      dateListData: [],
+      loading: true
     }
   },
   computed: {
     ...mapGetters(['changedPage', 'showingName'])
   },
   mounted() {
-    this._getDataListData()
-      .then(() => {
-        this.initDateTime()
-      })
+    this._getDataListData().then(() => {
+      this.initDateTime()
+    })
   },
   activated() {
     this.$store.dispatch('getName', ['date-date-time'])
     if (this.changedPage.includes('date')) {
       this.$store.dispatch('getShowingName')
-      this.showingName.map(ele => {
+      this.showingName.map((ele) => {
         ele.chartDom.resize()
       })
       this.$store.dispatch('deleteChangePage', 'date')
@@ -35,19 +35,26 @@ export default {
   },
   methods: {
     async _getDataListData() {
-      const { data } = await getDateListData()
+      // 获取昨天到 2020-03-30相隔多少天
+      const dateNum = getDateBetween('2020-02-19', getDateList())
+      // 获取昨天到 2020-03-30的日期
+      const dateList = getDateList(dateNum + 1).reverse()
+      const { data } = await getDateListData({ time: dateList })
+      this.loading = false
       this.dateListData = data
     },
     getFromSon(chartDom) {
-      this.$store.dispatch('setChartDOM', [{
-        name: 'date-date-time',
-        chartDom: chartDom
-      }])
+      this.$store.dispatch('setChartDOM', [
+        {
+          name: 'date-date-time',
+          chartDom: chartDom
+        }
+      ])
       // console.log(this.chartDOM)
     },
     initDateTime() {
       // 获取昨天到 2020-03-30相隔多少天
-      const dateNum = getDateBetween('2020-03-30', getDateList())
+      const dateNum = getDateBetween('2020-02-19', getDateList())
       // 获取昨天到 2020-03-30的日期
       const dateList = getDateList(dateNum + 1).reverse()
 
@@ -67,7 +74,7 @@ export default {
       })
 
       const service = positionList.map((item, index) => {
-      // 获取随机颜色
+        // 获取随机颜色
         const color = `${Math.round(Math.random() * 255)}, ${Math.round(
           Math.random() * 255
         )}, ${Math.round(Math.random() * 255)}`
@@ -105,9 +112,9 @@ export default {
           symbolSize: 3,
           yAxisIndex: 0,
           color: `rgb(${color})`
-        // areaStyle: {
-        //   color: `rgba(${color}, .1)`
-        // }
+          // areaStyle: {
+          //   color: `rgba(${color}, .1)`
+          // }
         }
       })
       // console.log(mirai.data)
@@ -222,7 +229,7 @@ export default {
             type: 'slider',
             show: true,
             xAxisIndex: [0],
-            start: 1,
+            start: 0,
             end: 30
           }
         ],
@@ -231,10 +238,10 @@ export default {
       const _chartDom = this.$echarts.init(this.$refs.dateTime)
       _chartDom.setOption(option)
       this.getFromSon(_chartDom)
-    // chart.on('datazoom', function(res) {
-    //   console.log(res)
-    // })
-    // console.log(chart)
+      // chart.on('datazoom', function(res) {
+      //   console.log(res)
+      // })
+      // console.log(chart)
     }
   }
 }

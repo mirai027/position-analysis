@@ -55,9 +55,11 @@ export default {
     },
 
     async initMap() {
+      // 300毫秒延迟会使动画看起来更人性化（其实就是看起来得到结果更快）
       setTimeout(() => {
         this.loading = false
       }, 300)
+
       const colors = ['#5bc3f0', '#1ca2dc', '#0087dc']
       const option = {
         color: colors,

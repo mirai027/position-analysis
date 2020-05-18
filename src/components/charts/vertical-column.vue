@@ -54,6 +54,7 @@ export default {
     },
 
     initColumn() {
+      // 300毫秒延迟会使动画看起来更人性化（其实就是看起来得到结果更快）
       setTimeout(() => {
         this.loading = false
       }, 300)
