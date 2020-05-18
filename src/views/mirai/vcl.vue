@@ -55,7 +55,7 @@ export default {
      * 6. timer用于控制定时器的开关(暂停/开始功能)
      * 7. 当日期到了最终数据后(即 index === data.length - 1), 清空定时器 timer,设置当前数据为请求数据的最后一项（确保精度问题）,重置按钮样式 runFlag
      * 8. 根据按钮 runFlag的值来判断是 开始(true), 还是暂停(flag).如果 (index === data.length - 1), 重置 (index = 0)
-     * 9. { getDateList, getDateBetween }获取昨天到 2020-02-19 所有的 YY-MM-DD 日期数组, 提交到后端以获取数据
+     * 9. { getDateList, getDateBetween }获取昨天到 2020-05-10 所有的 YY-MM-DD 日期数组, 提交到后端以获取数据
      * ---------------------------------------------------------------------------
      *
      *
@@ -158,6 +158,11 @@ export default {
         insideIndex++
         // 当计数器到达阈值时，重新更新图表为当前日期的最新数据并删除定时器
         if (insideIndex === num) {
+          if (this.index === this.dateList.length - 1) {
+            // 重置开关且清除定时器
+            this.runFlag = false
+            clearInterval(this.timer)
+          }
           clearInterval(timer)
           // 给 数据从小到大排序
           newData.sort(function(a, b) {
@@ -269,9 +274,9 @@ export default {
       }
     },
     ininChart() {
-      // 获取昨天到 2020-02-19相隔多少天
-      const dateNum = getDateBetween('2020-02-19', getDateList())
-      // 获取昨天到 2020-02-19的日期
+      // 获取昨天到 2020-05-10相隔多少天
+      const dateNum = getDateBetween('2020-05-10', getDateList())
+      // 获取昨天到 2020-05-10的日期
       const dateList = getDateList(dateNum + 1).reverse()
       this.dateList = dateList
       /**
@@ -295,7 +300,7 @@ export default {
     },
     async temporary() {
       // 获取昨天到 2020-03-30相隔多少天
-      const dateNum = getDateBetween('2020-02-19', getDateList())
+      const dateNum = getDateBetween('2020-05-10', getDateList())
       // 获取昨天到 2020-03-30的日期
       const dateList = getDateList(dateNum + 1).reverse()
       const { data } = await getDateListData({ time: dateList })
