@@ -1,0 +1,39 @@
+{
+  "success": true,
+  "msg": null,
+  "code": 200,
+  "data": [
+    {
+      "name": "未融资",
+      "value": 5016
+    },
+    {
+      "name": "天使轮",
+      "value": 9707
+    },
+    {
+      "name": "A轮",
+      "value": 6049
+    },
+    {
+      "name": "B轮",
+      "value": 12491
+    },
+    {
+      "name": "C轮",
+      "value": 6717
+    },
+    {
+      "name": "D轮及以上",
+      "value": 2624
+    },
+    {
+      "name": "上市公司",
+      "value": 2624
+    },
+    {
+      "name": "不需要融资",
+      "value": 2624
+    }
+  ]
+}

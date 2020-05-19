@@ -55,7 +55,7 @@ export default {
      * 6. timer用于控制定时器的开关(暂停/开始功能)
      * 7. 当日期到了最终数据后(即 index === data.length - 1), 清空定时器 timer,设置当前数据为请求数据的最后一项（确保精度问题）,重置按钮样式 runFlag
      * 8. 根据按钮 runFlag的值来判断是 开始(true), 还是暂停(flag).如果 (index === data.length - 1), 重置 (index = 0)
-     * 9. { getDateList, getDateBetween }获取昨天到 2020-05-10 所有的 YY-MM-DD 日期数组, 提交到后端以获取数据
+     * 9. { getDateList, getDateBetween }获取昨天到 2020-02-19 所有的 YY-MM-DD 日期数组, 提交到后端以获取数据
      * ---------------------------------------------------------------------------
      *
      *
@@ -74,7 +74,7 @@ export default {
     this.$store.dispatch('getName', ['vcl'])
     if (this.changedPage.includes('vcl')) {
       this.$store.dispatch('getShowingName')
-      this.showingName.map(ele => {
+      this.showingName.map((ele) => {
         ele.chartDom.resize()
       })
       this.$store.dispatch('deleteChangePage', 'vcl')
@@ -82,10 +82,12 @@ export default {
   },
   methods: {
     getFromSon(chartDom) {
-      this.$store.dispatch('setChartDOM', [{
-        name: 'vcl',
-        chartDom: chartDom
-      }])
+      this.$store.dispatch('setChartDOM', [
+        {
+          name: 'vcl',
+          chartDom: chartDom
+        }
+      ])
       // console.log(this.chartDOM)
     },
     getData(dataIndex) {
@@ -115,19 +117,22 @@ export default {
       ++this.index
 
       // 自增后的新数据
-      const newData = this.vclData.map(item => {
-        return ({ name: item.name, value: item.data[this.index] })
+      const newData = this.vclData.map((item) => {
+        return { name: item.name, value: item.data[this.index] }
       })
 
       // 计算出每秒(每天)新增各多少数据(与旧数据同样顺序)
       const computeData = oldData.map((item, index) => {
         // 按照旧数据的排序，重新获取新数据中对应旧数据第 index个的索引
-        const newIndex = newData.findIndex(el => el.name === item.name)
-        return { name: item.name, value: newData[newIndex].value - oldData[index].value }
+        const newIndex = newData.findIndex((el) => el.name === item.name)
+        return {
+          name: item.name,
+          value: newData[newIndex].value - oldData[index].value
+        }
       })
 
       // 每次更新 添加多少数据
-      const numData = computeData.map(item => {
+      const numData = computeData.map((item) => {
         return { name: item.name, value: Math.round(item.value / num) }
       })
 
@@ -274,9 +279,9 @@ export default {
       }
     },
     ininChart() {
-      // 获取昨天到 2020-05-10相隔多少天
-      const dateNum = getDateBetween('2020-05-10', getDateList())
-      // 获取昨天到 2020-05-10的日期
+      // 获取昨天到 2020-02-19相隔多少天
+      const dateNum = getDateBetween('2020-02-19', getDateList())
+      // 获取昨天到 2020-02-19的日期
       const dateList = getDateList(dateNum + 1).reverse()
       this.dateList = dateList
       /**
@@ -300,7 +305,7 @@ export default {
     },
     async temporary() {
       // 获取昨天到 2020-03-30相隔多少天
-      const dateNum = getDateBetween('2020-05-10', getDateList())
+      const dateNum = getDateBetween('2020-02-19', getDateList())
       // 获取昨天到 2020-03-30的日期
       const dateList = getDateList(dateNum + 1).reverse()
       const { data } = await getDateListData({ time: dateList })

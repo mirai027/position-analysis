@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "msg": null,
+  "code": 200,
+  "data": {
+    "best": {
+      "title": "广东省",
+      "rank": "TOP1",
+      "new": 272,
+      "total": 3939
+    },
+    "better": {
+      "title": "江苏省",
+      "rank": "TOP1",
+      "new": 572,
+      "total": 2939
+    }
+  }
+}

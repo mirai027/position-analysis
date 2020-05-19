@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "msg": null,
+  "code": 200,
+  "data": [
+    {
+      "name": "不限",
+      "value": 5016
+    },
+    {
+      "name": "大专",
+      "value": 9707
+    },
+    {
+      "name": "本科",
+      "value": 6049
+    },
+    {
+      "name": "硕士",
+      "value": 12491
+    },
+    {
+      "name": "博士",
+      "value": 6717
+    }
+  ]
+}

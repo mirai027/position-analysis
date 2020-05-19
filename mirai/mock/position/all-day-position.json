@@ -1,0 +1,250 @@
+{
+  "success": true,
+  "msg": null,
+  "code": 200,
+  "data": {
+    "top": [
+      {
+        "title": "Web前端",
+        "rank": "TOP1",
+        "new": 2727,
+        "total": 3966,
+        "hotProvince": [
+          {
+            "name": "广东省",
+            "new": 2727,
+            "total": 3966
+          },
+          {
+            "name": "浙江省",
+            "new": 2727,
+            "total": 3966
+          },
+          {
+            "name": "江苏省",
+            "new": 2727,
+            "total": 3966
+          }
+        ],
+        "skill": [
+          "Vue.js",
+          "React.js",
+          "Node.js",
+          "ES6"
+        ],
+        "community": [
+          {
+            "name": "GitHub",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          },
+          {
+            "name": "思否",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          },
+          {
+            "name": "掘金",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          }
+        ],
+        "video": [
+          {
+            "name": "哔哩哔哩",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          },
+          {
+            "name": "51CTO",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          },
+          {
+            "name": "慕课网",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          }
+        ]
+      },
+      {
+        "title": "运维",
+        "rank": "TOP2",
+        "new": 2727,
+        "total": 3966,
+        "hotProvince": [
+          {
+            "name": "广东省",
+            "new": 2727,
+            "total": 3966
+          },
+          {
+            "name": "浙江省",
+            "new": 2727,
+            "total": 3966
+          },
+          {
+            "name": "江苏省",
+            "new": 2727,
+            "total": 3966
+          }
+        ],
+        "skill": [
+          "Vue.js",
+          "React.js",
+          "Node.js",
+          "ES6"
+        ],
+        "community": [
+          {
+            "name": "GitHub",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          },
+          {
+            "name": "思否",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          },
+          {
+            "name": "掘金",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          }
+        ],
+        "video": [
+          {
+            "name": "哔哩哔哩",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          },
+          {
+            "name": "51CTO",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          },
+          {
+            "name": "慕课网",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          }
+        ]
+      },
+      {
+        "title": "后端开发",
+        "rank": "TOP3",
+        "new": 2727,
+        "total": 3966,
+        "hotProvince": [
+          {
+            "name": "广东省",
+            "new": 2727,
+            "total": 3966
+          },
+          {
+            "name": "浙江省",
+            "new": 2727,
+            "total": 3966
+          },
+          {
+            "name": "江苏省",
+            "new": 2727,
+            "total": 3966
+          }
+        ],
+        "skill": [
+          "Vue.js",
+          "React.js",
+          "Node.js",
+          "ES6"
+        ],
+        "community": [
+          {
+            "name": "GitHub",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          },
+          {
+            "name": "思否",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          },
+          {
+            "name": "掘金",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          }
+        ],
+        "video": [
+          {
+            "name": "哔哩哔哩",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          },
+          {
+            "name": "51CTO",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          },
+          {
+            "name": "慕课网",
+            "icon": "https://www.github.com/logo.png",
+            "url": "https://www.github.com"
+          }
+        ]
+      }
+    ],
+    "other": [
+      {
+        "name": "测试",
+        "new": 2727,
+        "total": 3966
+      },
+      {
+        "name": "人工智能",
+        "new": 2727,
+        "total": 3966
+      },
+      {
+        "name": "移动前端开发",
+        "new": 2727,
+        "total": 3966
+      },
+      {
+        "name": "数据开发",
+        "new": 2727,
+        "total": 3966
+      },
+      {
+        "name": "项目管理",
+        "new": 2727,
+        "total": 3966
+      },
+      {
+        "name": "硬件开发",
+        "new": 2727,
+        "total": 3966
+      },
+      {
+        "name": "企业软件",
+        "new": 2727,
+        "total": 3966
+      },
+      {
+        "name": "产品经理",
+        "new": 2727,
+        "total": 3966
+      },
+      {
+        "name": "运营",
+        "new": 2727,
+        "total": 3966
+      },
+      {
+        "name": "高端技术职位",
+        "new": 2727,
+        "total": 3966
+      }
+    ]
+  }
+}
