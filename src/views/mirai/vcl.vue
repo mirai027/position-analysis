@@ -22,13 +22,13 @@
 <script>
 import { getDateList, getDateBetween } from '@/utils/date'
 // require('./vcl-mock')
-// import mirai from '@/views/components/test-mock/vcl-mock'
+import mirai from '@/views/components/test-mock/vcl-mock'
 import { mapGetters } from 'vuex'
-import { getDateListData } from '@/api/mirai'
+// import { getDateListData } from '@/api/mirai'
 export default {
   data() {
     return {
-      vclData: [],
+      vclData: mirai.data,
       option: [],
       index: 0,
       data: [],
@@ -304,13 +304,13 @@ export default {
       this.getFromSon(chart)
     },
     async temporary() {
-      // 获取昨天到 2020-03-30相隔多少天
-      const dateNum = getDateBetween('2020-02-19', getDateList())
-      // 获取昨天到 2020-03-30的日期
-      const dateList = getDateList(dateNum + 1).reverse()
-      const { data } = await getDateListData({ time: dateList })
+      // // 获取昨天到 2020-03-30相隔多少天
+      // const dateNum = getDateBetween('2020-02-19', getDateList())
+      // // 获取昨天到 2020-03-30的日期
+      // const dateList = getDateList(dateNum + 1).reverse()
+      // const { data } = await getDateListData({ time: dateList })
       this.loading = false
-      this.vclData = data
+      // this.vclData = data
       this.ininChart()
     }
   }

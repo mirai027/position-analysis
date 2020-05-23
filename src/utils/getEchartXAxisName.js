@@ -9,9 +9,10 @@ export default function getEchartXAxisName(instance, params) {
   // 获取点击的像素坐标值
   const pointInPixel = [params.offsetX, params.offsetY]
   // 逆运算出逻辑坐标系上的点
-  const pointInGrid = instance.convertFromPixel(
-    { seriesIndex: 0 },
-    pointInPixel
+  const pointInGrid = instance.convertFromPixel({
+    seriesIndex: 0
+  },
+  pointInPixel
   )
   // x轴索引值
   const xIndex = pointInGrid[0]

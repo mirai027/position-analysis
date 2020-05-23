@@ -32,8 +32,16 @@ export default {
   mounted() {
     window.onresize = debounce(() => {
       this.$store.dispatch('getShowingName')
-      this.$store.dispatch('getChangedPage', ['home', 'analysis', 'compared', 'rank', 'rank-language', 'date', 'vcl'])
-      this.showingName.map(ele => {
+      this.$store.dispatch('getChangedPage', [
+        'home',
+        'analysis',
+        'compared',
+        'rank',
+        'rank-language',
+        'date',
+        'vcl'
+      ])
+      this.showingName.map((ele) => {
         ele.chartDom.resize()
         // console.log(ele.chartDom)
       })
