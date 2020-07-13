@@ -6,7 +6,9 @@ export function getLanguage() {
     method: 'get'
   })
 }
-export function getDateListData() {
+export function getDateListData({
+  time = ['2020-03-30', '2020-03-31', '2020-04-01', '2020-04-02']
+}) {
   return request({
     url: '/CountryDate_Job_Servlet',
     method: 'post',
@@ -15,28 +17,29 @@ export function getDateListData() {
     },
     data: {
       //暂时只有这四天的数据
-      time: ['2020-03-30', '2020-03-31', '2020-04-01', '2020-04-02']
+      time
     }
   })
 }
-// export function getTableData() {
-//   request({
-//     url: '/TableEnd_Servlet',
-//     method: 'post',
-//     headers: {
-//       'Content-Type': 'application/json;charset=UTF-8'
-//     },
-//     data: {
-//       time: ['2020-03-30', '2020-03-31', '2020-04-01', '2020-04-02'],
-//       location: {
-//         level1: ['中国'],
-//         level2: ['广东省', '广西省'],
-//         level3: ['广州市']
-//       },
-//       position: '后端开发、测试、人工智能、移动前端开发'
-//     }
-//   })
-// }
+export function getTableData() {
+  request({
+    url: '/TableEnd_Servlet',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data: {
+      time: ['2020-03-30', '2020-03-31', '2020-04-01', '2020-04-02'],
+      location: {
+        level1: ['中国'],
+        level2: ['广东省', '广西省'],
+        level3: ['广州市']
+      },
+      position: '后端开发、测试、人工智能、移动前端开发'
+    }
+  })
+}
+
 // Test
 // request({
 //   url: '/CountryDate_Job_Servlet',

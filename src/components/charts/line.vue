@@ -1,6 +1,6 @@
 <template>
   <div class="chart-container">
-    <div ref="update" class="chart"></div>
+    <div ref="update" v-loading="loading" class="chart"></div>
     <p class="title">{{ title }}</p>
   </div>
 </template>
@@ -27,7 +27,8 @@ export default {
   data() {
     return {
       data: [],
-      chartDom: {}
+      chartDom: {},
+      loading: true
     }
   },
   watch: {
@@ -54,6 +55,11 @@ export default {
     },
 
     async initUpdate() {
+      // 300毫秒延迟会使动画看起来更人性化（其实就是看起来得到结果更快）
+      setTimeout(() => {
+        this.loading = false
+      }, 300)
+
       const lineData = []
       const updateBarData = []
       const xAxisData = []
@@ -106,7 +112,7 @@ export default {
             params.forEach((element) => {
               const { componentIndex } = element
               if (componentIndex === 0) {
-                const line = `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${element.color};"></span>${element.name} 共 <span style="color: #F13000;">${element.value}</span> 条招聘数据`
+                const line = `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${element.color};"></span>${element.name} 共 <span style="color: ${element.color};">${element.value}</span> 条招聘数据`
                 fm.line = line
               }
               if (componentIndex === 1) {

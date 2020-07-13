@@ -1,12 +1,12 @@
 <template>
   <div class="analysis">
     <position
-      class="position"
+      class="position box"
       :position-data="positionData"
       :is-loading="isLoading"
     />
     <heat-map
-      class="heat-map"
+      class="heat-map box"
       :heat-map-data="heatMapData"
       title="预测薪资"
       :is-loading="isLoading"
@@ -14,14 +14,14 @@
     />
     <div class="second-container">
       <columnBar
-        class="company-size"
+        class="company-size box"
         :column-data="companySizeData"
         title="企业规模"
         :is-loading="isLoading"
         @fromSonComp="getFromBar"
       />
       <columnBarSub
-        class="education"
+        class="education box"
         :column-bar-data="educationData"
         title="学历要求"
         :is-loading="isLoading"
@@ -30,14 +30,14 @@
     </div>
     <div class="third-container">
       <wordCloud
-        class="word-cloud"
+        class="word-cloud box"
         :word-cloud-data="benefitData"
         title="薪资福利"
         :is-loading="isLoading"
         @fromSonComp="getFromWordCloud"
       />
       <pie
-        class="finance-stage"
+        class="finance-stage box"
         :pie-data="financeStage"
         title="企业融资"
         :is-loading="isLoading"
@@ -204,9 +204,10 @@ export default {
 <style lang="scss" scoped>
 .analysis {
   height: auto;
-  overflow: hidden;
+  overflow: auto;
   display: flex;
   flex-direction: column;
+  padding: 10px;
   .position {
     height: auto;
     background: #fff;
@@ -216,6 +217,9 @@ export default {
     height: 400px;
     background: #fff;
   }
+  .heat-map:hover, .position:hover {
+      box-shadow: 6px 10px 10px #c2c2d6;
+    }
   .second-container {
     margin-top: 10px;
     display: flex;
@@ -227,6 +231,9 @@ export default {
       margin-left: 10px;
       height: 400px;
       background: #fff;
+    }
+    .company-size:hover, .education:hover {
+      box-shadow: 6px 10px 10px #c2c2d6;
     }
   }
   .third-container {
@@ -241,6 +248,13 @@ export default {
       height: 400px;
       background: #fff;
     }
+    .word-cloud:hover, .finance-stage:hover {
+      box-shadow: 6px 10px 10px #c2c2d6;
+    }
+  }
+  .box {
+    border-radius: 20px;
+    box-shadow: 3px 3px 5px #c2c2d6;
   }
 }
 </style>

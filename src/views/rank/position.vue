@@ -67,7 +67,7 @@ export default {
       }
       return ''
     },
-    async getTop(form = { position: 'other', region: '中国', level: 1 }) {
+    async getTop(form = { position: '', region: '中国', level: 1 }) {
       const { data } = await getPosition(form)
 
       this.positionData = TopFiveDate(data.other)

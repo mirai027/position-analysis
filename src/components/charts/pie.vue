@@ -140,7 +140,7 @@ export default {
             labelLine: {
               normal: {
                 length: 20,
-                length2: 120,
+                length2: 100,
                 lineStyle: {
                   color: '#C0C4CC'
                 }
@@ -157,7 +157,7 @@ export default {
                     '}'
                   )
                 },
-                padding: [0, -100, 25, -100],
+                padding: [10, -100, 25, -100],
                 rich: {
                   icon: {
                     fontSize: 20
@@ -200,6 +200,7 @@ export default {
   .chart {
     width: 100%;
     height: 100%;
+    border-radius: 20px;
   }
   .title {
     @include title-line($pos-top: 10px, $pos-left: 30px);

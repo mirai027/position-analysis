@@ -143,7 +143,7 @@ export default {
             color: colors
           },
           textStyle: {
-            color: '#303133',
+            color: 'rgba(255,255,255,1)',
             fontSize: '10'
             // textShadowOffsetY: 10
           },

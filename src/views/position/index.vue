@@ -25,7 +25,7 @@ export default {
   scroll-behavior: smooth;
   .main-index {
     height: auto;
-    padding: 10px;
+    // padding: 10px;
   }
 }
 </style>

@@ -25,6 +25,15 @@
         </el-breadcrumb-item>
       </transition-group>
 
+      <transition-group v-else-if="$route.name === 'Province'" name="breadcrumb">
+        <el-breadcrumb-item :key="$route.path" class="main-title">
+          {{ $route.meta.title }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item :key="$route.query.name" class="info-title">
+          {{ $route.query.name }}
+        </el-breadcrumb-item>
+      </transition-group>
+
       <transition-group v-else name="breadcrumb">
         <el-breadcrumb-item :key="$route.matched[0].path" class="main-title">
           {{ $route.matched[0].meta.title }}

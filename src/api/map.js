@@ -16,6 +16,8 @@ export function getAllUpdate() {
 
 // ***************************************** Mock Begin *****************************************
 
+// ***************************************** Mock Begin *****************************************
+
 // export function getAllProvince() {
 //   return request({
 //     url: '/map/all-day-province.json',

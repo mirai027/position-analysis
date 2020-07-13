@@ -1,59 +1,89 @@
 <template>
   <div class="chart-container">
-    <div ref="map" v-loading="loading" class="map-main" />
-    <p class="title">{{ title }}</p>
+    <div ref="prov" v-loading="loading" class="map-main" />
   </div>
 </template>
 
 <script>
-import 'echarts/map/js/china'
+import 'echarts/map/js/province/anhui'
+import 'echarts/map/js/province/aomen'
+import 'echarts/map/js/province/beijing'
+import 'echarts/map/js/province/chongqing'
+import 'echarts/map/js/province/fujian'
+import 'echarts/map/js/province/gansu'
+import 'echarts/map/js/province/guangdong'
+import 'echarts/map/js/province/guangxi'
+import 'echarts/map/js/province/guizhou'
+import 'echarts/map/js/province/hainan'
+import 'echarts/map/js/province/hebei'
+import 'echarts/map/js/province/heilongjiang'
+import 'echarts/map/js/province/henan'
+import 'echarts/map/js/province/hubei'
+import 'echarts/map/js/province/hunan'
+import 'echarts/map/js/province/jiangsu'
+import 'echarts/map/js/province/jiangxi'
+import 'echarts/map/js/province/jilin'
+import 'echarts/map/js/province/liaoning'
+import 'echarts/map/js/province/neimenggu'
+import 'echarts/map/js/province/ningxia'
+import 'echarts/map/js/province/qinghai'
+import 'echarts/map/js/province/shandong'
+import 'echarts/map/js/province/shanghai'
+import 'echarts/map/js/province/shanxi'
+import 'echarts/map/js/province/shanxi1'
+import 'echarts/map/js/province/sichuan'
+import 'echarts/map/js/province/taiwan'
+import 'echarts/map/js/province/tianjin'
+import 'echarts/map/js/province/xianggang'
+import 'echarts/map/js/province/xinjiang'
+import 'echarts/map/js/province/xizang'
+import 'echarts/map/js/province/yunnan'
+import 'echarts/map/js/province/zhejiang'
+// import pinyin from 'js-pinyin'
 export default {
+  components: {},
   props: {
-    mapData: {
+    provData: {
       type: Array,
       default: function() {
         return []
       }
     },
-    title: {
+    province: {
       type: String,
       default: ''
-    },
-    isLoading: {
-      type: Boolean,
-      default: true
     }
   },
   data() {
     return {
       loading: true,
-      chartDom: {},
       data: []
     }
   },
+  computed: {
+    title() {
+      return `${this.province}招聘数据`
+    }
+  },
   watch: {
-    isLoading: {
+    provData: {
       handler() {
-        //  用于设置子组件为 Loading 状态
-        this.loading = true
-      }
-    },
-    mapData: {
-      handler() {
-        this.data = this.mapData
+        this.data = this.provData
         this.initMap()
       }
     }
   },
   mounted() {
-    this.chartDom = this.$echarts.init(this.$refs.map)
+    this.chartDom = this.$echarts.init(this.$refs.prov)
     this.upLoad()
+  },
+  deactivated() {
+    this.chartDom.clear()
   },
   methods: {
     upLoad() {
       this.$emit('fromSonComp', this.chartDom)
     },
-
     async initMap() {
       // 300毫秒延迟会使动画看起来更人性化（其实就是看起来得到结果更快）
       setTimeout(() => {
@@ -88,7 +118,7 @@ export default {
             // textShadowOffsetY: 10
           },
           bottom: '10%',
-          left: '4%'
+          right: '4%'
         },
         xAxis: {
           show: false
@@ -106,7 +136,7 @@ export default {
           {
             zoom: '1.1',
             type: 'map',
-            mapType: 'china',
+            mapType: this.province,
             width: '500px',
             // height: '100%',
             roam: false,
@@ -135,15 +165,15 @@ export default {
       }
 
       this.chartDom.setOption(option)
-      // this.$store.dispatch('setChartDOM', [this.mapDom])
       this.chartDom.on('click', (params) => {
-        const { name } = params
-        this.$router.push({
-          path: '/province',
-          query: { name }
-        })
+        console.log(params)
+        // this.$router.push({
+        //   path: '/province',
+        //   query: { name }
+        // })
         // console.log(params.name)
       })
+      // this.$store.dispatch('setChartDOM', [this.mapDom])
     }
   }
 }
@@ -159,8 +189,8 @@ export default {
     width: 100%;
     height: 100%;
   }
-  .title {
-    @include title-line($pos-top: 10px, $pos-left: 30px);
-  }
+  // .title {
+  //   @include title-line($pos-top: 10px, $pos-left: 30px);
+  // }
 }
 </style>

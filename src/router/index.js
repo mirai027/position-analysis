@@ -14,6 +14,14 @@ const routes = [
     }
   },
   {
+    path: '/province',
+    name: 'Province',
+    component: () => import('../views/province/index.vue'),
+    meta: {
+      title: '地区详情'
+    }
+  },
+  {
     path: '/position',
     name: 'Position',
     component: () => import('../views/position/index.vue'),

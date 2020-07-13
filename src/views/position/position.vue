@@ -398,4 +398,5 @@ export default {
 .el-popover {
   width: auto !important;
 }
+
 </style>

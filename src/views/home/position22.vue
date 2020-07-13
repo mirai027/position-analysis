@@ -1,11 +1,6 @@
 <template>
   <div v-loading="loading" class="position-container">
     <div class="left-container">
-      <selectRegion
-        class="select-region"
-        default-value="中国"
-        @changeRegion="changeRegion"
-      />
       <el-row :gutter="12" class="top">
         <el-col
           v-if="Object.keys(positionDest).length > 0"
@@ -165,12 +160,9 @@
 </template>
 
 <script>
-import selectRegion from '@/components/selectRegion/select-region'
 import { mapGetters } from 'vuex'
 export default {
-  components: {
-    selectRegion
-  },
+
   props: {
     positionData: {
       type: Object,
@@ -228,21 +220,6 @@ export default {
       this.positionSkill = this.positionData.skill
       this.positionCommunity = this.positionData.community
       this.positionVideo = this.positionData.video
-    },
-    changeRegion(value) {
-      /**
-       * 清空时 value.name 为 undefinds,此时不做请求的处理
-       */
-      if (value.name) {
-        this.$store.dispatch('setPositionForm', {
-          key: 'region',
-          value: value.name
-        })
-        this.$store.dispatch('setPositionForm', {
-          key: 'level',
-          value: value.level
-        })
-      }
     },
     handleOther(name) {
       this.$store.dispatch('setPositionForm', { key: 'position', value: name })

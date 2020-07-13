@@ -15,6 +15,7 @@
 
 <script>
 import options from './country-date'
+import { mapGetters } from 'vuex'
 export default {
   props: {
     defaultValue: {
@@ -28,12 +29,18 @@ export default {
       value: this.defaultValue
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters(['positionForm']),
+    _isLoading() {
+      return this.isLoading
+    }
+  },
   watch: {
-    watchForm: {
+    positionForm: {
       handler() {
-        this.value = this.tableForm.location
-      }
+        this.value = this.positionForm.region
+      },
+      deep: true
     }
   },
   mounted() {},

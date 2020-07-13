@@ -158,18 +158,19 @@ export default {
         // },
         visualMap: {
           type: 'piecewise',
-          // pieces: [
-          //   { gte: 80, color: '#0087dc' },
-          //   { gt: 60, lte: 80, color: '#1ca2dc' },
-          //   { gt: 40, lte: 60, color: '#5bc3f0' },
-          //   {
-          //     gt: 20,
-          //     lte: 40,
-          //     color: '#A0CFFF'
-          //   },
-          //   { lte: 20, color: '#C6E2FF' }
-          // ],
-          color: ['#0087dc', '#1ca2dc', '#5bc3f0', '#A0CFFF', '#C6E2FF'],
+          pieces: [
+            { gte: 200, color: '#0087dc' },
+            { gt: 120, lte: 200, color: '#1ca2dc' },
+            { gt: 40, lte: 120, color: '#5bc3f0' },
+            {
+              gt: 20,
+              lte: 40,
+              color: '#A0CFFF'
+            },
+            { lte: 20, color: '#C6E2FF' }
+          ],
+          // max: 999000,
+          // color: ['#0087dc', '#1ca2dc', '#5bc3f0', '#A0CFFF', '#C6E2FF'],
           textStyle: {
             color: '#606266'
           },
