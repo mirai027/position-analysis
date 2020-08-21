@@ -9,7 +9,7 @@ import store from './store'
 
 // import 'element-ui/lib/theme-chalk/index.css'
 
-var echarts = require('echarts/lib/echarts')
+var echarts = require('echarts')
 
 // require('echarts/lib/component/dataset')
 require('echarts/lib/chart/line')

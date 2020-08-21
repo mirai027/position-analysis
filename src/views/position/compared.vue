@@ -2,41 +2,41 @@
   <div class="compared">
     <div class="analysis">
       <positionCopy
-        class="position"
+        class="position box"
         :position-data="leftData.positionData"
         action-type="setComparedLeftForm"
         :is-loading="leftData.isLoading"
       />
       <heat-map
-        class="heat-map"
+        class="heat-map box"
         :heat-map-data="leftData.heatMapData"
         title="预测薪资"
         :is-loading="leftData.isLoading"
         @fromSonComp="getFromHeat"
       />
       <columnBar
-        class="company-size"
+        class="company-size box"
         :column-data="leftData.companySizeData"
         title="企业规模"
         :is-loading="leftData.isLoading"
         @fromSonComp="getFromBar"
       />
       <columnBarSub
-        class="education"
+        class="education box"
         :column-bar-data="leftData.educationData"
         title="学历要求"
         :is-loading="leftData.isLoading"
         @fromSonComp="getFromBarSub"
       />
       <wordCloud
-        class="word-cloud"
+        class="word-cloud box"
         :word-cloud-data="leftData.benefitData"
         title="薪资福利"
         :is-loading="leftData.isLoading"
         @fromSonComp="getFromWordCloud"
       />
       <pie
-        class="finance-stage"
+        class="finance-stage box"
         :pie-data="leftData.financeStage"
         title="企业融资"
         :is-loading="leftData.isLoading"
@@ -45,41 +45,41 @@
     </div>
     <div class="analysis">
       <positionCopy
-        class="position"
+        class="position box-left"
         :position-data="rightData.positionData"
         action-type="setComparedRightForm"
         :is-loading="rightData.isLoading"
       />
       <heat-map
-        class="heat-map"
+        class="heat-map box-left"
         :heat-map-data="rightData.heatMapData"
         title="预测薪资"
         :is-loading="rightData.isLoading"
         @fromSonComp="getFromHeat"
       />
       <columnBar
-        class="company-size"
+        class="company-size box-left"
         :column-data="rightData.companySizeData"
         title="企业规模"
         :is-loading="rightData.isLoading"
         @fromSonComp="getFromBar"
       />
       <columnBarSub
-        class="education"
+        class="education box-left"
         :column-bar-data="rightData.educationData"
         title="学历要求"
         :is-loading="rightData.isLoading"
         @fromSonComp="getFromBarSub"
       />
       <wordCloud
-        class="word-cloud"
+        class="word-cloud box-left"
         :word-cloud-data="rightData.benefitData"
         title="薪资福利"
         :is-loading="rightData.isLoading"
         @fromSonComp="getFromWordCloud"
       />
       <pie
-        class="finance-stage"
+        class="finance-stage box-left"
         :pie-data="rightData.financeStage"
         title="企业融资"
         :is-loading="rightData.isLoading"
@@ -96,7 +96,7 @@ import columnBar from '@/components/charts/column-bar'
 import columnBarSub from '@/components/charts/column-bar-sub'
 import wordCloud from '@/components/charts/word-cloud'
 import pie from '@/components/charts/pie'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import {
   getPosition,
   getPositionHeatmap,
@@ -168,11 +168,11 @@ export default {
   mounted() {
     this.getLeftData(this.comparedLeftForm)
     this.getRightData(this.comparedRightForm).then(() => {
-      this.$store.dispatch('setChartDOM', this.compArr)
+      this.setChartDOM(this.compArr)
     })
   },
   activated() {
-    this.$store.dispatch('getName', [
+    this.getName([
       'compared-salaryExp',
       'compared-companySize',
       'compared-education',
@@ -185,14 +185,20 @@ export default {
       '_compared-financeStage'
     ])
     if (this.changedPage.includes('compared')) {
-      this.$store.dispatch('getShowingName')
+      this.getShowingName()
       this.showingName.map((ele) => {
         ele.chartDom.resize()
       })
-      this.$store.dispatch('deleteChangePage', 'compared')
+      this.deleteChangePage('compared')
     }
   },
   methods: {
+    ...mapActions([
+      'deleteChangePage',
+      'getShowingName',
+      'setChartDOM',
+      'getName'
+    ]),
     getFromHeat(chartDom) {
       this.compArr.push({
         name: 'compared-salaryExp',
@@ -316,9 +322,23 @@ export default {
   // background: #fff;
   display: flex;
   .analysis {
+    .box {
+      border-radius: 20px;
+      box-shadow: 3px 3px 5px #c2c2d6;
+      &:hover {
+        box-shadow: 6px 10px 10px #c2c2d6;
+      }
+    }
+    .box-left {
+      border-radius: 20px;
+      box-shadow: -3px 3px 5px #c2c2d6;
+      &:hover {
+        box-shadow: -6px 10px 10px #c2c2d6;
+      }
+    }
     flex: 1;
     height: auto;
-    overflow: hidden;
+    // overflow: hidden;
     display: flex;
     flex-direction: column;
     &:first-child {
@@ -328,30 +348,17 @@ export default {
       height: auto;
       background: #fff;
     }
-    .heat-map {
-      margin-top: 10px;
-      height: 400px;
-      background: #fff;
-    }
-    .company-size {
-      margin-top: 10px;
-      height: 400px;
-      background: #fff;
-    }
-    .education {
-      margin-top: 10px;
-      height: 400px;
-      background: #fff;
-    }
-    .word-cloud {
-      margin-top: 10px;
-      height: 400px;
-      background: #fff;
-    }
+    .heat-map,
+    .company-size,
+    .education,
+    .word-cloud,
     .finance-stage {
       margin-top: 10px;
       height: 400px;
       background: #fff;
+      &:last-of-type {
+        margin-bottom: 10px;
+      }
     }
   }
 }

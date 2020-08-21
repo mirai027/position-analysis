@@ -14,7 +14,8 @@ const positionForm = {
       region: '广东省',
       level: 2,
       position: '前端开发'
-    }
+    },
+    forwardList: []
   },
   mutations: {
     GET_POSITION_FORM: (state, change) => {
@@ -25,6 +26,9 @@ const positionForm = {
     },
     GET_COMPARED_RIGHT_FORM: (state, change) => {
       state.comparedRightForm[change.key] = change.value
+    },
+    GET_FORWARDLIST: (state, list) => {
+      state.forwardList = list
     }
   },
   actions: {
@@ -36,12 +40,16 @@ const positionForm = {
     },
     setComparedRightForm({ commit }, change) {
       commit('GET_COMPARED_RIGHT_FORM', change)
+    },
+    setForwardList({ commit }, list) {
+      commit('GET_FORWARDLIST', list)
     }
   },
   getters: {
     positionForm: (state) => state.positionForm,
     comparedLeftForm: (state) => state.comparedLeftForm,
-    comparedRightForm: (state) => state.comparedRightForm
+    comparedRightForm: (state) => state.comparedRightForm,
+    forwardList: (state) => state.forwardList
   }
 }
 export default positionForm

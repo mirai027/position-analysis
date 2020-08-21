@@ -1,10 +1,48 @@
 <template>
   <div class="chart-container">
     <div ref="solidPie" v-loading="loading" class="chart" />
+    <p class="title">{{ title }}</p>
   </div>
 </template>
 
 <script>
+var mock = [
+  { date: '7-28', value: 387, type: '后端开发' },
+  { date: '7-29', value: 301, type: '后端开发' },
+  { date: '7-30', value: 400, type: '后端开发' },
+  { date: '7-31', value: 465, type: '后端开发' },
+  { date: '8-1', value: 392, type: '后端开发' },
+  { date: '8-2', value: 388, type: '后端开发' },
+  { date: '8-3', value: 428, type: '后端开发' },
+  { date: '7-28', value: 376, type: '前端开发' },
+  { date: '7-29', value: 351, type: '前端开发' },
+  { date: '7-30', value: 400, type: '前端开发' },
+  { date: '7-31', value: 365, type: '前端开发' },
+  { date: '8-1', value: 392, type: '前端开发' },
+  { date: '8-2', value: 318, type: '前端开发' },
+  { date: '8-3', value: 388, type: '前端开发' },
+  { date: '7-28', value: 287, type: '测试' },
+  { date: '7-29', value: 201, type: '测试' },
+  { date: '7-30', value: 160, type: '测试' },
+  { date: '7-31', value: 165, type: '测试' },
+  { date: '8-1', value: 192, type: '测试' },
+  { date: '8-2', value: 128, type: '测试' },
+  { date: '8-3', value: 178, type: '测试' },
+  { date: '7-28', value: 139, type: '运维' },
+  { date: '7-29', value: 121, type: '运维' },
+  { date: '7-30', value: 140, type: '运维' },
+  { date: '7-31', value: 88, type: '运维' },
+  { date: '8-1', value: 96, type: '运维' },
+  { date: '8-2', value: 101, type: '运维' },
+  { date: '8-3', value: 110, type: '运维' },
+  { date: '7-28', value: 89, type: '数据开发' },
+  { date: '7-29', value: 101, type: '数据开发' },
+  { date: '7-30', value: 70, type: '数据开发' },
+  { date: '7-31', value: 98, type: '数据开发' },
+  { date: '8-1', value: 106, type: '数据开发' },
+  { date: '8-2', value: 99, type: '数据开发' },
+  { date: '8-3', value: 108, type: '数据开发' }
+]
 export default {
   props: {
     pieData: {
@@ -26,20 +64,7 @@ export default {
     return {
       loading: true,
       chartDom: {},
-      data: [
-        {
-          name: 'java',
-          value: 23
-        },
-        {
-          name: 'python',
-          value: 45
-        },
-        {
-          name: 'js',
-          value: 32
-        }
-      ],
+      mockList: [],
       name: ''
     }
   },
@@ -50,6 +75,31 @@ export default {
         this.loading = true
       }
     }
+  },
+  created() {
+    console.time('test')
+    var dateList = ['date']
+    var typeList = []
+    var valueList = []
+    mock.map((item, index) => {
+      valueList.push(item.value)
+      if (!dateList.includes(item.date)) {
+        dateList.push(item.date)
+      }
+      if (!typeList.includes(item.type)) {
+        typeList.push(item.type)
+      }
+    })
+    for (let i = 0; i < typeList.length; i++) {
+      if (i === 0) {
+        this.mockList.push(dateList)
+      }
+      var currArr = valueList.slice(i * 7, i * 7 + 7)
+      currArr.unshift(typeList[i])
+      this.mockList.push(currArr)
+    }
+    console.log(this.mockList)
+    console.timeEnd('test')
   },
   mounted() {
     this.chartDom = this.$echarts.init(this.$refs.solidPie)
@@ -67,19 +117,16 @@ export default {
       }, 300)
       // const _this = this
       const option = {
-        legend: {},
+        legend: {
+          right: 20,
+          top: 5
+        },
         tooltip: {
           trigger: 'axis',
           showContent: false
         },
         dataset: {
-          source: [
-            ['product', '7-1', '7-2', '7-3', '7-4', '7-5', '7-6', '7-7'],
-            ['C++', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7, 65.6],
-            ['Pyhton', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1, 88.7],
-            ['Java', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5, 76],
-            ['JavaScript', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1, 55.9]
-          ]
+          source: this.mockList
         },
         xAxis: {
           type: 'category',
@@ -105,18 +152,19 @@ export default {
           { type: 'line', smooth: true, seriesLayoutBy: 'row' },
           { type: 'line', smooth: true, seriesLayoutBy: 'row' },
           { type: 'line', smooth: true, seriesLayoutBy: 'row' },
+          { type: 'line', smooth: true, seriesLayoutBy: 'row' },
           {
             type: 'pie',
             id: 'pie',
             radius: '30%',
             center: ['50%', '25%'],
             label: {
-              formatter: '{b}: {@7-1} ({d}%)'
+              formatter: '{b}: {@7-28} ({d}%)'
             },
             encode: {
-              itemName: 'product',
-              value: '7-1',
-              tooltip: '7-1'
+              itemName: 'date',
+              value: '7-28',
+              tooltip: '7-28'
             }
           }
         ]
@@ -158,8 +206,8 @@ export default {
     width: 100%;
     height: 100%;
   }
-//   .title {
-//     @include title-line($pos-top: 10px, $pos-left: 30px);
-//   }
+  .title {
+    @include title-line($pos-top: 10px, $pos-left: 30px);
+  }
 }
 </style>

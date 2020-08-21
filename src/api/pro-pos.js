@@ -1,8 +1,8 @@
 import request from './request'
 
-export function getProvInfo() {
+export function getProvInfo(prov) {
   return request({
-    url: '/province/provInfo.json',
+    url: `/province/${prov}.json`,
     method: 'get'
     // params: {
     //   pro,

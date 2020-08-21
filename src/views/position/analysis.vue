@@ -54,7 +54,7 @@ import columnBar from '@/components/charts/column-bar'
 import columnBarSub from '@/components/charts/column-bar-sub'
 import wordCloud from '@/components/charts/word-cloud'
 import pie from '@/components/charts/pie'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 // import debounce from '@/utils/debounce.js'
 import {
   getPosition,
@@ -113,11 +113,11 @@ export default {
     this.getEducationData()
     this.getBenefitData()
     this.getFinanceStageData().then(() => {
-      this.$store.dispatch('setChartDOM', this.compArr)
+      this.setChartDOM(this.compArr)
     })
   },
   activated() {
-    this.$store.dispatch('getName', [
+    this.getName([
       'analysis-salaryExp',
       'analysis-companySize',
       'analysis-education',
@@ -125,16 +125,22 @@ export default {
       'analysis-financeStage'
     ])
     if (this.changedPage.includes('analysis')) {
-      this.$store.dispatch('getShowingName')
+      this.getShowingName()
 
       this.showingName.map((ele) => {
         ele.chartDom.resize()
       })
-      this.$store.dispatch('deleteChangePage', 'analysis')
+      this.deleteChangePage('analysis')
     }
   },
 
   methods: {
+    ...mapActions([
+      'deleteChangePage',
+      'getShowingName',
+      'setChartDOM',
+      'getName'
+    ]),
     getFromHeat(chartDom) {
       this.compArr.push({
         name: 'analysis-salaryExp',
@@ -217,9 +223,6 @@ export default {
     height: 400px;
     background: #fff;
   }
-  .heat-map:hover, .position:hover {
-      box-shadow: 6px 10px 10px #c2c2d6;
-    }
   .second-container {
     margin-top: 10px;
     display: flex;
@@ -231,9 +234,6 @@ export default {
       margin-left: 10px;
       height: 400px;
       background: #fff;
-    }
-    .company-size:hover, .education:hover {
-      box-shadow: 6px 10px 10px #c2c2d6;
     }
   }
   .third-container {
@@ -248,13 +248,13 @@ export default {
       height: 400px;
       background: #fff;
     }
-    .word-cloud:hover, .finance-stage:hover {
-      box-shadow: 6px 10px 10px #c2c2d6;
-    }
   }
   .box {
     border-radius: 20px;
     box-shadow: 3px 3px 5px #c2c2d6;
+    &:hover {
+      box-shadow: 6px 10px 10px #c2c2d6;
+    }
   }
 }
 </style>

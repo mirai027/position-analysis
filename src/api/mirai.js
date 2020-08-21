@@ -7,17 +7,18 @@ export function getLanguage() {
   })
 }
 export function getDateListData({
-  time = ['2020-03-30', '2020-03-31', '2020-04-01', '2020-04-02']
+  time = ['2020-03-30', '2020-03-31', '2020-04-01', '2020-04-02'], position
 }) {
   return request({
-    url: '/CountryDate_Job_Servlet',
+    url: '/CountryDatePosition',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
     },
     data: {
       //暂时只有这四天的数据
-      time
+      time,
+      position
     }
   })
 }

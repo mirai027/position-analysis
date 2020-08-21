@@ -41,7 +41,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['changedPage', 'showingName'])
+    ...mapGetters(['changedPage', 'showingName', 'forwardList'])
   },
   mounted() {
     /**
@@ -308,7 +308,7 @@ export default {
       const dateNum = getDateBetween('2020-02-19', getDateList())
       // 获取昨天到 2020-03-30的日期
       const dateList = getDateList(dateNum + 1).reverse()
-      const { data } = await getDateListData({ time: dateList })
+      const { data } = await getDateListData({ time: dateList, position: this.forwardList })
       this.loading = false
       console.log(data)
       this.vclData = data

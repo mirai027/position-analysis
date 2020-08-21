@@ -82,7 +82,7 @@ export default {
   .location-table {
     flex: 4;
     .title {
-      font-size: 28px;
+      font-size: 24px;
       margin-left: 20px;
     }
     .location-rank-main {

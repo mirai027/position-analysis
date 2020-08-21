@@ -1,0 +1,63 @@
+{
+    "success": true,
+    "msg": null,
+    "code": 200,
+    "data": [
+        {
+            "name": "南宁市",
+            "value": 32
+        },
+        {
+            "name": "柳州市",
+            "value": 45
+        },
+        {
+            "name": "桂林市",
+            "value": 56
+        },
+        {
+            "name": "梧州市",
+            "value": 123
+        },
+        {
+            "name": "北海市",
+            "value": 34
+        },
+        {
+            "name": "防城港市",
+            "value": 56
+        },
+        {
+            "name": "钦州市",
+            "value": 12
+        },
+        {
+            "name": "贵港市",
+            "value": 32
+        },
+        {
+            "name": "玉林市",
+            "value": 65
+        },
+        {
+            "name": "百色市",
+            "value": 46
+        },
+        {
+            "name": "贺州市",
+            "value": 99
+        },
+        {
+            "name": "河池市",
+            "value": 33
+        },
+        {
+            "name": "来宾市",
+            "value": 24
+        },
+        {
+            "name": "崇左市",
+            "value": 24
+        }
+    ]
+}
